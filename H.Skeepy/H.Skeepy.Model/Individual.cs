@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace H.Skeepy.Core
+namespace H.Skeepy.Model
 {
-    public class Individual
+    public sealed class Individual : DetailsHolder
     {
         private readonly Guid id;
         private readonly string firstName;

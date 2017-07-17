@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Core", "H.Skeepy.Core\H.Skeepy.Core.csproj", "{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Model", "H.Skeepy.Model\H.Skeepy.Model.csproj", "{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
