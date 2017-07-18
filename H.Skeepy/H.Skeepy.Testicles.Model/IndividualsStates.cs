@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.Model;
 using System.Threading.Tasks;
+using FluentAssertions;
 
 namespace H.Skeepy.Testicles.Model
 {
@@ -19,10 +20,10 @@ namespace H.Skeepy.Testicles.Model
             Assert.ThrowsException<InvalidOperationException>(() => Individual.New(" \t", null));
             Assert.ThrowsException<InvalidOperationException>(() => Individual.New(null, "\t   "));
 
-            Assert.AreEqual(Individual.New("Roger", "Federer").FullName, "Roger Federer");
-            Assert.AreEqual(Individual.New("Roger", null).FullName, "Roger");
-            Assert.AreEqual(Individual.New(string.Empty, "Federer").FullName, "Federer");
-            Assert.AreEqual(Individual.New("Hintee").FullName, "Hintee");
+            Individual.New("Roger", "Federer").FullName.Should().Be("Roger Federer");
+            Individual.New("Roger", null).FullName.Should().Be("Roger");
+            Individual.New(string.Empty, "Federer").FullName.Should().Be("Federer");
+            Individual.New("Hintee").FullName.Should().Be("Hintee");
         }
     }
 }
