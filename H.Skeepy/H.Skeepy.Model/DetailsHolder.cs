@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Model
 {
-    public class DetailsHolder
+    public abstract class DetailsHolder
     {
         protected readonly ConcurrentDictionary<string, string> detailsDictionary = new ConcurrentDictionary<string, string>();
 
@@ -19,9 +19,18 @@ namespace H.Skeepy.Model
             }
         }
 
-        public DetailsHolder SetDetail(string key, string value)
+        public virtual DetailsHolder SetDetail(string key, string value)
         {
             detailsDictionary.AddOrUpdate(key, value, (k, old) => value);
+            return this;
+        }
+
+        public DetailsHolder SetDetails(params KeyValuePair<string, string>[] details)
+        {
+            foreach (var entry in details)
+            {
+                SetDetail(entry.Key, entry.Value);
+            }
             return this;
         }
 
@@ -35,7 +44,7 @@ namespace H.Skeepy.Model
             return detailsDictionary.ContainsKey(key);
         }
 
-        public DetailsHolder ZapDetail(string key)
+        public virtual DetailsHolder ZapDetail(string key)
         {
             detailsDictionary.TryRemove(key, out string none);
             return this;
