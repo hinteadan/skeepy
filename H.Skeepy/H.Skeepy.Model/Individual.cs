@@ -7,6 +7,7 @@ namespace H.Skeepy.Model
         private readonly string id;
         private readonly string firstName;
         private readonly string lastName;
+        private readonly Lazy<string> fullName;
 
         public static Individual Existing(string id, string firstName = null, string lastName = null)
         {
@@ -33,6 +34,7 @@ namespace H.Skeepy.Model
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
+            fullName = new Lazy<string>(() => $"{firstName} {lastName}".Trim());
         }
 
         public string Id { get { return id; } }
@@ -41,7 +43,7 @@ namespace H.Skeepy.Model
         {
             get
             {
-                return $"{firstName} {lastName}".Trim();
+                return fullName.Value;
             }
         }
     }

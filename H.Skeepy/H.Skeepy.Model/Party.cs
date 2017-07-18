@@ -14,14 +14,6 @@ namespace H.Skeepy.Model
         private readonly Individual[] individuals;
         private readonly ReadOnlyDictionary<string, Individual> individualsDictionary;
 
-        public Individual this[string id]
-        {
-            get
-            {
-                return individualsDictionary.ContainsKey(id) ? individualsDictionary[id] : null;
-            }
-        }
-
         public static Party New(string name, params Individual[] individuals)
         {
             return new Party(Guid.NewGuid().ToString(), name, individuals);
@@ -54,6 +46,22 @@ namespace H.Skeepy.Model
 
             this.individuals = individuals;
             this.individualsDictionary = new ReadOnlyDictionary<string, Individual>(individuals.ToDictionary(x => x.Id));
+        }
+
+        public Individual this[string id]
+        {
+            get
+            {
+                return individualsDictionary.ContainsKey(id) ? individualsDictionary[id] : null;
+            }
+        }
+
+        public Individual[] Members
+        {
+            get
+            {
+                return individuals;
+            }
         }
     }
 }
