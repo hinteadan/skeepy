@@ -18,9 +18,9 @@ namespace H.Skeepy.Testicles.Model
         public void ExistingClash_MustHaveId()
         {
             var party = Party.New("Fed", Individual.New("Fed"));
-            Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing(null, party));
-            Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing(string.Empty, party));
-            Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing("  \t", party));
+            Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing(null, DateTime.Now, party));
+            Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing(string.Empty, DateTime.Now, party));
+            Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing("  \t", DateTime.Now, party));
         }
         [TestMethod]
         public void Clash_GetsPartyById()

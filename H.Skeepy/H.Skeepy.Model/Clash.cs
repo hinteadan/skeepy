@@ -10,21 +10,22 @@ namespace H.Skeepy.Model
     public class Clash : DetailsHolder
     {
         private readonly string id;
+        private readonly DateTime startedAt;
 
         private readonly ReadOnlyDictionary<string, Party> partiesDictionary;
         private readonly Party[] parties;
 
         public static Clash New(params Party[] parties)
         {
-            return new Clash(Guid.NewGuid().ToString(), parties);
+            return new Clash(Guid.NewGuid().ToString(), DateTime.Now, parties);
         }
 
-        public static Clash Existing(string id, params Party[] parties)
+        public static Clash Existing(string id, DateTime startedAt, params Party[] parties)
         {
-            return new Clash(id, parties);
+            return new Clash(id, startedAt, parties);
         }
 
-        private Clash(string id, params Party[] parties)
+        private Clash(string id, DateTime startedAt, params Party[] parties)
         {
             if (string.IsNullOrWhiteSpace(id))
             {
@@ -37,6 +38,7 @@ namespace H.Skeepy.Model
             }
 
             this.id = id;
+            this.startedAt = startedAt;
             this.parties = parties;
             partiesDictionary = new ReadOnlyDictionary<string, Party>(parties.ToDictionary(x => x.Id));
         }
