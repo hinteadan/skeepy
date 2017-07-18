@@ -15,6 +15,7 @@ namespace H.Skeepy.Testicles.Model
             fed.Details.Should().HaveCount(0);
         }
 
+        [TestMethod]
         public void DetailsHolder_CanCrudDetails()
         {
             var fed = Individual.New("Roger", "Federer");

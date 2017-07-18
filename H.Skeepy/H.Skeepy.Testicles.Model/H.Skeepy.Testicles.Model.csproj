@@ -60,6 +60,7 @@
     <Compile Include="IndividualsStates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DetailsHolderOperations.cs" />
+    <Compile Include="PartyOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
