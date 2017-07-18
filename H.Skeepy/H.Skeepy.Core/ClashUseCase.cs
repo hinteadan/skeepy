@@ -1,5 +1,6 @@
 ﻿using H.Skeepy.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace H.Skeepy.Core
     public class ClashUseCase
     {
         private readonly Clash clash;
+        private readonly ConcurrentStack<Point> points = new ConcurrentStack<Point>();
 
         public ClashUseCase(Clash clash)
         {
