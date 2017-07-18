@@ -62,6 +62,7 @@
     <Compile Include="DetailsHolderOperations.cs" />
     <Compile Include="PartyOperations.cs" />
     <Compile Include="PointOperations.cs" />
+    <Compile Include="ClashOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
