@@ -10,7 +10,7 @@ namespace H.Skeepy.Testicles.Model
     public class IndividualsStates
     {
         [TestMethod]
-        public void IndividualsMustHaveNames()
+        public void Individual_MustHaveName()
         {
             Assert.ThrowsException<InvalidOperationException>(() => Individual.New(null, null));
             Assert.ThrowsException<InvalidOperationException>(() => Individual.New(string.Empty, string.Empty));
@@ -24,6 +24,14 @@ namespace H.Skeepy.Testicles.Model
             Individual.New("Roger", null).FullName.Should().Be("Roger");
             Individual.New(string.Empty, "Federer").FullName.Should().Be("Federer");
             Individual.New("Hintee").FullName.Should().Be("Hintee");
+        }
+
+        [TestMethod]
+        public void ExisitngIndividual_MustHaveId()
+        {
+            Assert.ThrowsException<InvalidOperationException>(() => Individual.Existing(null, "Fed"));
+            Assert.ThrowsException<InvalidOperationException>(() => Individual.Existing(string.Empty, "Fed"));
+            Assert.ThrowsException<InvalidOperationException>(() => Individual.Existing("   \t", "Fed"));
         }
     }
 }

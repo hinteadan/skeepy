@@ -8,7 +8,7 @@ namespace H.Skeepy.Model
         private readonly string firstName;
         private readonly string lastName;
 
-        public static Individual Existing(string id, string firstName, string lastName)
+        public static Individual Existing(string id, string firstName = null, string lastName = null)
         {
             return new Individual(id, firstName, lastName);
         }
@@ -20,6 +20,11 @@ namespace H.Skeepy.Model
 
         private Individual(string id, string firstName, string lastName = null)
         {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new InvalidOperationException("Existing Individuals must have an ID");
+            }
+
             if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
             {
                 throw new InvalidOperationException("Individuals must have a name");

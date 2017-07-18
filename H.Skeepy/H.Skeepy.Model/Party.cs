@@ -9,6 +9,8 @@ namespace H.Skeepy.Model
 {
     public sealed class Party : DetailsHolder
     {
+        private readonly string id;
+        private readonly string name;
         private readonly Individual[] individuals;
         private readonly ReadOnlyDictionary<string, Individual> individualsDictionary;
 
@@ -20,12 +22,35 @@ namespace H.Skeepy.Model
             }
         }
 
-        public Party(params Individual[] individuals)
+        public static Party New(string name, params Individual[] individuals)
         {
+            return new Party(Guid.NewGuid().ToString(), name, individuals);
+        }
+
+        public static Party Existing(string id, string name, params Individual[] individuals)
+        {
+            return new Party(id, name, individuals);
+        }
+
+        private Party(string id, string name, params Individual[] individuals)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new InvalidOperationException("Existing party must have an ID");
+            }
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new InvalidOperationException("Party must have a name");
+            }
+
             if (!individuals.Any())
             {
                 throw new InvalidOperationException("A party must have at least one individual");
             }
+
+            this.id = id;
+            this.name = name;
 
             this.individuals = individuals;
             this.individualsDictionary = new ReadOnlyDictionary<string, Individual>(individuals.ToDictionary(x => x.Id));
