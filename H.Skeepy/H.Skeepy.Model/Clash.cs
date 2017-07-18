@@ -45,6 +45,8 @@ namespace H.Skeepy.Model
 
         public string Id { get { return id; } }
 
+        public DateTime StartedAt { get { return startedAt; } }
+
         public Party[] Participants { get { return parties; } }
 
         public Party Participant(string id)

@@ -35,6 +35,7 @@ namespace H.Skeepy.Model
         }
 
         public string Id { get { return id; } }
+        public DateTime At { get { return timestamp; } }
 
     }
 }
