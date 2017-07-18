@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Model
 {
-    public class Clash<PointType> where PointType : Point
+    public class Clash : DetailsHolder
     {
         private readonly string id;
 
         private readonly ReadOnlyDictionary<string, Party> partiesDictionary;
         private readonly Party[] parties;
 
-        public static Clash<PointType> New(params Party[] parties)
+        public static Clash New(params Party[] parties)
         {
-            return new Clash<PointType>(Guid.NewGuid().ToString(), parties);
+            return new Clash(Guid.NewGuid().ToString(), parties);
         }
 
-        public static Clash<PointType> Existing(string id, params Party[] parties)
+        public static Clash Existing(string id, params Party[] parties)
         {
-            return new Clash<PointType>(id, parties);
+            return new Clash(id, parties);
         }
 
         private Clash(string id, params Party[] parties)
