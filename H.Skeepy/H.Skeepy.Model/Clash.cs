@@ -31,7 +31,7 @@ namespace H.Skeepy.Model
                 throw new InvalidOperationException("A Clash must have an ID");
             }
 
-            if(!parties.Any())
+            if (!parties.Any())
             {
                 throw new InvalidOperationException("A Clash must have at least one party");
             }
@@ -42,5 +42,16 @@ namespace H.Skeepy.Model
         }
 
         public string Id { get { return id; } }
+
+        public Party[] Participants { get { return parties; } }
+
+        public Party Participant(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return null;
+            }
+            return partiesDictionary.ContainsKey(id) ? partiesDictionary[id] : null;
+        }
     }
 }
