@@ -48,6 +48,8 @@ namespace H.Skeepy.Model
             this.individualsDictionary = new ReadOnlyDictionary<string, Individual>(individuals.ToDictionary(x => x.Id));
         }
 
+        public string Id { get { return id; } }
+
         public Individual this[string id]
         {
             get
