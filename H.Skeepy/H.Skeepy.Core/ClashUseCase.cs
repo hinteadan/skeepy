@@ -28,11 +28,12 @@ namespace H.Skeepy.Core
             }
         }
 
-        public ClashUseCase PointFor(Party party)
+        public Point PointFor(Party party)
         {
             ValidateParty(party);
-            points.Push(Point.NewFor(party));
-            return this;
+            var point = Point.NewFor(party);
+            points.Push(point);
+            return point;
         }
 
         private void ValidateParty(Party party)
