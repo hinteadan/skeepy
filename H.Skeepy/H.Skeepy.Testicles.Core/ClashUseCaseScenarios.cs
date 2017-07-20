@@ -70,6 +70,11 @@ namespace H.Skeepy.Testicles.Core
         public void ClashUseCase_UndoLastPointDoesNothingWhenThereAreNoPoints()
         {
             useCase.Undo();
+            useCase.PointFor(fed);
+            useCase.PointFor(fed);
+            useCase.Undo().Undo().Undo().Undo().Undo().Undo();
+            useCase.PointsOf(fed).Should().BeEmpty();
+            useCase.Points.Should().BeEmpty();
         }
     }
 }

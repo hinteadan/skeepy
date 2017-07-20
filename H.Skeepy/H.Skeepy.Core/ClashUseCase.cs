@@ -64,14 +64,15 @@ namespace H.Skeepy.Core
             cachedPoints = points.ToArray();
         }
 
-        public void Undo()
+        public ClashUseCase Undo()
         {
             if (points.IsEmpty)
             {
-                return;
+                return this;
             }
             points.TryPop(out var point);
             pointsPerParty[point.For].TryPop(out point);
+            return this;
         }
     }
 }
