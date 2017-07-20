@@ -2,21 +2,24 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace H.Skeepy.Core
 {
-    public class ClashUseCase
+    public sealed class ClashUseCase
     {
         private readonly Clash clash;
         private readonly ConcurrentStack<Point> points = new ConcurrentStack<Point>();
+        private readonly ReadOnlyDictionary<Party, ConcurrentStack<Point>> pointsPerParty;
         private Point[] cachedPoints = new Point[0];
 
         public ClashUseCase(Clash clash)
         {
             this.clash = clash ?? throw new InvalidOperationException("The Clash Use-Case must have an underlying Clash");
+            pointsPerParty = new ReadOnlyDictionary<Party, ConcurrentStack<Point>>(clash.Participants.ToDictionary(x => x, x => new ConcurrentStack<Point>()));
         }
 
         public Point[] Points
@@ -33,13 +36,14 @@ namespace H.Skeepy.Core
             ValidateParty(party);
             var point = Point.NewFor(party);
             points.Push(point);
+            pointsPerParty[party].Push(point);
             return point;
         }
 
         public Point[] PointsOf(Party party)
         {
             ValidateParty(party);
-            return points.Where(p => p.For == party).ToArray();
+            return pointsPerParty[party].ToArray();
         }
 
         private void ValidateParty(Party party)
