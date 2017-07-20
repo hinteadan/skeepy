@@ -35,9 +35,22 @@ namespace H.Skeepy.Testicles.Core
         [TestMethod]
         public void ClashUseCase_TracksPoints()
         {
-            useCase.PointFor(fed);
-            useCase.PointFor(rafa);
-            useCase.Points.Length.Should().Be(2);
+            var a = useCase.PointFor(fed);
+            var b = useCase.PointFor(rafa);
+            useCase.Points.Should().Equal(b, a);
+        }
+
+        [TestMethod]
+        public void ClashUseCase_CanGiveMeThePointsForSpecificParty()
+        {
+            var wawrinka = Party.New("Stan", Individual.New("The Man"));
+            Assert.ThrowsException<InvalidOperationException>(() => useCase.PointsOf(wawrinka));
+
+            var fedPoint = useCase.PointFor(fed);
+            var rafaPoint = useCase.PointFor(rafa);
+            
+            useCase.PointsOf(fed).Should().Equal(fedPoint);
+            useCase.PointsOf(rafa).Should().Equal(rafaPoint);
         }
     }
 }

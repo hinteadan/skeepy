@@ -53,5 +53,11 @@ namespace H.Skeepy.Core
 
             cachedPoints = points.ToArray();
         }
+
+        public Point[] PointsOf(Party party)
+        {
+            ValidateParty(party);
+            return points.Where(p => p.For == party).ToArray();
+        }
     }
 }
