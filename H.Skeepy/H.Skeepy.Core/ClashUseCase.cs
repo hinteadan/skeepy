@@ -63,5 +63,15 @@ namespace H.Skeepy.Core
 
             cachedPoints = points.ToArray();
         }
+
+        public void Undo()
+        {
+            if (points.IsEmpty)
+            {
+                return;
+            }
+            points.TryPop(out var point);
+            pointsPerParty[point.For].TryPop(out point);
+        }
     }
 }

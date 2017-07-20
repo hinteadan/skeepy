@@ -48,9 +48,28 @@ namespace H.Skeepy.Testicles.Core
 
             var fedPoint = useCase.PointFor(fed);
             var rafaPoint = useCase.PointFor(rafa);
-            
+
             useCase.PointsOf(fed).Should().Equal(fedPoint);
             useCase.PointsOf(rafa).Should().Equal(rafaPoint);
+        }
+
+        [TestMethod]
+        public void ClashUseCase_CanUndoLastPoint()
+        {
+            var a = useCase.PointFor(fed);
+            var b = useCase.PointFor(rafa);
+
+            useCase.Undo();
+
+            useCase.Points.Should().Equal(a);
+            useCase.PointsOf(rafa).Should().BeEmpty();
+            useCase.PointsOf(fed).Should().Equal(a);
+        }
+
+        [TestMethod]
+        public void ClashUseCase_UndoLastPointDoesNothingWhenThereAreNoPoints()
+        {
+            useCase.Undo();
         }
     }
 }
