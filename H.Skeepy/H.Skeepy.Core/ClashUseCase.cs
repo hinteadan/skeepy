@@ -70,8 +70,10 @@ namespace H.Skeepy.Core
             {
                 return this;
             }
-            points.TryPop(out var point);
-            pointsPerParty[point.For].TryPop(out point);
+            if (points.TryPop(out var point))
+            {
+                pointsPerParty[point.For].TryPop(out point);
+            }
             return this;
         }
     }
