@@ -36,6 +36,12 @@ namespace H.Skeepy.Core
             return point;
         }
 
+        public Point[] PointsOf(Party party)
+        {
+            ValidateParty(party);
+            return points.Where(p => p.For == party).ToArray();
+        }
+
         private void ValidateParty(Party party)
         {
             if (!clash.Participants.Contains(party))
@@ -52,12 +58,6 @@ namespace H.Skeepy.Core
             }
 
             cachedPoints = points.ToArray();
-        }
-
-        public Point[] PointsOf(Party party)
-        {
-            ValidateParty(party);
-            return points.Where(p => p.For == party).ToArray();
         }
     }
 }
