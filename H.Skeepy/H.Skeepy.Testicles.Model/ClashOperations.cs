@@ -22,6 +22,7 @@ namespace H.Skeepy.Testicles.Model
             Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing(string.Empty, party));
             Assert.ThrowsException<InvalidOperationException>(() => Clash.Existing("  \t", party));
         }
+
         [TestMethod]
         public void Clash_GetsPartyById()
         {
@@ -33,6 +34,5 @@ namespace H.Skeepy.Testicles.Model
             clash.Participant(null).Should().BeNull();
             clash.Participant("Rafa").Should().BeNull();
         }
-
     }
 }
