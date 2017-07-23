@@ -30,6 +30,8 @@ namespace H.Skeepy.Model
 
         public Party[] Winners { get { return winningParties.Values.ToArray(); } }
 
+        public bool IsTie { get { return clash.Participants.Length == winningParties.Count; } }
+
         public ClashOutcome WonBy(Party winningParty)
         {
             if (winningParty == null || !clash.Participants.Contains(winningParty))

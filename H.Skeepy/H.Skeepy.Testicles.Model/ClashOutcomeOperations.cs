@@ -35,10 +35,19 @@ namespace H.Skeepy.Testicles.Model
         [TestMethod]
         public void ClashOutcome_CanHaveMultipleWinners()
         {
-            var outcome = new ClashOutcome(clash).WonBy(fed).WonBy(rafa);
+            var outcome = new ClashOutcome(clash).WonBy(fed, rafa);
             outcome.HasWinner.Should().BeTrue();
             Assert.ThrowsException<InvalidOperationException>(() => outcome.Winner);
             outcome.Winners.Should().BeEquivalentTo(fed, rafa);
+        }
+
+        [TestMethod]
+        public void ClashOutcome_IsTiedWhenEveryPartyIsWinner()
+        {
+            var outcome = new ClashOutcome(clash).WonBy(fed);
+            outcome.IsTie.Should().BeFalse();
+            outcome.WonBy(rafa);
+            outcome.IsTie.Should().BeTrue();
         }
     }
 }
