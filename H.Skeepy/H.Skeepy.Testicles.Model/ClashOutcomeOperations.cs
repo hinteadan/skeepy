@@ -31,5 +31,14 @@ namespace H.Skeepy.Testicles.Model
             outcome.HasWinner.Should().BeTrue();
             outcome.Winner.Should().Be(fed);
         }
+
+        [TestMethod]
+        public void ClashOutcome_CanHaveMultipleWinners()
+        {
+            var outcome = new ClashOutcome(clash).WonBy(fed).WonBy(rafa);
+            outcome.HasWinner.Should().BeTrue();
+            Assert.ThrowsException<InvalidOperationException>(() => outcome.Winner);
+            outcome.Winners.Should().BeEquivalentTo(fed, rafa);
+        }
     }
 }
