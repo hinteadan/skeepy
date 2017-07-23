@@ -49,6 +49,7 @@ namespace H.Skeepy.Model
         }
 
         public string Id { get { return id; } }
+        public string Name { get { return name; } }
 
         public Individual this[string id]
         {
