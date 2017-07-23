@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clash.cs" />
+    <Compile Include="ClashOutcome.cs" />
     <Compile Include="DetailsHolder.cs" />
     <Compile Include="Individual.cs" />
     <Compile Include="Party.cs" />
