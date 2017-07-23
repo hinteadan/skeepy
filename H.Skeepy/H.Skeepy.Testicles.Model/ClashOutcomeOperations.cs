@@ -6,7 +6,7 @@ using FluentAssertions;
 namespace H.Skeepy.Testicles.Model
 {
     [TestClass]
-    public class ClashOutcomeOperations
+    public class ClashOutcomeOperations : DetailsHolder
     {
         private static readonly Party fed = Party.New("Fed", Individual.New("Fed"));
         private static readonly Party rafa = Party.New("Rafa", Individual.New("Rafa"));
