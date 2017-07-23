@@ -12,6 +12,7 @@ namespace H.Skeepy.Model
         private readonly Clash clash;
 
         private readonly ConcurrentDictionary<string, Party> winningParties = new ConcurrentDictionary<string, Party>();
+        private Party[] winningPartiesCache = new Party[0];
 
         public ClashOutcome(Clash clash)
         {
@@ -28,7 +29,7 @@ namespace H.Skeepy.Model
             }
         }
 
-        public Party[] Winners { get { return winningParties.Values.ToArray(); } }
+        public Party[] Winners { get { EnsureWinningPartiesCache(); return winningPartiesCache; } }
 
         public bool IsTie { get { return clash.Participants.Length == winningParties.Count; } }
 
@@ -49,6 +50,15 @@ namespace H.Skeepy.Model
                 WonBy(p);
             }
             return this;
+        }
+
+        private void EnsureWinningPartiesCache()
+        {
+            if (winningPartiesCache.Length == winningParties.Count)
+            {
+                return;
+            }
+            winningPartiesCache = winningParties.Values.ToArray();
         }
     }
 }
