@@ -11,6 +11,8 @@ namespace H.Skeepy.Core
 {
     public class PointTracker : ICanRecordPoints, ICanPlaybackPoints
     {
+        public event EventHandler<PointsChangedEventArgs> PointsChanged;
+
         private readonly Clash clash;
         private readonly ConcurrentStack<Point> points = new ConcurrentStack<Point>();
         private readonly ReadOnlyDictionary<Party, ConcurrentStack<Point>> pointsPerParty;
@@ -37,6 +39,7 @@ namespace H.Skeepy.Core
             var point = Point.NewFor(party);
             points.Push(point);
             pointsPerParty[party].Push(point);
+            RaisePointsChanged(new PointsChangedEventArgs());
             return point;
         }
 
@@ -49,6 +52,7 @@ namespace H.Skeepy.Core
             if (points.TryPop(out var point))
             {
                 pointsPerParty[point.For].TryPop(out point);
+                RaisePointsChanged(new PointsChangedEventArgs());
             }
             return this;
         }
@@ -57,6 +61,11 @@ namespace H.Skeepy.Core
         {
             ValidateParty(party);
             return pointsPerParty[party].ToArray();
+        }
+
+        protected virtual void RaisePointsChanged(PointsChangedEventArgs args)
+        {
+            PointsChanged?.Invoke(this, args);
         }
 
         private void ValidateParty(Party party)

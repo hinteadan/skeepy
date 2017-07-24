@@ -78,9 +78,24 @@ namespace H.Skeepy.Testicles.Core
         }
 
         [TestMethod]
-        public void PointTracker_ShouldRaiseEventWhenPointsChange()
+        public void PointTracker_ShouldRaisePointsChangedEventWhenScoringPoints()
         {
+            useCase.MonitorEvents();
+            useCase.PointFor(fed);
+            useCase.ShouldRaise("PointsChanged")
+                .WithSender(useCase)
+                .WithArgs<PointsChangedEventArgs>(x => true);
+        }
 
+        [TestMethod]
+        public void PointTracker_ShouldRaisePointsChangedEventWhenUndoingPoints()
+        {
+            useCase.PointFor(fed);
+            useCase.MonitorEvents();
+            useCase.Undo();
+            useCase.ShouldRaise("PointsChanged")
+                .WithSender(useCase)
+                .WithArgs<PointsChangedEventArgs>(x => true);
         }
     }
 }
