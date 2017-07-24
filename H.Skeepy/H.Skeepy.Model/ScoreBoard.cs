@@ -45,6 +45,20 @@ namespace H.Skeepy.Model
             return this;
         }
 
+        public ScoreBoard<T> SetScore(IEnumerable<(Party, T)> scores)
+        {
+            foreach (var x in scores)
+            {
+                SetScore(x.Item1, x.Item2);
+            }
+            return this;
+        }
+
+        public ScoreBoard<T> SetScore(params (Party, T)[] scores)
+        {
+            return SetScore(scores.AsEnumerable());
+        }
+
         private void ValidateParty(Party party)
         {
             if (!clash.Participants.Contains(party))

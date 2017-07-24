@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="PointTrackerScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MostBasicClashOutcomeProcessorTesticles.cs" />
+    <Compile Include="MostBasicClashProcessorTesticles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

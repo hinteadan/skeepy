@@ -7,12 +7,12 @@ using H.Skeepy.Model;
 
 namespace H.Skeepy.Core
 {
-    public class MostBasicClashOutcomeProcessor : ICanProcessClashOutcome
+    public class MostBasicClashProcessor : ICanProcessClashOutcome, ICanProjectScore<int>
     {
         private readonly ICanPlaybackPoints pointsPool;
         private readonly Clash clash;
 
-        public MostBasicClashOutcomeProcessor(Clash clash, ICanPlaybackPoints pointsPool)
+        public MostBasicClashProcessor(Clash clash, ICanPlaybackPoints pointsPool)
         {
             this.clash = clash ?? throw new InvalidOperationException("Outcome Processor must have an underlying clash");
             this.pointsPool = pointsPool ?? throw new InvalidOperationException("Points pool must be provided");
@@ -32,6 +32,11 @@ namespace H.Skeepy.Core
             var maxScore = score.Values.Max();
 
             return new ClashOutcome(clash).WonBy(score.Where(x => x.Value == maxScore).Select(x => x.Key));
+        }
+
+        public ScoreBoard<int> ProjectScore()
+        {
+            return new ScoreBoard<int>(clash).SetScore(clash.Participants.Select(x => (x, pointsPool.PointsOf(x).Length)));
         }
     }
 }
