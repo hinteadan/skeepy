@@ -10,9 +10,11 @@ namespace H.Skeepy.Core
     public abstract class ClashOutcomeProcessor
     {
         protected readonly ICanPlaybackPoints pointsPool;
+        protected readonly Clash clash;
 
-        public ClashOutcomeProcessor(ICanPlaybackPoints pointsPool)
+        public ClashOutcomeProcessor(Clash clash, ICanPlaybackPoints pointsPool)
         {
+            this.clash = clash ?? throw new InvalidOperationException("Outcome Processor must have an underlying clash");
             this.pointsPool = pointsPool ?? throw new InvalidOperationException("Points pool must be provided");
         }
 

@@ -43,13 +43,18 @@ namespace H.Skeepy.Model
             return this;
         }
 
-        public ClashOutcome WonBy(params Party[] winningParties)
+        public ClashOutcome WonBy(IEnumerable<Party> winningParties)
         {
             foreach (var p in winningParties)
             {
                 WonBy(p);
             }
             return this;
+        }
+
+        public ClashOutcome WonBy(params Party[] winningParties)
+        {
+            return WonBy(winningParties.AsEnumerable());
         }
 
         private void EnsureWinningPartiesCache()

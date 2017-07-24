@@ -39,6 +39,7 @@
     <Compile Include="ClashOutcomeProcessor.cs" />
     <Compile Include="ICanPlaybackPoints.cs" />
     <Compile Include="ICanRecordPoints.cs" />
+    <Compile Include="MostBasicClashOutcomeProcessor.cs" />
     <Compile Include="PointTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
