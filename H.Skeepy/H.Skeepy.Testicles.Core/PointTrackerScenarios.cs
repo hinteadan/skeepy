@@ -76,5 +76,11 @@ namespace H.Skeepy.Testicles.Core
             useCase.PointsOf(fed).Should().BeEmpty();
             useCase.Points.Should().BeEmpty();
         }
+
+        [TestMethod]
+        public void PointTracker_ShouldRaiseEventWhenPointsChange()
+        {
+
+        }
     }
 }

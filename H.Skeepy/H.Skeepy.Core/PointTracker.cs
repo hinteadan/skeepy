@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Core
 {
-    public sealed class PointTracker : ICanRecordPoints, ICanPlaybackPoints
+    public class PointTracker : ICanRecordPoints, ICanPlaybackPoints
     {
         private readonly Clash clash;
         private readonly ConcurrentStack<Point> points = new ConcurrentStack<Point>();
@@ -31,13 +31,26 @@ namespace H.Skeepy.Core
             }
         }
 
-        public Point PointFor(Party party)
+        public virtual Point PointFor(Party party)
         {
             ValidateParty(party);
             var point = Point.NewFor(party);
             points.Push(point);
             pointsPerParty[party].Push(point);
             return point;
+        }
+
+        public virtual ICanRecordPoints Undo()
+        {
+            if (points.IsEmpty)
+            {
+                return this;
+            }
+            if (points.TryPop(out var point))
+            {
+                pointsPerParty[point.For].TryPop(out point);
+            }
+            return this;
         }
 
         public Point[] PointsOf(Party party)
@@ -62,19 +75,6 @@ namespace H.Skeepy.Core
             }
 
             cachedPoints = points.ToArray();
-        }
-
-        public ICanRecordPoints Undo()
-        {
-            if (points.IsEmpty)
-            {
-                return this;
-            }
-            if (points.TryPop(out var point))
-            {
-                pointsPerParty[point.For].TryPop(out point);
-            }
-            return this;
         }
     }
 }
