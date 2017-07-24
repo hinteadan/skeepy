@@ -64,6 +64,7 @@
     <Compile Include="PointOperations.cs" />
     <Compile Include="ClashOperations.cs" />
     <Compile Include="ClashOutcomeOperations.cs" />
+    <Compile Include="ScoreBoardOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
