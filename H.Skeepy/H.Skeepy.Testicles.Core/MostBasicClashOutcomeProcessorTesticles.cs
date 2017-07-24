@@ -28,6 +28,27 @@ namespace H.Skeepy.Testicles.Core
         public void MostBasicClashOutcome_StartsInTie()
         {
             outcomeProcessor.ProcessOutcome().IsTie.Should().BeTrue();
+            outcomeProcessor.ProcessOutcome().Winners.Should().BeEquivalentTo(playerA, playerB, playerC);
+        }
+
+        [TestMethod]
+        public void MostBasicClashOutcome_IsWonByThePartiesWithMostPoints()
+        {
+            pointTracker.PointFor(playerA);
+            outcomeProcessor.ProcessOutcome().IsTie.Should().BeFalse();
+            outcomeProcessor.ProcessOutcome().Winner.Should().Be(playerA);
+
+            pointTracker.PointFor(playerB);
+            outcomeProcessor.ProcessOutcome().IsTie.Should().BeFalse();
+            outcomeProcessor.ProcessOutcome().Winners.Should().BeEquivalentTo(playerA, playerB);
+
+            pointTracker.PointFor(playerC);
+            outcomeProcessor.ProcessOutcome().IsTie.Should().BeTrue();
+            outcomeProcessor.ProcessOutcome().Winners.Should().BeEquivalentTo(playerA, playerB, playerC);
+
+            pointTracker.PointFor(playerA);
+            outcomeProcessor.ProcessOutcome().IsTie.Should().BeFalse();
+            outcomeProcessor.ProcessOutcome().Winner.Should().Be(playerA);
         }
     }
 }
