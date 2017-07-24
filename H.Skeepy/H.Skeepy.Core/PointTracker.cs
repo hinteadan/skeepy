@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Core
 {
-    public sealed class PointTracker
+    public sealed class PointTracker : ICanRecordPoints, ICanPlaybackPoints
     {
         private readonly Clash clash;
         private readonly ConcurrentStack<Point> points = new ConcurrentStack<Point>();
@@ -64,7 +64,7 @@ namespace H.Skeepy.Core
             cachedPoints = points.ToArray();
         }
 
-        public PointTracker Undo()
+        public ICanRecordPoints Undo()
         {
             if (points.IsEmpty)
             {
