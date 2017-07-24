@@ -7,14 +7,18 @@ using H.Skeepy.Model;
 
 namespace H.Skeepy.Core
 {
-    public class MostBasicClashOutcomeProcessor : ClashOutcomeProcessor
+    public class MostBasicClashOutcomeProcessor : ICanProcessClashOutcome
     {
+        private readonly ICanPlaybackPoints pointsPool;
+        private readonly Clash clash;
+
         public MostBasicClashOutcomeProcessor(Clash clash, ICanPlaybackPoints pointsPool)
-            : base(clash, pointsPool)
         {
+            this.clash = clash ?? throw new InvalidOperationException("Outcome Processor must have an underlying clash");
+            this.pointsPool = pointsPool ?? throw new InvalidOperationException("Points pool must be provided");
         }
 
-        public override ClashOutcome ProcessOutcome()
+        public ClashOutcome ProcessOutcome()
         {
             if (!pointsPool.Points.Any())
             {

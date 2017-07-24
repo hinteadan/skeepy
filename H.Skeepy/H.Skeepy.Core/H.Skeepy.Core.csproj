@@ -36,7 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClashOutcomeProcessor.cs" />
+    <Compile Include="ICanProcessClashOutcome.cs" />
     <Compile Include="ICanPlaybackPoints.cs" />
     <Compile Include="ICanRecordPoints.cs" />
     <Compile Include="MostBasicClashOutcomeProcessor.cs" />

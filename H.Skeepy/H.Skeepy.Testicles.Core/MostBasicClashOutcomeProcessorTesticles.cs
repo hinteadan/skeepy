@@ -14,14 +14,15 @@ namespace H.Skeepy.Testicles.Core
         private static readonly Party playerC = Party.New("Team C", Individual.New("Player", "C"));
         private static readonly Clash clash = Clash.New(playerA, playerB, playerC);
         private PointTracker pointTracker;
-        private MostBasicClashOutcomeProcessor outcomeProcessor;
+        private ICanProcessClashOutcome outcomeProcessor;
 
 
         [TestInitialize]
         public void BeforeEachTest()
         {
             pointTracker = new PointTracker(clash);
-            outcomeProcessor = new MostBasicClashOutcomeProcessor(clash, pointTracker);
+            var processor = new MostBasicClashOutcomeProcessor(clash, pointTracker);
+            outcomeProcessor = processor;
         }
 
         [TestMethod]
