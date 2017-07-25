@@ -76,6 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppData\SkeepyRepository\IndividualsRepository.cs" />
+    <Compile Include="AppData\SkeepyRepository\TeamsRepository.cs" />
     <Compile Include="IndividualsBlotter.xaml.cs">
       <DependentUpon>IndividualsBlotter.xaml</DependentUpon>
     </Compile>
@@ -117,6 +118,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="AppData\SkeepyRepository\Individuals.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AppData\SkeepyRepository\Teams.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">

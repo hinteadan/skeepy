@@ -15,6 +15,7 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
     public static class IndividualsRepository
     {
         private static ObservableCollection<Individual> individuals = new ObservableCollection<Individual>();
+        private static Dictionary<string, Individual> individualsDictionary = new Dictionary<string, Individual>();
         private static readonly FileInfo individualsFile;
 
         static IndividualsRepository()
@@ -42,6 +43,15 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
             }
         }
 
+        public static Individual ById(string id)
+        {
+            if (!individuals.Any())
+            {
+                Refresh();
+            }
+            return individualsDictionary[id];
+        }
+
         public static void Refresh()
         {
             individuals.Clear();
@@ -49,6 +59,7 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
             {
                 individuals.Add(guy);
             }
+            individualsDictionary = individuals.ToDictionary(x => x.Id, x => x);
         }
 
         private static IEnumerable<Individual> ReadAndParseIndividualsCsv()
