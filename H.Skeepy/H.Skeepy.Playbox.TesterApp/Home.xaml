@@ -18,16 +18,11 @@
         </Grid.RowDefinitions>
         <!-- People list -->
         <Border Grid.Column="0" Grid.Row="0" Height="35" Padding="5" Background="#4E87D4">
-            <Label VerticalAlignment="Center" Foreground="White">Names</Label>
+            <Label VerticalAlignment="Center" Foreground="White">Individual Definition</Label>
         </Border>
-        <ListBox Name="peopleListBox" Grid.Column="0" Grid.Row="1">
-            <ListBoxItem>Mike</ListBoxItem>
-            <ListBoxItem>Lisa</ListBoxItem>
-            <ListBoxItem>John</ListBoxItem>
-            <ListBoxItem>Mary</ListBoxItem>
-        </ListBox>
 
         <!-- View report button -->
         <Button Grid.Column="0" Grid.Row="2" Margin="0,10,0,0" Width="125" Height="25" HorizontalAlignment="Right" Click="Button_Click">View</Button>
+        <local:IndividualEditor Grid.Row="1" x:Name="individualEditor" />
     </Grid>
 </Page>

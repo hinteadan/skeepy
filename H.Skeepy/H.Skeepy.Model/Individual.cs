@@ -38,6 +38,8 @@ namespace H.Skeepy.Model
         }
 
         public string Id { get { return id; } }
+        public string FirstName { get { return firstName; } }
+        public string LastName { get { return lastName; } }
 
         public string FullName
         {

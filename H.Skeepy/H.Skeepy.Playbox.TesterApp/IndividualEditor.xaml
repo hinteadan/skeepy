@@ -1,0 +1,29 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:H.Skeepy.Playbox.TesterApp"
+             xmlns:ViewModel="clr-namespace:H.Skeepy.Playbox.TesterApp.ViewModel" x:Class="H.Skeepy.Playbox.TesterApp.IndividualEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <ViewModel:IndividualViewModel/>
+    </UserControl.DataContext>
+    <Grid MinWidth="200" MinHeight="100" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="First Name:" Grid.Row="0" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="TextBoxFirstName" Text="{Binding FirstName}" Grid.Column="1" VerticalContentAlignment="Center" Margin="0,2" />
+
+        <Label Content="Last Name:" Grid.Row="1" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="TextBoxLastName" Text="{Binding LastName}" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" Margin="0,2" />
+    </Grid>
+</UserControl>
