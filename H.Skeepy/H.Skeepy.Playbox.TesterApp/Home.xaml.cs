@@ -25,14 +25,11 @@ namespace H.Skeepy.Playbox.TesterApp
         public Home()
         {
             InitializeComponent();
-            IndividualsRepository.Save(Individual.New("Hintee"));
-            individualsListBox.ItemsSource = IndividualsRepository.All;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             IndividualsRepository.Save(Individual.New(Guid.NewGuid().ToString()));
-            individualsListBox.ItemsSource = IndividualsRepository.All;
         }
     }
 }
