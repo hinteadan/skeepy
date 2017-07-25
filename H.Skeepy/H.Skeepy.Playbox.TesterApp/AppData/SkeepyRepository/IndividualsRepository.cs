@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
 {
-    internal static class IndividualsRepository
+    public static class IndividualsRepository
     {
         private static readonly ConcurrentDictionary<string, Individual> individualsDictionary = new ConcurrentDictionary<string, Individual>();
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using H.Skeepy.Model;
+using H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +25,14 @@ namespace H.Skeepy.Playbox.TesterApp
         public Home()
         {
             InitializeComponent();
+            IndividualsRepository.Save(Individual.New("Hintee"));
+            individualsListBox.ItemsSource = IndividualsRepository.All;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test");
+            IndividualsRepository.Save(Individual.New(Guid.NewGuid().ToString()));
+            individualsListBox.ItemsSource = IndividualsRepository.All;
         }
     }
 }
