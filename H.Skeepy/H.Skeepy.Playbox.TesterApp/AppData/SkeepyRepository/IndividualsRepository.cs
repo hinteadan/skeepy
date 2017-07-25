@@ -8,12 +8,27 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
 {
     public static class IndividualsRepository
     {
         private static ObservableCollection<Individual> individuals = new ObservableCollection<Individual>();
+        private static readonly FileInfo individualsFile;
+
+        static IndividualsRepository()
+        {
+            individualsFile = new FileInfo(ConfigurationManager.AppSettings["Skeepy.Data.IndividualsFilePath"] ?? "AppData/SkeepyRepository/Individuals.csv");
+            var watcher = new FileSystemWatcher(individualsFile.DirectoryName, individualsFile.Name);
+            watcher.Changed += (sender, e) =>
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+                    try { Refresh(); } catch (Exception) { }
+                }));
+            };
+            watcher.EnableRaisingEvents = true;
+        }
 
         public static ObservableCollection<Individual> All
         {
@@ -38,14 +53,12 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
 
         private static IEnumerable<Individual> ReadAndParseIndividualsCsv()
         {
-            var path = ConfigurationManager.AppSettings["Skeepy.Data.IndividualsFilePath"] ?? "AppData/SkeepyRepository/Individuals.csv";
-
-            if (!File.Exists(path))
+            if (!File.Exists(individualsFile.FullName))
             {
                 return Enumerable.Empty<Individual>();
             }
 
-            return File.ReadAllLines(path)
+            return File.ReadAllLines(individualsFile.FullName)
                 .Select(ParseIndividualFromCsvLine);
         }
 
