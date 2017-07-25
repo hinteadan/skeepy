@@ -29,7 +29,7 @@ namespace H.Skeepy.Playbox.TesterApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            IndividualsRepository.Save(Individual.New(Guid.NewGuid().ToString()));
+            IndividualsRepository.Refresh();
         }
     }
 }
