@@ -80,6 +80,7 @@
     <Compile Include="IndividualsBlotter.xaml.cs">
       <DependentUpon>IndividualsBlotter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ClashViewModel.cs" />
     <Compile Include="ViewModel\IndividualViewModel.cs" />
     <Compile Include="Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
