@@ -22,7 +22,7 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
             set
             {
                 party = value;
-                NotifyPropertyChanged("Party");
+                NotifyPropertyChanged(nameof(Party));
             }
         }
 
