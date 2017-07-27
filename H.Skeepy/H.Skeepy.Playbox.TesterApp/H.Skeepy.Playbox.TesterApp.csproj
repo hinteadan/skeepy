@@ -55,6 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\PartyViewModel.cs" />
+    <Page Include="ClashEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,8 +82,14 @@
     </Compile>
     <Compile Include="AppData\SkeepyRepository\IndividualsRepository.cs" />
     <Compile Include="AppData\SkeepyRepository\TeamsRepository.cs" />
+    <Compile Include="ClashEditor.xaml.cs">
+      <DependentUpon>ClashEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IndividualsBlotter.xaml.cs">
       <DependentUpon>IndividualsBlotter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PartyViewer.xaml.cs">
+      <DependentUpon>PartyViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ClashViewModel.cs" />
     <Compile Include="ViewModel\IndividualViewModel.cs" />
@@ -93,6 +104,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PartyEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PartyViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

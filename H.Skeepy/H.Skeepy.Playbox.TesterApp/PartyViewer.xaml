@@ -1,0 +1,20 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:H.Skeepy.Playbox.TesterApp"
+             xmlns:ViewModel="clr-namespace:H.Skeepy.Playbox.TesterApp.ViewModel" x:Class="H.Skeepy.Playbox.TesterApp.PartyViewer"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="300" Height="70">
+    <UserControl.DataContext>
+        <ViewModel:PartyViewModel/>
+    </UserControl.DataContext>
+    <Grid Height="70" DataContext="{Binding Path=Party}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Label Content="{Binding Path=Name}" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Grid.Row="0"/>
+    </Grid>
+</UserControl>

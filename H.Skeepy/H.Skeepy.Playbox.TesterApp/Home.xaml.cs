@@ -1,5 +1,6 @@
 ﻿using H.Skeepy.Model;
 using H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository;
+using H.Skeepy.Playbox.TesterApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace H.Skeepy.Playbox.TesterApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            (partyViewer.DataContext as PartyViewModel).Party = TeamsRepository.All[0];
             IndividualsRepository.Refresh();
         }
     }
