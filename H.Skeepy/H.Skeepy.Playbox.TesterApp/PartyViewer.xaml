@@ -17,6 +17,7 @@
                 <DropShadowEffect ShadowDepth="0" RenderingBias="Quality" BlurRadius="3" Opacity="0.5"/>
             </Label.Effect>
         </Label>
-        <Label Content="{Binding Path=Members, FallbackValue=Members}" HorizontalAlignment="Left" Margin="2 " Grid.Row="1" VerticalAlignment="Center" FontSize="9"/>
+        <Rectangle Grid.Row="1" Height="1" VerticalAlignment="Bottom" Stroke="Black" Opacity="0.35" />
+        <Label Content="{Binding Path=Members, FallbackValue=Members}" HorizontalAlignment="Left" Margin="2" Grid.Row="1" VerticalAlignment="Center" FontSize="9"/>
     </Grid>
 </UserControl>
