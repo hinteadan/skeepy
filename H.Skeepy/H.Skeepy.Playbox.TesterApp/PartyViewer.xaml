@@ -12,11 +12,11 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding Path=Party.Name}" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Grid.Row="0" FontSize="16">
+        <Label Content="{Binding Path=Party.Name, FallbackValue=Party}" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Grid.Row="0" FontSize="16">
             <Label.Effect>
                 <DropShadowEffect ShadowDepth="0" RenderingBias="Quality" BlurRadius="3" Opacity="0.5"/>
             </Label.Effect>
         </Label>
-        <Label Content="{Binding Path=Members}" HorizontalAlignment="Left" Margin="2 " Grid.Row="1" VerticalAlignment="Center" FontSize="9"/>
+        <Label Content="{Binding Path=Members, FallbackValue=Members}" HorizontalAlignment="Left" Margin="2 " Grid.Row="1" VerticalAlignment="Center" FontSize="9"/>
     </Grid>
 </UserControl>
