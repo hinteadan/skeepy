@@ -27,9 +27,9 @@ namespace H.Skeepy.Playbox.TesterApp
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddPartyClick(object sender, RoutedEventArgs e)
         {
-            (DataContext as ClashViewModel).Members.Add(new PartyViewModel(Party.New("Hintee", Individual.New("Hin", "Tee"))));
+            (DataContext as ClashViewModel).AddMember();
         }
     }
 }
