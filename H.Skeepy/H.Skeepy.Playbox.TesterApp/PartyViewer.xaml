@@ -7,14 +7,16 @@
              xmlns:ViewModel="clr-namespace:H.Skeepy.Playbox.TesterApp.ViewModel" x:Class="H.Skeepy.Playbox.TesterApp.PartyViewer"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="300" Height="70">
-    <UserControl.DataContext>
-        <ViewModel:PartyViewModel/>
-    </UserControl.DataContext>
-    <Grid Height="70" DataContext="{Binding Path=Party}">
+    <Grid Height="70">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <Label Content="{Binding Path=Name}" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Grid.Row="0"/>
+        <Label Content="{Binding Path=Party.Name}" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Center" Grid.Row="0" FontSize="16">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="0" RenderingBias="Quality" BlurRadius="3" Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="{Binding Path=Members}" HorizontalAlignment="Left" Margin="2 " Grid.Row="1" VerticalAlignment="Center" FontSize="9"/>
     </Grid>
 </UserControl>

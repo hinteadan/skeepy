@@ -68,10 +68,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="IndividualsBlotter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -84,9 +80,6 @@
     <Compile Include="AppData\SkeepyRepository\TeamsRepository.cs" />
     <Compile Include="ClashEditor.xaml.cs">
       <DependentUpon>ClashEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="IndividualsBlotter.xaml.cs">
-      <DependentUpon>IndividualsBlotter.xaml</DependentUpon>
     </Compile>
     <Compile Include="PartyViewer.xaml.cs">
       <DependentUpon>PartyViewer.xaml</DependentUpon>
@@ -103,19 +96,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PartyEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PartyViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PartyEditor.xaml.cs">
-      <DependentUpon>PartyEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

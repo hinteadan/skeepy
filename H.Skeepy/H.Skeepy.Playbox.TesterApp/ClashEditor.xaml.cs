@@ -1,4 +1,6 @@
-﻿using System;
+﻿using H.Skeepy.Model;
+using H.Skeepy.Playbox.TesterApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,11 @@ namespace H.Skeepy.Playbox.TesterApp
         public ClashEditor()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as ClashViewModel).Members.Add(new PartyViewModel(Party.New("Hintee", Individual.New("Hin", "Tee"))));
         }
     }
 }
