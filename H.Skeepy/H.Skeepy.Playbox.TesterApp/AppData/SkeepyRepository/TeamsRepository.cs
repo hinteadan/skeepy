@@ -68,7 +68,7 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
             {
                 throw new InvalidOperationException($"Invalid Party CSV for line: \"{csvLine}\"");
             }
-            return Party.Existing(parts[0], parts[1], parts.Skip(2).Select(IndividualsRepository.ById).ToArray());
+            return Party.Existing(parts[0], parts[1], parts.Skip(2).Select(IndividualsRepository.ById).OrderBy(x => x.FullName).ToArray());
         }
     }
 }
