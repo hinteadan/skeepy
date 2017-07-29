@@ -48,5 +48,10 @@ namespace H.Skeepy.Model
                 return fullName.Value;
             }
         }
+
+        public Party ToParty()
+        {
+            return Party.New(this.FullName, this);
+        }
     }
 }

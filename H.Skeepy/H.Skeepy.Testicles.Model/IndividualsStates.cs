@@ -33,5 +33,14 @@ namespace H.Skeepy.Testicles.Model
             Assert.ThrowsException<InvalidOperationException>(() => Individual.Existing(string.Empty, "Fed"));
             Assert.ThrowsException<InvalidOperationException>(() => Individual.Existing("   \t", "Fed"));
         }
+
+        [TestMethod]
+        public void Individual_CanEasilyMorphIntoSingleMemberParty()
+        {
+            var fed = Individual.New("Roger", "Federer");
+            var party = fed.ToParty();
+            party.Name.Should().Be(fed.FullName);
+            party.Members.Should().BeEquivalentTo(fed);
+        }
     }
 }
