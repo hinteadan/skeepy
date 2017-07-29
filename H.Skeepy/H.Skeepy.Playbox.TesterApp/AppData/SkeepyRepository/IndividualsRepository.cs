@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.Model;
+using H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository.Tennis;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -58,6 +59,11 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
             foreach (var guy in ReadAndParseIndividualsCsv())
             {
                 individuals.Add(guy);
+            }
+            TennisRepository.Refresh();
+            foreach(var player in TennisRepository.All)
+            {
+                individuals.Add(player);
             }
             individualsDictionary = individuals.ToDictionary(x => x.Id, x => x);
         }
