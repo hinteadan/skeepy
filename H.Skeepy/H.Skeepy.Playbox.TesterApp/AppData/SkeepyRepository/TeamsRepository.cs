@@ -48,6 +48,10 @@ namespace H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository
             {
                 parties.Add(party);
             }
+            foreach(var player in IndividualsRepository.All)
+            {
+                parties.Add(player.ToParty());
+            }
         }
 
         private static IEnumerable<Party> ReadAndParsePartiesCsv()

@@ -22,6 +22,8 @@ namespace H.Skeepy.Playbox.TesterApp
     {
         public MainWindow()
         {
+
+
             InitializeComponent();
         }
     }
