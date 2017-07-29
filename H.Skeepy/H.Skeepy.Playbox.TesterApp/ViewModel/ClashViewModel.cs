@@ -14,7 +14,7 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
     public class ClashViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<PartyViewModel> members = new ObservableCollection<PartyViewModel>();
-        private ObservableCollection<Party> availableParties = new ObservableCollection<Party>(TeamsRepository.All.OrderBy(x => x.Name));
+        private ObservableCollection<Party> availableParties = new ObservableCollection<Party>(DesignerProperties.GetIsInDesignMode(new DependencyObject()) ? Enumerable.Empty<Party>() : TeamsRepository.All.OrderBy(x => x.Name));
         private Party selectedPartyToAdd = null;
 
         public ClashViewModel()
