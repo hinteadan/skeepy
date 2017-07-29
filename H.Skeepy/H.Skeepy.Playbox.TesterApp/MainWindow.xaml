@@ -5,6 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:H.Skeepy.Playbox.TesterApp"
         mc:Ignorable="d"
-        Title="Skeepy Tester" Height="350" Width="525" Source="Home.xaml">
+        Title="Skeepy Tester" Height="500" Width="650" Source="Home.xaml">
     
 </NavigationWindow>
