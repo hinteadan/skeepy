@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" Margin="0,0,3,0" ItemsSource="{Binding Path=AvailableTeams}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedPartyToAdd}" />
+            <ComboBox Grid.Column="0" Margin="0,0,3,0" ItemsSource="{Binding Path=AvailableTeams}" DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedPartyToAdd}" TextSearch.TextPath="Name" IsTextSearchCaseSensitive="False" IsTextSearchEnabled="True" IsEditable="True" />
             <Button Content="Add Party" DockPanel.Dock="Right" Click="AddPartyClick" IsEnabled="{Binding Path=CanAddParty}" Grid.Column="1" />
         </Grid>
 
