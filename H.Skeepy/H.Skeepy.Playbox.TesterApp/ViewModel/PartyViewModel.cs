@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace H.Skeepy.Playbox.TesterApp.ViewModel
 {
-    public class PartyViewModel : INotifyPropertyChanged
+    public class PartyViewModel : SkeepyTesterViewModel
     {
         private Party party;
         private string members = string.Empty;
@@ -48,12 +48,6 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
             {
                 return members;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string info)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
     }
 }

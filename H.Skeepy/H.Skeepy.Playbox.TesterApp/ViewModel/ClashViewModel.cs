@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace H.Skeepy.Playbox.TesterApp.ViewModel
 {
-    public class ClashViewModel : INotifyPropertyChanged
+    public class ClashViewModel : SkeepyTesterViewModel
     {
         private ObservableCollection<PartyViewModel> members = new ObservableCollection<PartyViewModel>();
         private ObservableCollection<Party> availableParties = new ObservableCollection<Party>(DesignerProperties.GetIsInDesignMode(new DependencyObject()) ? Enumerable.Empty<Party>() : TeamsRepository.All.OrderBy(x => x.Name));
@@ -67,12 +67,6 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
             members.Add(new PartyViewModel(SelectedPartyToAdd));
             availableParties.Remove(SelectedPartyToAdd);
             SelectedPartyToAdd = availableParties.Any() ? availableParties[0] : null;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged(string info)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
         }
     }
 }

@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="AppData\SkeepyRepository\Tennis\TennisRepository.cs" />
     <Compile Include="ViewModel\PartyViewModel.cs" />
+    <Compile Include="ViewModel\SkeepyTesterViewModel.cs" />
     <Page Include="ClashEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
