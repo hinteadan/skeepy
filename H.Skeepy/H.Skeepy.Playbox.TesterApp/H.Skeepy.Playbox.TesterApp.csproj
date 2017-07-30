@@ -56,9 +56,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppData\SkeepyRepository\Tennis\TennisRepository.cs" />
+    <Compile Include="DefineClashPage.xaml.cs">
+      <DependentUpon>DefineClashPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\PartyViewModel.cs" />
     <Compile Include="ViewModel\SkeepyTesterViewModel.cs" />
     <Page Include="ClashEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DefineClashPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

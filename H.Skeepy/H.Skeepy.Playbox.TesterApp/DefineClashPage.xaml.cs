@@ -1,7 +1,4 @@
-﻿using H.Skeepy.Model;
-using H.Skeepy.Playbox.TesterApp.AppData.SkeepyRepository;
-using H.Skeepy.Playbox.TesterApp.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,18 +16,13 @@ using System.Windows.Shapes;
 namespace H.Skeepy.Playbox.TesterApp
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for DefineClashPage.xaml
     /// </summary>
-    public partial class Home : Page
+    public partial class DefineClashPage : Page
     {
-        public Home()
+        public DefineClashPage()
         {
             InitializeComponent();
-        }
-
-        private void NavigateToDefineClash_Click(object sender, RoutedEventArgs e)
-        {
-            (Application.Current.MainWindow as NavigationWindow).NavigationService.Navigate(new Uri("DefineClashPage.xaml", UriKind.Relative));
         }
     }
 }
