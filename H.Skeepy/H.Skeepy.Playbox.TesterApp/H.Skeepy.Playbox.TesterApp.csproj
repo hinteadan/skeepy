@@ -55,13 +55,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppData\AppState.cs" />
     <Compile Include="AppData\SkeepyRepository\Tennis\TennisRepository.cs" />
+    <Compile Include="ClashPointsPage.xaml.cs">
+      <DependentUpon>ClashPointsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DefineClashPage.xaml.cs">
       <DependentUpon>DefineClashPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ClashPointsViewModel.cs" />
     <Compile Include="ViewModel\PartyViewModel.cs" />
     <Compile Include="ViewModel\SkeepyTesterViewModel.cs" />
     <Page Include="ClashEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClashPointsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

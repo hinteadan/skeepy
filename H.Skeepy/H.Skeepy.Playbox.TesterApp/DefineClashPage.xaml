@@ -12,7 +12,7 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <local:ClashEditor />
-        <Button Grid.Row="1" Content="Next" IsEnabled="False" />
+        <local:ClashEditor x:Name="clashEditor" />
+        <Button Grid.Row="1" Content="Next" Click="Next_Click" IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:DefineClashPage}}, Path=IsClashValid}" />
     </Grid>
 </Page>
