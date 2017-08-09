@@ -1,4 +1,6 @@
-﻿using System;
+﻿using H.Skeepy.Model;
+using H.Skeepy.Playbox.TesterApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,11 @@ namespace H.Skeepy.Playbox.TesterApp
         public ClashPointsPage()
         {
             InitializeComponent();
+        }
+
+        private void NewPoint_Click(object sender, RoutedEventArgs e)
+        {
+            ((ClashPointsViewModel)DataContext).ScorePointFor(((KeyValuePair<Party, int>)((FrameworkElement)sender).DataContext).Key);
         }
     }
 }

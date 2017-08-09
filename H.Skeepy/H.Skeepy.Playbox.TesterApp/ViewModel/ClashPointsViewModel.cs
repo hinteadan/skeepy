@@ -1,5 +1,6 @@
 ﻿using H.Skeepy.Core;
 using H.Skeepy.Model;
+using H.Skeepy.Playbox.TesterApp.AppData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,10 +20,15 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
         {
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
-                clash = Clash.New(Individual.New("Federer").ToParty(), Individual.New("Nadal").ToParty());
+                clash = Clash.New(Individual.New("Federer").ToParty(), Individual.New("Nadal").ToParty(), Individual.New("Wawrinka").ToParty());
                 Points = clash.Participants.OrderBy(x => x.Name).ToDictionary(x => x, x => 0);
                 NotifyPropertyChanged(nameof(Points));
+                return;
             }
+
+            Clash = AppState.Clash;
+            Points = clash.Participants.OrderBy(x => x.Name).ToDictionary(x => x, x => 0);
+            NotifyPropertyChanged(nameof(Points));
         }
 
         public Clash Clash
@@ -53,10 +59,10 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
         public void ScorePointFor(Party party)
         {
             pointTracker.PointFor(party);
-            Points = pointTracker.Points
-                .GroupBy(x => x.For)
-                .OrderBy(x => x.Key.Name)
-                .ToDictionary(x => x.Key, x => x.Count());
+            Points = clash
+                .Participants
+                .OrderBy(x => x.Name)
+                .ToDictionary(x => x, x => pointTracker.PointsOf(x).Length);
             NotifyPropertyChanged(nameof(Points));
         }
     }

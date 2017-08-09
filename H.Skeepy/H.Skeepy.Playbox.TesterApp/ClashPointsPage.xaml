@@ -8,15 +8,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ClashPointsPage">
-
+    <Page.DataContext>
+        <ViewModel:ClashPointsViewModel/>
+    </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid.DataContext>
-            <ViewModel:ClashPointsViewModel/>
-        </Grid.DataContext>
         <Label Content="{Binding Path=ClashTitle}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontStyle="Italic" FontSize="18">
             <Label.Effect>
                 <DropShadowEffect ShadowDepth="0" Opacity="0.35" RenderingBias="Quality"/>
@@ -31,9 +30,14 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
+                    <StackPanel Width="70">
                         <Label Content="{Binding Path=Key.Name}" HorizontalAlignment="Center" />
-                        <Label Content="{Binding Path=Value}" HorizontalAlignment="Center" />
+                        <Label Content="{Binding Path=Value}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="22" >
+                            <Label.Effect>
+                                <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.4"/>
+                            </Label.Effect>
+                        </Label>
+                        <Button Content="+" Width="30" Height="30" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Click="NewPoint_Click" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
