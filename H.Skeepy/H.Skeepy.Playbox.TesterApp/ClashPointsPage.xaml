@@ -23,5 +23,21 @@
             </Label.Effect>
         </Label>
 
+        <ItemsControl ItemsSource="{Binding Path=Points}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label Content="{Binding Path=Key.Name}" HorizontalAlignment="Center" />
+                        <Label Content="{Binding Path=Value}" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
     </Grid>
 </Page>

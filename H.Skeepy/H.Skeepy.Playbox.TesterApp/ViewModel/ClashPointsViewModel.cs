@@ -20,6 +20,8 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
             if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
             {
                 clash = Clash.New(Individual.New("Federer").ToParty(), Individual.New("Nadal").ToParty());
+                Points = clash.Participants.OrderBy(x => x.Name).ToDictionary(x => x, x => 0);
+                NotifyPropertyChanged(nameof(Points));
             }
         }
 
@@ -42,8 +44,20 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
         {
             get
             {
-                return string.Join(" vs. ", clash.Participants.Select(x => x.Name));
+                return string.Join(" vs. ", clash.Participants.OrderBy(x => x.Name).Select(x => x.Name));
             }
+        }
+
+        public Dictionary<Party, int> Points { get; private set; }
+
+        public void ScorePointFor(Party party)
+        {
+            pointTracker.PointFor(party);
+            Points = pointTracker.Points
+                .GroupBy(x => x.For)
+                .OrderBy(x => x.Key.Name)
+                .ToDictionary(x => x.Key, x => x.Count());
+            NotifyPropertyChanged(nameof(Points));
         }
     }
 }
