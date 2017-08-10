@@ -24,9 +24,12 @@ namespace H.Skeepy.Playbox.TesterApp
     /// </summary>
     public partial class DefineClashPage : Page, INotifyPropertyChanged
     {
+        private readonly NavigationService navigation;
+
         public DefineClashPage()
         {
             InitializeComponent();
+            navigation = (Application.Current.MainWindow as NavigationWindow)?.NavigationService;
             (clashEditor.DataContext as ClashViewModel).Members.CollectionChanged += (sender, e) =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsClashValid"));
@@ -40,7 +43,7 @@ namespace H.Skeepy.Playbox.TesterApp
         private void Next_Click(object sender, RoutedEventArgs e)
         {
             AppState.Clash = Clash.New((clashEditor.DataContext as ClashViewModel).Members.Select(x => x.Party).ToArray());
-            (Application.Current.MainWindow as NavigationWindow).NavigationService.Navigate(new Uri("ClashPointsPage.xaml", UriKind.Relative));
+            navigation.Navigate(new Uri("ClashPointsPage.xaml", UriKind.Relative));
         }
     }
 }

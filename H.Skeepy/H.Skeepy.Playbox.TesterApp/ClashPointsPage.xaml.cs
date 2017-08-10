@@ -23,11 +23,13 @@ namespace H.Skeepy.Playbox.TesterApp
     public partial class ClashPointsPage : Page
     {
         private readonly ClashPointsViewModel viewModel;
+        private readonly NavigationService navigation;
 
         public ClashPointsPage()
         {
             InitializeComponent();
             viewModel = (ClashPointsViewModel)DataContext;
+            navigation = (Application.Current.MainWindow as NavigationWindow)?.NavigationService;
         }
 
         private void NewPoint_Click(object sender, RoutedEventArgs e)
@@ -43,6 +45,7 @@ namespace H.Skeepy.Playbox.TesterApp
         private void ProcessOutcome_Click(object sender, RoutedEventArgs e)
         {
             viewModel.ProcessCurrentOutcome();
+            navigation.Navigate(new Uri("ClashOutcomePage.xaml", UriKind.Relative));
         }
     }
 }
