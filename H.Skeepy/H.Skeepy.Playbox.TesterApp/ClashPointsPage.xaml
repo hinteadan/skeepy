@@ -31,7 +31,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Width="70">
-                        <Label Content="{Binding Path=Key.Name}" HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding Path=Key.Name}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                         <Label Content="{Binding Path=Value}" HorizontalAlignment="Center" FontWeight="Bold" FontSize="22" >
                             <Label.Effect>
                                 <DropShadowEffect ShadowDepth="0" BlurRadius="3" Opacity="0.4"/>

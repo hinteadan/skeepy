@@ -22,14 +22,22 @@ namespace H.Skeepy.Playbox.TesterApp
     /// </summary>
     public partial class ClashPointsPage : Page
     {
+        private readonly ClashPointsViewModel viewModel;
+
         public ClashPointsPage()
         {
             InitializeComponent();
+            viewModel = (ClashPointsViewModel)DataContext;
         }
 
         private void NewPoint_Click(object sender, RoutedEventArgs e)
         {
-            ((ClashPointsViewModel)DataContext).ScorePointFor(((KeyValuePair<Party, int>)((FrameworkElement)sender).DataContext).Key);
+            viewModel.ScorePointFor(PartyFor(sender));
+        }
+
+        private Party PartyFor(object senderButton)
+        {
+            return ((KeyValuePair<Party, int>)((FrameworkElement)senderButton).DataContext).Key;
         }
     }
 }
