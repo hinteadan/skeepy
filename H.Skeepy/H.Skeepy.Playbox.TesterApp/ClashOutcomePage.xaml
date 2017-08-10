@@ -4,12 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:H.Skeepy.Playbox.TesterApp"
+      xmlns:ViewModel="clr-namespace:H.Skeepy.Playbox.TesterApp.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="ClashOutcomePage">
-
+    <Page.DataContext>
+        <ViewModel:ClashOutcomeViewModel />
+    </Page.DataContext>
     <Grid>
-        <Label x:Name="label" Content="Clash Outcome" HorizontalAlignment="Left" Margin="115,149,0,0" VerticalAlignment="Top"/>
-
+        <Label Content="{Binding Path=Winner}" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </Page>
