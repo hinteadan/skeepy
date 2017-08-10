@@ -10,5 +10,7 @@ namespace H.Skeepy.Playbox.TesterApp.AppData
     public static class AppState
     {
         public static Clash Clash { get; set; }
+
+        public static ClashOutcome Outcome { get; set; }
     }
 }

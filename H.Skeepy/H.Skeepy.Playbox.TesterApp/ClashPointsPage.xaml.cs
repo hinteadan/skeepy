@@ -39,5 +39,10 @@ namespace H.Skeepy.Playbox.TesterApp
         {
             return ((KeyValuePair<Party, int>)((FrameworkElement)senderButton).DataContext).Key;
         }
+
+        private void ProcessOutcome_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.ProcessCurrentOutcome();
+        }
     }
 }

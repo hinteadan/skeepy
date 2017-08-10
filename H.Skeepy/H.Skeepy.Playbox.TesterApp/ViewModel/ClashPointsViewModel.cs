@@ -15,6 +15,7 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
     {
         private Clash clash;
         private PointTracker pointTracker;
+        private ICanProcessClashOutcome outcomeProcessor;
 
         public ClashPointsViewModel()
         {
@@ -41,6 +42,7 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
             {
                 clash = value;
                 pointTracker = new PointTracker(clash);
+                outcomeProcessor = new MostBasicClashProcessor(AppState.Clash, pointTracker);
                 NotifyPropertyChanged(nameof(Clash));
                 NotifyPropertyChanged(nameof(ClashTitle));
             }
@@ -64,6 +66,12 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
                 .OrderBy(x => x.Name)
                 .ToDictionary(x => x, x => pointTracker.PointsOf(x).Length);
             NotifyPropertyChanged(nameof(Points));
+        }
+
+        public ClashOutcome ProcessCurrentOutcome()
+        {
+            AppState.Outcome = outcomeProcessor.ProcessOutcome();
+            return AppState.Outcome;
         }
     }
 }

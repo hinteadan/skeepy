@@ -15,6 +15,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding Path=ClashTitle}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontStyle="Italic" FontSize="18">
             <Label.Effect>
@@ -42,6 +43,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-
+        <Button Grid.Row="2" Content="Finish!" Click="ProcessOutcome_Click"/>
     </Grid>
 </Page>
