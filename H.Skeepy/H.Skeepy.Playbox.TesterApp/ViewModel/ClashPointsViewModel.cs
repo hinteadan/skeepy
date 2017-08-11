@@ -16,6 +16,7 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
         private Clash clash;
         private PointTracker pointTracker;
         private ICanProcessClashOutcome outcomeProcessor;
+        private ICanProjectScore<int> scoreProjector;
 
         public ClashPointsViewModel()
         {
@@ -42,7 +43,9 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
             {
                 clash = value;
                 pointTracker = new PointTracker(clash);
-                outcomeProcessor = new MostBasicClashProcessor(AppState.Clash, pointTracker);
+                var processor = new MostBasicClashProcessor(AppState.Clash, pointTracker);
+                outcomeProcessor = processor;
+                scoreProjector = processor;
                 NotifyPropertyChanged(nameof(Clash));
                 NotifyPropertyChanged(nameof(ClashTitle));
             }
@@ -72,6 +75,12 @@ namespace H.Skeepy.Playbox.TesterApp.ViewModel
         {
             AppState.Outcome = outcomeProcessor.ProcessOutcome();
             return AppState.Outcome;
+        }
+
+        public ScoreBoard<int> ProcessCurrentScore()
+        {
+            AppState.Score = scoreProjector.ProjectScore();
+            return AppState.Score;
         }
     }
 }

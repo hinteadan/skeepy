@@ -12,6 +12,10 @@
         <ViewModel:ClashOutcomeViewModel />
     </Page.DataContext>
     <Grid>
-        <Label Content="{Binding Path=Winner}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="{Binding Path=Winner}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" />
+            <Label Content="Score:" HorizontalAlignment="Center" Margin="0,15,0,5" FontSize="16" FontWeight="Bold" />
+            <TextBlock TextWrapping="Wrap" Text="{Binding Path=ScoreLabel}" HorizontalAlignment="Center" TextAlignment="Center" FontSize="14" />
+        </StackPanel>
     </Grid>
 </Page>

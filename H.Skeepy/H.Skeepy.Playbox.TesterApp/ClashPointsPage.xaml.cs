@@ -45,6 +45,7 @@ namespace H.Skeepy.Playbox.TesterApp
         private void ProcessOutcome_Click(object sender, RoutedEventArgs e)
         {
             viewModel.ProcessCurrentOutcome();
+            viewModel.ProcessCurrentScore();
             navigation.Navigate(new Uri("ClashOutcomePage.xaml", UriKind.Relative));
         }
     }
