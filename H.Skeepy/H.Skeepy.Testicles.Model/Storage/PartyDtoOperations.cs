@@ -36,5 +36,16 @@ namespace H.Skeepy.Testicles.Model.Storage
 
             dto.ToSkeepy().ShouldBeEquivalentTo(party);
         }
+
+        [TestMethod]
+        public void PartyDto_CanKeepReferenceOfInitialIndividuals()
+        {
+            var fed = Individual.New("Fed");
+            var party = fed.ToParty();
+
+            var dto = party.ToDto().WithMembersProvider(id => party[id]);
+
+            dto.ToSkeepy().Members.Should().BeEquivalentTo(fed);
+        }
     }
 }

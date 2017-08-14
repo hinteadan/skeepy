@@ -13,6 +13,8 @@ namespace H.Skeepy.Model.Storage
         public string Name { get; set; }
         public IndividualDto[] Members { get; set; }
 
+        private Func<string, Individual> memberProvider;
+
         public void MorphFromSkeepy(Party model)
         {
             base.MorphFromSkeepy(model);
@@ -23,7 +25,18 @@ namespace H.Skeepy.Model.Storage
 
         public Party ToSkeepy()
         {
-            return ToSkeepy(Party.Existing(Id, Name, Members.Select(x => x.ToSkeepy()).ToArray()));
+            return ToSkeepy(Party.Existing(Id, Name, Members.Select(ToSkeepy).ToArray()));
+        }
+
+        public PartyDto WithMembersProvider(Func<string, Individual> memberProvider)
+        {
+            this.memberProvider = memberProvider;
+            return this;
+        }
+
+        private Individual ToSkeepy(IndividualDto dto)
+        {
+            return memberProvider?.Invoke(dto.Id) ?? dto.ToSkeepy();
         }
     }
 }
