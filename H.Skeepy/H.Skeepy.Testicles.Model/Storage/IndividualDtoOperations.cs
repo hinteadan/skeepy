@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.Model.Storage;
 using System.Linq;
+using H.Skeepy.Model;
 
 namespace H.Skeepy.Testicles.Model.Storage
 {
@@ -17,6 +18,14 @@ namespace H.Skeepy.Testicles.Model.Storage
                 .Select(x => new DetailsHolderDto.Entry { Key = x.Item1, Value = x.Item2 }).ToArray();
 
             SerializableChecker.CheckSerializationInAllFormats(dto);
+        }
+
+        [TestMethod]
+        public void IndividualDto_CanTransitionToAndFro_Model()
+        {
+            var fed = Individual.New("Roger", "Federer");
+
+            var dto = fed.ToDto();
         }
     }
 }

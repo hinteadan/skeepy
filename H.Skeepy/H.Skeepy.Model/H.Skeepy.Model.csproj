@@ -50,6 +50,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScoreBoard.cs" />
     <Compile Include="Storage\DetailsHolderDto.cs" />
+    <Compile Include="Storage\Extensions.cs" />
+    <Compile Include="Storage\IAmASkeepyDtoFor.cs" />
     <Compile Include="Storage\IndividualDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

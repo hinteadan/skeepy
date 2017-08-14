@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace H.Skeepy.Model.Storage
 {
     [Serializable]
-    public class DetailsHolderDto
+    public class DetailsHolderDto : IAmASkeepyDtoFor<DetailsHolder>
     {
         private class ConcreteDetailsHolder : DetailsHolder { }
 
@@ -21,17 +21,14 @@ namespace H.Skeepy.Model.Storage
 
         public Entry[] Details { get; set; }
 
-        public static DetailsHolderDto From(DetailsHolder model)
-        {
-            return new DetailsHolderDto
-            {
-                Details = model.Details.Select(x => new Entry { Key = x.Key, Value = x.Value }).ToArray()
-            };
-        }
-
         public DetailsHolder ToSkeepy()
         {
             return new ConcreteDetailsHolder().SetDetails(Details.Select(x => (x.Key, x.Value)));
+        }
+
+        public void MorphFromSkeepy(DetailsHolder model)
+        {
+            this.Details = model.Details.Select(x => new Entry { Key = x.Key, Value = x.Value }).ToArray();
         }
     }
 }
