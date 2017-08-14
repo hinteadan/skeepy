@@ -18,7 +18,11 @@ namespace H.Skeepy.Model.Storage
 
         public void MorphFromSkeepy(Individual model)
         {
-            throw new NotImplementedException();
+            Id = model.Id;
+            FirstName = model.FirstName;
+            LastName = model.LastName;
+
+            DetailsHolder.MorphFromSkeepy(model);
         }
 
         public Individual ToSkeepy()

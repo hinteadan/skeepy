@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.Model.Storage;
 using System.Linq;
 using H.Skeepy.Model;
+using FluentAssertions;
 
 namespace H.Skeepy.Testicles.Model.Storage
 {
@@ -24,8 +25,14 @@ namespace H.Skeepy.Testicles.Model.Storage
         public void IndividualDto_CanTransitionToAndFro_Model()
         {
             var fed = Individual.New("Roger", "Federer");
-
+            fed.SetDetails(("Ranking", "1"), ("Country", "Switzerland"));
             var dto = fed.ToDto();
+
+            dto.Id.Should().Be(fed.Id);
+            dto.FirstName.Should().Be(fed.FirstName);
+            dto.LastName.Should().Be(fed.LastName);
+            dto.DetailsHolder.Details.Select(x => (x.Key, x.Value)).Should().BeEquivalentTo(fed.Details.Select(x => (x.Key, x.Value)));
+
         }
     }
 }
