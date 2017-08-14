@@ -53,6 +53,7 @@
     <Compile Include="Storage\Extensions.cs" />
     <Compile Include="Storage\IAmASkeepyDtoFor.cs" />
     <Compile Include="Storage\IndividualDto.cs" />
+    <Compile Include="Storage\PartyDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

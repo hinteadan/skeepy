@@ -71,6 +71,7 @@
     <Compile Include="Storage\DetailsHolderDtoOperations.cs" />
     <Compile Include="Storage\IndividualDtoOperations.cs" />
     <Compile Include="Storage\SerializableChecker.cs" />
+    <Compile Include="Storage\PartyDtoOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
