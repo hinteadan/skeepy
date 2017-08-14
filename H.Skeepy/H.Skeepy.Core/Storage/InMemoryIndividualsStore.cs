@@ -17,7 +17,7 @@ namespace H.Skeepy.Core.Storage
 
         public bool Any()
         {
-            return false;
+            return !storageSpace.IsEmpty;
         }
 
         public async Task Put(Individual fed)

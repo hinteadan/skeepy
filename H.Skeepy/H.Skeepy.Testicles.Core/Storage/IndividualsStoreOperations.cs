@@ -38,5 +38,12 @@ namespace H.Skeepy.Testicles.Core.Storage
             store.Put(fed).Wait();
             store.Get(fed.Id).Result.ShouldBeEquivalentTo(fed);
         }
+
+        [TestMethod]
+        public void IndividualsStore_IsNotEmpty_AfterStoringSomeData()
+        {
+            store.Put(Individual.New("Fed")).Wait();
+            store.Any().Should().BeTrue();
+        }
     }
 }
