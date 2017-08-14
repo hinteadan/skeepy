@@ -8,13 +8,11 @@ using System.Xml.Serialization;
 namespace H.Skeepy.Model.Storage
 {
     [Serializable]
-    public class IndividualDto : IAmASkeepyDtoFor<Individual>
+    public class IndividualDto : WithDetailsHolderDto, IAmASkeepyDtoFor<Individual>
     {
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        public DetailsHolderDto DetailsHolder { get; set; } = new DetailsHolderDto();
 
         public void MorphFromSkeepy(Individual model)
         {

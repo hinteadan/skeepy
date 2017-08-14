@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 namespace H.Skeepy.Model.Storage
 {
     [Serializable]
-    public class PartyDto : IAmASkeepyDtoFor<Party>
+    public class PartyDto : WithDetailsHolderDto, IAmASkeepyDtoFor<Party>
     {
         public string Id { get; set; }
         public string Name { get; set; }
-
-        public DetailsHolderDto DetailsHolder { get; set; } = new DetailsHolderDto();
 
         public void MorphFromSkeepy(Party model)
         {
