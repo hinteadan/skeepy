@@ -34,13 +34,18 @@ namespace H.Skeepy.Model
             return this;
         }
 
-        public DetailsHolder SetDetails(params (string, string)[] details)
+        public DetailsHolder SetDetails(IEnumerable<(string, string)> details)
         {
             foreach (var entry in details)
             {
                 SetDetail(entry.Item1, entry.Item2);
             }
             return this;
+        }
+
+        public DetailsHolder SetDetails(params (string, string)[] details)
+        {
+            return SetDetails(details.AsEnumerable());
         }
 
         public string GetDetail(string key)

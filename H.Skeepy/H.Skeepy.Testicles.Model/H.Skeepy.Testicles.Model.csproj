@@ -68,7 +68,9 @@
     <Compile Include="ClashOperations.cs" />
     <Compile Include="ClashOutcomeOperations.cs" />
     <Compile Include="ScoreBoardOperations.cs" />
-    <Compile Include="Storage\DtoOperations.cs" />
+    <Compile Include="Storage\DetailsHolderDtoOperations.cs" />
+    <Compile Include="Storage\IndividualDtoOperations.cs" />
+    <Compile Include="Storage\SerializableChecker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
