@@ -34,6 +34,15 @@ namespace H.Skeepy.Model
             return this;
         }
 
+        public DetailsHolder SetDetails(params (string, string)[] details)
+        {
+            foreach (var entry in details)
+            {
+                SetDetail(entry.Item1, entry.Item2);
+            }
+            return this;
+        }
+
         public string GetDetail(string key)
         {
             return detailsDictionary.ContainsKey(key) ? detailsDictionary[key] : string.Empty;
