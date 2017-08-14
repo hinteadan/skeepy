@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.Model.Storage;
 using System.Linq;
+using H.Skeepy.Model;
+using FluentAssertions;
 
 namespace H.Skeepy.Testicles.Model.Storage
 {
@@ -16,6 +18,20 @@ namespace H.Skeepy.Testicles.Model.Storage
                 .Select(x => new DetailsHolderDto.Entry { Key = x.Item1, Value = x.Item2 }).ToArray();
 
             SerializableChecker.CheckSerializationInAllFormats(dto);
+        }
+
+        [TestMethod]
+        public void PartyDto_CanTransitionToAndFro_Model()
+        {
+            var fed = Individual.New("Roger", "Federer"); fed.SetDetails(("Rank", "1"), ("Bla", "Burp"));
+            var rafa = Individual.New("Rafael", "Nadal"); rafa.SetDetails(("Rank", "2"), ("Blabbing", "Burping"));
+            var party = Party.New("GOAT", fed, rafa);
+            party.SetDetails(("AwesomeLevel", "MAX"), ("IsClassic", "Absolutely"));
+            var dto = party.ToDto();
+
+            dto.Id.Should().Be(party.Id);
+            dto.Name.Should().Be(party.Name);
+            dto.DetailsHolder.Details.Select(x => (x.Key, x.Value)).Should().BeEquivalentTo(party.Details.Select(x => (x.Key, x.Value)));
         }
     }
 }

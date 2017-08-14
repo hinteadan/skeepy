@@ -16,18 +16,16 @@ namespace H.Skeepy.Model.Storage
 
         public void MorphFromSkeepy(Individual model)
         {
+            base.MorphFromSkeepy(model);
+
             Id = model.Id;
             FirstName = model.FirstName;
             LastName = model.LastName;
-
-            DetailsHolder.MorphFromSkeepy(model);
         }
 
         public Individual ToSkeepy()
         {
-            var model = Individual.Existing(Id, FirstName, LastName);
-            model.SetDetails(DetailsHolder.Details.Select(x => (x.Key, x.Value)));
-            return model;
+            return ToSkeepy(Individual.Existing(Id, FirstName, LastName));
         }
     }
 }

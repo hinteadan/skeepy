@@ -18,6 +18,11 @@ namespace H.Skeepy.Model.Storage
             return ToDto<IndividualDto, Individual>(model);
         }
 
+        public static PartyDto ToDto(this Party model)
+        {
+            return ToDto<PartyDto, Party>(model);
+        }
+
         private static TDto ToDto<TDto, TModel>(TModel model) where TDto : IAmASkeepyDtoFor<TModel>, new()
         {
             var dto = new TDto();

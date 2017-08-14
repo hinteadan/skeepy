@@ -14,7 +14,7 @@ namespace H.Skeepy.Model.Storage
 
         public void MorphFromSkeepy(Party model)
         {
-            throw new NotImplementedException();
+            base.MorphFromSkeepy(model);
         }
 
         public Party ToSkeepy()
