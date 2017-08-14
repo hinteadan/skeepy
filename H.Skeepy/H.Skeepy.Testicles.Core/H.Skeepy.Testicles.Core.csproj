@@ -59,6 +59,7 @@
     <Compile Include="PointTrackerScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MostBasicClashProcessorTesticles.cs" />
+    <Compile Include="Storage\IndividualsStoreOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -73,6 +74,7 @@
       <Name>H.Skeepy.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
