@@ -33,6 +33,8 @@ namespace H.Skeepy.Testicles.Model.Storage
             dto.LastName.Should().Be(fed.LastName);
             dto.DetailsHolder.Details.Select(x => (x.Key, x.Value)).Should().BeEquivalentTo(fed.Details.Select(x => (x.Key, x.Value)));
 
+
+            dto.ToSkeepy().ShouldBeEquivalentTo(fed);
         }
     }
 }

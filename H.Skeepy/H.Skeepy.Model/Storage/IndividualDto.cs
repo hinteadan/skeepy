@@ -27,7 +27,9 @@ namespace H.Skeepy.Model.Storage
 
         public Individual ToSkeepy()
         {
-            throw new NotImplementedException();
+            var model = Individual.Existing(Id, FirstName, LastName);
+            model.SetDetails(DetailsHolder.Details.Select(x => (x.Key, x.Value)));
+            return model;
         }
     }
 }
