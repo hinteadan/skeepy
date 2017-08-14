@@ -23,7 +23,7 @@ namespace H.Skeepy.Model.Storage
 
         public Party ToSkeepy()
         {
-            throw new NotImplementedException();
+            return ToSkeepy(Party.Existing(Id, Name, Members.Select(x => x.ToSkeepy()).ToArray()));
         }
     }
 }
