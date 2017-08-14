@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Model
 {
-    public class ScoreBoard<T> : DetailsHolder
+    public class ScoreBoard<T>
     {
         private readonly Clash clash;
         private readonly ConcurrentDictionary<Party, T> scorePerParty;
