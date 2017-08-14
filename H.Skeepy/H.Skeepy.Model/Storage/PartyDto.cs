@@ -11,10 +11,14 @@ namespace H.Skeepy.Model.Storage
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public IndividualDto[] Members { get; set; }
 
         public void MorphFromSkeepy(Party model)
         {
             base.MorphFromSkeepy(model);
+            Id = model.Id;
+            Name = model.Name;
+            Members = model.Members.Select(x => x.ToDto()).ToArray();
         }
 
         public Party ToSkeepy()

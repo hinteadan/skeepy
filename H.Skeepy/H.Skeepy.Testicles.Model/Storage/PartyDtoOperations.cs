@@ -32,6 +32,7 @@ namespace H.Skeepy.Testicles.Model.Storage
             dto.Id.Should().Be(party.Id);
             dto.Name.Should().Be(party.Name);
             dto.DetailsHolder.Details.Select(x => (x.Key, x.Value)).Should().BeEquivalentTo(party.Details.Select(x => (x.Key, x.Value)));
+            dto.Members.Select(x => x.Id).Should().BeEquivalentTo(fed.Id, rafa.Id);
         }
     }
 }
