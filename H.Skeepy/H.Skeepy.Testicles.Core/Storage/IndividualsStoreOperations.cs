@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.Core.Storage;
 using FluentAssertions;
 using H.Skeepy.Model;
+using System.Threading.Tasks;
 
 namespace H.Skeepy.Testicles.Core.Storage
 {
@@ -44,6 +45,16 @@ namespace H.Skeepy.Testicles.Core.Storage
         {
             store.Put(Individual.New("Fed")).Wait();
             store.Any().Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void IndividualsStore_CanIterateThroughStoredIndividuals()
+        {
+            var fed = Individual.New("Fed");
+            var rafa = Individual.New("Rafa");
+            var stan = Individual.New("Stan");
+            Task.WaitAll(store.Put(fed), store.Put(rafa), store.Put(stan));
+            store.Get().Result.ShouldAllBeEquivalentTo(new Individual[] { fed, rafa, stan });
         }
     }
 }

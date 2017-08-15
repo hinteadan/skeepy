@@ -8,6 +8,7 @@ using System.IO;
 using System.Collections.Concurrent;
 using System.Runtime.Serialization.Formatters.Binary;
 using H.Skeepy.Model.Storage;
+using System.Collections;
 
 namespace H.Skeepy.Core.Storage
 {
@@ -20,9 +21,9 @@ namespace H.Skeepy.Core.Storage
             return !storageSpace.IsEmpty;
         }
 
-        public async Task Put(Individual fed)
+        public Task Put(Individual fed)
         {
-            await Task.Run(() =>
+            return Task.Run(() =>
             {
                 var stream = new MemoryStream();
                 new BinaryFormatter().Serialize(stream, fed.ToDto());
@@ -30,12 +31,14 @@ namespace H.Skeepy.Core.Storage
             });
         }
 
-        public async Task<Individual> Get(string id)
+        public Task<Individual> Get(string id)
         {
-            return await Task.Run(() => {
-                storageSpace[id].Seek(0, SeekOrigin.Begin);
-                return ((IndividualDto)new BinaryFormatter().Deserialize(storageSpace[id])).ToSkeepy();
-            });
+            return Task.Run(() => LoadIndividual(storageSpace[id]));
+        }
+
+        public Task<IEnumerable<Individual>> Get()
+        {
+            return Task.Run(() => storageSpace.Select(x => LoadIndividual(x.Value)));
         }
 
         public void Dispose()
@@ -44,6 +47,12 @@ namespace H.Skeepy.Core.Storage
             {
                 memory.Value.Dispose();
             }
+        }
+
+        private static Individual LoadIndividual(MemoryStream stream)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+            return ((IndividualDto)new BinaryFormatter().Deserialize(stream)).ToSkeepy();
         }
     }
 }
