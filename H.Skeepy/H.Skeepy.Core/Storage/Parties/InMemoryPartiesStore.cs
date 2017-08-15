@@ -11,12 +11,14 @@ namespace H.Skeepy.Core.Storage.Parties
     {
         public Task<bool> Any()
         {
-            throw new NotImplementedException();
+            var taskSource = new TaskCompletionSource<bool>();
+            taskSource.SetResult(false);
+            return taskSource.Task;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
 
         public Task<Party> Get(string uniqueIdentifier)
