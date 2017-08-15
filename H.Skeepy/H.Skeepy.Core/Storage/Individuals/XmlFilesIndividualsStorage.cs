@@ -50,7 +50,7 @@ namespace H.Skeepy.Core.Storage.Individuals
         {
             return Task.Run(() => rootDir
                     .EnumerateFiles("*.xml")
-                    .Select(f => new LazyEntity<Individual>(Individual.Existing(IndividualIdFromFile(f), "_lazy"), x => LoadIndividual(IndividualIdFromFile(f))))
+                    .Select(f => new LazyEntity<Individual>(Individual.Existing(IndividualIdFromFile(f), "_lazy"), x => LoadIndividual(x.Id)))
             );
         }
 
