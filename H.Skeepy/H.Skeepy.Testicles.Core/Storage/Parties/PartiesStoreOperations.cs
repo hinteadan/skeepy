@@ -12,5 +12,10 @@ namespace H.Skeepy.Testicles.Core.Storage.Parties
             : base(storeFactory)
         {
         }
+
+        protected override Party CreateModel()
+        {
+            return FakeData.GenerateParty();
+        }
     }
 }

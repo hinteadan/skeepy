@@ -1,4 +1,5 @@
-﻿using System;
+﻿using H.Skeepy.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Core.Storage
 {
-    public interface ICanLoadSkeepy<TSkeepy> : IDisposable
+    public interface ICanLoadSkeepy<TSkeepy> : IDisposable where TSkeepy : IHaveId
     {
         Task<bool> Any();
         Task<TSkeepy> Get(string uniqueIdentifier);

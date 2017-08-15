@@ -2,7 +2,7 @@
 
 namespace H.Skeepy.Model
 {
-    public class Individual : DetailsHolder
+    public class Individual : DetailsHolder, IHaveId
     {
         private readonly string id;
         private readonly string firstName;

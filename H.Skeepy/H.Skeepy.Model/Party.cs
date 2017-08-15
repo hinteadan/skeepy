@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Model
 {
-    public class Party : DetailsHolder
+    public class Party : DetailsHolder, IHaveId
     {
         private readonly string id;
         private readonly string name;
