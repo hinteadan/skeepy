@@ -45,6 +45,7 @@
     <Compile Include="PointTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\InMemoryIndividualsStore.cs" />
+    <Compile Include="Storage\LazyEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.Model\H.Skeepy.Model.csproj">

@@ -36,9 +36,9 @@ namespace H.Skeepy.Core.Storage
             return Task.Run(() => LoadIndividual(storageSpace[id]));
         }
 
-        public Task<IEnumerable<Individual>> Get()
+        public Task<IEnumerable<LazyEntity<Individual>>> Get()
         {
-            return Task.Run(() => storageSpace.Select(x => LoadIndividual(x.Value)));
+            return Task.Run(() => storageSpace.Select(x => new LazyEntity<Individual>(Individual.Existing(x.Key, x.Key), y => LoadIndividual(storageSpace[y.Id]))));
         }
 
         public void Dispose()

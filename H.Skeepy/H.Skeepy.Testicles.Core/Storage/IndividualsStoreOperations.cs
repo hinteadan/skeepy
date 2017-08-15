@@ -4,6 +4,7 @@ using H.Skeepy.Core.Storage;
 using FluentAssertions;
 using H.Skeepy.Model;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace H.Skeepy.Testicles.Core.Storage
 {
@@ -54,7 +55,8 @@ namespace H.Skeepy.Testicles.Core.Storage
             var rafa = Individual.New("Rafa");
             var stan = Individual.New("Stan");
             Task.WaitAll(store.Put(fed), store.Put(rafa), store.Put(stan));
-            store.Get().Result.ShouldAllBeEquivalentTo(new Individual[] { fed, rafa, stan });
+            store.Get().Result.Select(x => x.Summary.Id).Should().BeEquivalentTo(fed.Id, rafa.Id, stan.Id);
+            store.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new Individual[] { fed, rafa, stan });
         }
     }
 }
