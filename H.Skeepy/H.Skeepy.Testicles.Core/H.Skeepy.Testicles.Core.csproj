@@ -63,6 +63,7 @@
     <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
+    <Compile Include="Storage\Parties\InMemoryPartiesStoreOperations.cs" />
     <Compile Include="Storage\StoreOperationsBase.cs" />
   </ItemGroup>
   <ItemGroup>

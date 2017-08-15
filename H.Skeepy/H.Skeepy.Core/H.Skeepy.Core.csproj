@@ -51,6 +51,7 @@
     <Compile Include="Storage\Individuals\InMemoryIndividualsStore.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStorage.cs" />
     <Compile Include="Storage\LazyEntity.cs" />
+    <Compile Include="Storage\Parties\InMemoryPartiesStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.Model\H.Skeepy.Model.csproj">
@@ -58,9 +59,7 @@
       <Name>H.Skeepy.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Storage\Parties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

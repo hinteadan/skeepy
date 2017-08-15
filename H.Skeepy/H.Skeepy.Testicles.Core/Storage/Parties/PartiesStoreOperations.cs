@@ -2,18 +2,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.Model;
+using FluentAssertions;
 
 namespace H.Skeepy.Testicles.Core.Storage.Parties
 {
-    [TestClass]
-    public class PartiesStoreOperations
+    public abstract class PartiesStoreOperations : StoreOperationsBase<Party>
     {
-        private ICanManageSkeepyStorageFor<Party> store;
+        public PartiesStoreOperations(Func<ICanManageSkeepyStorageFor<Party>> storeFactory)
+            : base(storeFactory)
+        {
+        }
 
         [TestMethod]
         public void PartieStore_IsEmptyByDefault()
         {
-
+            store.Any().Result.Should().BeFalse();
         }
     }
 }
