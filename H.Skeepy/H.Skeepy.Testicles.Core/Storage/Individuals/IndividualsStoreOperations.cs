@@ -21,13 +21,13 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         }
 
         [TestInitialize]
-        public void Init()
+        public virtual void Init()
         {
             store = storeFactory();
         }
 
         [TestCleanup]
-        public void Uninit()
+        public virtual void Uninit()
         {
             store.Dispose();
         }

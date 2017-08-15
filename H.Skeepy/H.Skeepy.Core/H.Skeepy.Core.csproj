@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICanProcessClashOutcome.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Storage\ICanManageSkeepyStorageFor.cs" />
     <Compile Include="Storage\ICanStoreSkeepyType.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsStore.cs" />
+    <Compile Include="Storage\Individuals\XmlFilesIndividualsStorage.cs" />
     <Compile Include="Storage\LazyEntity.cs" />
   </ItemGroup>
   <ItemGroup>

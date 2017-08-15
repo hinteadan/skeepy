@@ -61,6 +61,7 @@
     <Compile Include="MostBasicClashProcessorTesticles.cs" />
     <Compile Include="Storage\Individuals\IndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
+    <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
