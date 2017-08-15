@@ -44,7 +44,10 @@
     <Compile Include="PointsChangedEventArgs.cs" />
     <Compile Include="PointTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\InMemoryIndividualsStore.cs" />
+    <Compile Include="Storage\ICanLoadSkeepyType.cs" />
+    <Compile Include="Storage\ICanManageSkeepyStorageFor.cs" />
+    <Compile Include="Storage\ICanStoreSkeepyType.cs" />
+    <Compile Include="Storage\Individuals\InMemoryIndividualsStore.cs" />
     <Compile Include="Storage\LazyEntity.cs" />
   </ItemGroup>
   <ItemGroup>

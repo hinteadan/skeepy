@@ -5,16 +5,17 @@ using FluentAssertions;
 using H.Skeepy.Model;
 using System.Threading.Tasks;
 using System.Linq;
+using H.Skeepy.Core.Storage.Individuals;
 
 namespace H.Skeepy.Testicles.Core.Storage.Individuals
 {
     [TestClass]
     public abstract class IndividualsStoreOperations
     {
-        private readonly Func<InMemoryIndividualsStore> storeFactory;
-        private InMemoryIndividualsStore store;
+        private readonly Func<ICanManageSkeepyStorageFor<Individual>> storeFactory;
+        private ICanManageSkeepyStorageFor<Individual> store;
 
-        public IndividualsStoreOperations(Func<InMemoryIndividualsStore> storeFactory)
+        public IndividualsStoreOperations(Func<ICanManageSkeepyStorageFor<Individual>> storeFactory)
         {
             this.storeFactory = storeFactory;
         }
@@ -34,7 +35,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         [TestMethod]
         public void IndividualsStore_IsEmptyByDefault()
         {
-            store.Any().Should().BeFalse();
+            store.Any().Result.Should().BeFalse();
         }
 
         [TestMethod]
@@ -51,7 +52,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         public void IndividualsStore_IsNotEmpty_AfterStoringSomeData()
         {
             store.Put(Individual.New("Fed")).Wait();
-            store.Any().Should().BeTrue();
+            store.Any().Result.Should().BeTrue();
         }
 
         [TestMethod]

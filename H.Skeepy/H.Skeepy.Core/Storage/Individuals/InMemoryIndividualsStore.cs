@@ -10,15 +10,17 @@ using System.Runtime.Serialization.Formatters.Binary;
 using H.Skeepy.Model.Storage;
 using System.Collections;
 
-namespace H.Skeepy.Core.Storage
+namespace H.Skeepy.Core.Storage.Individuals
 {
-    public class InMemoryIndividualsStore : IDisposable
+    public class InMemoryIndividualsStore : ICanManageSkeepyStorageFor<Individual>
     {
         private readonly ConcurrentDictionary<string, MemoryStream> storageSpace = new ConcurrentDictionary<string, MemoryStream>();
 
-        public bool Any()
+        public Task<bool> Any()
         {
-            return !storageSpace.IsEmpty;
+            var taskSource = new TaskCompletionSource<bool>();
+            taskSource.SetResult(!storageSpace.IsEmpty);
+            return taskSource.Task;
         }
 
         public Task Put(Individual fed)
