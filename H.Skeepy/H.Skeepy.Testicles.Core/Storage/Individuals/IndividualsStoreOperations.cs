@@ -9,28 +9,12 @@ using H.Skeepy.Core.Storage.Individuals;
 
 namespace H.Skeepy.Testicles.Core.Storage.Individuals
 {
-    [TestClass]
-    public abstract class IndividualsStoreOperations
+    public abstract class IndividualsStoreOperations : StoreOperationsBase<Individual>
     {
-        private readonly Func<ICanManageSkeepyStorageFor<Individual>> storeFactory;
-        private ICanManageSkeepyStorageFor<Individual> store;
-
         public IndividualsStoreOperations(Func<ICanManageSkeepyStorageFor<Individual>> storeFactory)
-        {
-            this.storeFactory = storeFactory;
-        }
+            : base(storeFactory)
+        { }
 
-        [TestInitialize]
-        public virtual void Init()
-        {
-            store = storeFactory();
-        }
-
-        [TestCleanup]
-        public virtual void Uninit()
-        {
-            store.Dispose();
-        }
 
         [TestMethod]
         public void IndividualsStore_IsEmptyByDefault()

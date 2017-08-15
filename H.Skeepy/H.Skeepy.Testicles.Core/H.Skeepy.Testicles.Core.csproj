@@ -62,6 +62,8 @@
     <Compile Include="Storage\Individuals\IndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
+    <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
+    <Compile Include="Storage\StoreOperationsBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
