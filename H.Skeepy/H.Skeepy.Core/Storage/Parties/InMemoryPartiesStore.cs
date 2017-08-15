@@ -21,7 +21,7 @@ namespace H.Skeepy.Core.Storage.Parties
 
         }
 
-        public Task<Party> Get(string uniqueIdentifier)
+        public Task<Party> Get(string id)
         {
             throw new NotImplementedException();
         }

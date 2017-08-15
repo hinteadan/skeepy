@@ -35,13 +35,13 @@ namespace H.Skeepy.Core.Storage.Individuals
 
         }
 
-        public Task<Individual> Get(string uniqueIdentifier)
+        public Task<Individual> Get(string id)
         {
             return Task.Run(() =>
             {
-                using (var reader = XmlReader.Create(Path.Combine(rootDir.FullName, $"{uniqueIdentifier}.xml")))
+                using (var reader = XmlReader.Create(Path.Combine(rootDir.FullName, $"{id}.xml")))
                 {
-                    return LoadIndividual(uniqueIdentifier);
+                    return LoadIndividual(id);
                 }
             });
         }
