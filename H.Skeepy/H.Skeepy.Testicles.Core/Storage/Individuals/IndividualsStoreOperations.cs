@@ -15,13 +15,6 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
             : base(storeFactory)
         { }
 
-
-        [TestMethod]
-        public void IndividualsStore_IsEmptyByDefault()
-        {
-            store.Any().Result.Should().BeFalse();
-        }
-
         [TestMethod]
         public void IndividualsStore_CanSaveAndRetrieveAnIndividual()
         {

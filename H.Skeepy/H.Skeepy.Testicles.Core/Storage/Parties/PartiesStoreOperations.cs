@@ -12,11 +12,5 @@ namespace H.Skeepy.Testicles.Core.Storage.Parties
             : base(storeFactory)
         {
         }
-
-        [TestMethod]
-        public void PartieStore_IsEmptyByDefault()
-        {
-            store.Any().Result.Should().BeFalse();
-        }
     }
 }

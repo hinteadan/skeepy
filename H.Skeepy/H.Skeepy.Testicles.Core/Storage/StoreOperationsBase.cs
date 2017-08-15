@@ -1,4 +1,5 @@
-﻿using H.Skeepy.Core.Storage;
+﻿using FluentAssertions;
+using H.Skeepy.Core.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,12 @@ namespace H.Skeepy.Testicles.Core.Storage
         public virtual void Uninit()
         {
             store.Dispose();
+        }
+
+        [TestMethod]
+        public void SkeepyStore_IsEmptyByDefault()
+        {
+            store.Any().Result.Should().BeFalse();
         }
     }
 }
