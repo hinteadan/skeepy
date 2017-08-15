@@ -6,17 +6,23 @@ using H.Skeepy.Model;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace H.Skeepy.Testicles.Core.Storage
+namespace H.Skeepy.Testicles.Core.Storage.Individuals
 {
     [TestClass]
-    public class IndividualsStoreOperations
+    public abstract class IndividualsStoreOperations
     {
+        private readonly Func<InMemoryIndividualsStore> storeFactory;
         private InMemoryIndividualsStore store;
+
+        public IndividualsStoreOperations(Func<InMemoryIndividualsStore> storeFactory)
+        {
+            this.storeFactory = storeFactory;
+        }
 
         [TestInitialize]
         public void Init()
         {
-            store = new InMemoryIndividualsStore();
+            store = storeFactory();
         }
 
         [TestCleanup]

@@ -59,7 +59,8 @@
     <Compile Include="PointTrackerScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MostBasicClashProcessorTesticles.cs" />
-    <Compile Include="Storage\IndividualsStoreOperations.cs" />
+    <Compile Include="Storage\Individuals\IndividualsStoreOperations.cs" />
+    <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
