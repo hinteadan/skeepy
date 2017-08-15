@@ -8,18 +8,13 @@ namespace H.Skeepy.Core.Storage
 {
     public class LazyEntity<T>
     {
-        private readonly Lazy<T> fullEntity;
+        private readonly Func<T, T> entityLoader;
         private readonly T summary;
 
         public LazyEntity(T summary, Func<T, T> entityLoader)
         {
-            if (entityLoader == null)
-            {
-                throw new InvalidOperationException($"{nameof(entityLoader)} must be provided");
-            }
-
             this.summary = summary;
-            fullEntity = new Lazy<T>(() => entityLoader(this.summary));
+            this.entityLoader = entityLoader ?? throw new InvalidOperationException($"{nameof(entityLoader)} must be provided");
         }
 
         public T Summary
@@ -29,7 +24,7 @@ namespace H.Skeepy.Core.Storage
 
         public T Full
         {
-            get { return fullEntity.Value; }
+            get { return entityLoader(Summary); }
         }
     }
 }
