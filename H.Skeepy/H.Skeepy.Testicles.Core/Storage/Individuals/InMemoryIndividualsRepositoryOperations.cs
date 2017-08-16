@@ -7,10 +7,10 @@ using H.Skeepy.Core.Storage.Individuals;
 namespace H.Skeepy.Testicles.Core.Storage.Individuals
 {
     [TestClass]
-    public class InMemeoryIndividualsRepositoryOperations : IndividualsRepositoryOperations
+    public class InMemoryIndividualsRepositoryOperations : IndividualsRepositoryOperations
     {
-        public InMemeoryIndividualsRepositoryOperations()
-            : base(new InMemoryIndividualsStore(), TimeSpan.FromMilliseconds(10))
+        public InMemoryIndividualsRepositoryOperations()
+            : base(() => new InMemoryIndividualsStore(), TimeSpan.FromMilliseconds(10))
         {
         }
     }

@@ -9,6 +9,8 @@ namespace H.Skeepy.Core.Storage.Individuals
 {
     public class IndividualsRepository : IDisposable
     {
+        private const int defaultCount = 100;
+
         private readonly ICanManageSkeepyStorageFor<Individual> storage;
 
         public IndividualsRepository(ICanManageSkeepyStorageFor<Individual> storage)
@@ -28,12 +30,12 @@ namespace H.Skeepy.Core.Storage.Individuals
 
         public Task<IEnumerable<Individual>> All()
         {
-            return All(1000, 0);
+            return All(defaultCount, 0);
         }
 
         public Task<IEnumerable<Individual>> All(int count)
         {
-            return All(1000, 0);
+            return All(count, 0);
         }
     }
 }
