@@ -9,20 +9,26 @@ using System.Linq;
 namespace H.Skeepy.Testicles.Core.Storage.Individuals
 {
     [TestClass]
-    public class IndividualsRepositoryOperations
+    public abstract class IndividualsRepositoryOperations
     {
         private IndividualsRepository repository;
-        private readonly ICanManageSkeepyStorageFor<Individual> storage = new InMemoryIndividualsStore();
-        private static readonly TimeSpan fetchExecutionTimeLimit = TimeSpan.FromMilliseconds(10);
+        private readonly ICanManageSkeepyStorageFor<Individual> storage;
+        private readonly TimeSpan fetchExecutionTimeLimit;
+
+        public IndividualsRepositoryOperations(ICanManageSkeepyStorageFor<Individual> storage, TimeSpan fetchExecutionTimeLimit)
+        {
+            this.storage = storage;
+            this.fetchExecutionTimeLimit = fetchExecutionTimeLimit;
+        }
 
         [TestInitialize]
-        public void Init()
+        public virtual void Init()
         {
             repository = new IndividualsRepository(storage);
         }
 
         [TestCleanup]
-        public void Uninit()
+        public virtual void Uninit()
         {
             repository.Dispose();
         }
