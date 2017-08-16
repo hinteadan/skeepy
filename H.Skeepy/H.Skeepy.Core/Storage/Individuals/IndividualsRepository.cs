@@ -21,9 +21,19 @@ namespace H.Skeepy.Core.Storage.Individuals
             storage.Dispose();
         }
 
+        public Task<IEnumerable<Individual>> All(int count, int from)
+        {
+            return storage.Get().ContinueWith(t => t.Result.Skip(from).Take(count).Select(x => x.Full));
+        }
+
         public Task<IEnumerable<Individual>> All()
         {
-            return storage.Get().ContinueWith(t => t.Result.Select(x => x.Full));
+            return All(1000, 0);
+        }
+
+        public Task<IEnumerable<Individual>> All(int count)
+        {
+            return All(1000, 0);
         }
     }
 }
