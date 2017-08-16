@@ -18,12 +18,12 @@ namespace H.Skeepy.Core.Storage.Individuals
 
         public void Dispose()
         {
-
+            storage.Dispose();
         }
 
         public Task<IEnumerable<Individual>> All()
         {
-            return storage.Get().ContinueWith(t => t.Result.Select(x => x.Summary));
+            return storage.Get().ContinueWith(t => t.Result.Select(x => x.Full));
         }
     }
 }
