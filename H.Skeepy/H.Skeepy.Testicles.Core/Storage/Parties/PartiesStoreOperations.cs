@@ -17,5 +17,19 @@ namespace H.Skeepy.Testicles.Core.Storage.Parties
         {
             return FakeData.GenerateParty();
         }
+
+        [TestMethod]
+        public void PartyStorage_Individuals_Are_Decoupled()
+        {
+            var fed = FakeData.GenerateIndividual();
+            var rafa = FakeData.GenerateIndividual();
+            var party = Party.New("Fedal", fed, rafa);
+
+            (store as IDependOn<Individual>).WithDependency(id => party[id]);
+
+            store.Put(party).Wait();
+
+            store.Get(party.Id).Result.Members.Should().BeEquivalentTo(fed, rafa);
+        }
     }
 }

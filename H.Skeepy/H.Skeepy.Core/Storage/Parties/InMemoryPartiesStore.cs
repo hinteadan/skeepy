@@ -11,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Core.Storage.Parties
 {
-    public class InMemoryPartiesStore : ICanManageSkeepyStorageFor<Party>
+    public class InMemoryPartiesStore : ICanManageSkeepyStorageFor<Party>, IDependOn<Individual>
     {
         private static readonly BinaryFormatter serializer = new BinaryFormatter();
         private readonly ConcurrentDictionary<string, MemoryStream> storageSpace = new ConcurrentDictionary<string, MemoryStream>();
+        private Func<string, Individual> individualProvider;
 
         public Task<bool> Any()
         {
@@ -33,12 +34,12 @@ namespace H.Skeepy.Core.Storage.Parties
 
         public Task<Party> Get(string id)
         {
-            return Task.Run(() => LoadModel(storageSpace[id]));
+            return Task.Run(() => LoadModel(id));
         }
 
         public Task<IEnumerable<LazyEntity<Party>>> Get()
         {
-            return Task.Run(() => storageSpace.Select(x => new LazyEntity<Party>(Party.Existing(x.Key, x.Key, Individual.New("_dummy")), y => LoadModel(storageSpace[y.Id]))));
+            return Task.Run(() => storageSpace.Select(x => new LazyEntity<Party>(Party.Existing(x.Key, x.Key, Individual.New("_dummy")), y => LoadModel(y.Id))));
         }
 
         public Task Put(Party model)
@@ -51,10 +52,18 @@ namespace H.Skeepy.Core.Storage.Parties
             });
         }
 
-        private static Party LoadModel(MemoryStream stream)
+        private Party LoadModel(string id)
         {
-            stream.Seek(0, SeekOrigin.Begin);
-            return ((PartyDto)serializer.Deserialize(stream)).ToSkeepy();
+            storageSpace[id].Seek(0, SeekOrigin.Begin);
+            return ((PartyDto)serializer.Deserialize(storageSpace[id]))
+                .WithMembersProvider(individualProvider)
+                .ToSkeepy();
+        }
+
+        public IDependOn<Individual> WithDependency(Func<string, Individual> dependencyProvider)
+        {
+            individualProvider = dependencyProvider;
+            return this;
         }
     }
 }
