@@ -49,6 +49,7 @@
     <Compile Include="Storage\ICanManageSkeepyStorageFor.cs" />
     <Compile Include="Storage\ICanStoreSkeepyType.cs" />
     <Compile Include="Storage\IDependOn.cs" />
+    <Compile Include="Storage\Individuals\IndividualsRepository.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsStore.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStorage.cs" />
     <Compile Include="Storage\LazyEntity.cs" />

@@ -1,4 +1,5 @@
-﻿using H.Skeepy.Model;
+﻿using H.Skeepy.Core.Storage;
+using H.Skeepy.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,14 @@ namespace H.Skeepy.Testicles.Core.Storage
         public static Party GenerateParty()
         {
             return Party.New(commerceGenerator.ProductName(), Enumerable.Range(0, random.Int(1, 10)).Select(x => GenerateIndividual()).ToArray());
+        }
+
+        public static void FillStorage(ICanManageSkeepyStorageFor<Individual> storage, int count = 1000)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                storage.Put(GenerateIndividual());
+            }
         }
     }
 }

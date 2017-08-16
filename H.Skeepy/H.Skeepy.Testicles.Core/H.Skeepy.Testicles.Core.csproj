@@ -68,6 +68,7 @@
     <Compile Include="Storage\FakeData.cs" />
     <Compile Include="Storage\Individuals\IndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
+    <Compile Include="Storage\Individuals\IndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
     <Compile Include="Storage\Parties\InMemoryPartiesStoreOperations.cs" />
