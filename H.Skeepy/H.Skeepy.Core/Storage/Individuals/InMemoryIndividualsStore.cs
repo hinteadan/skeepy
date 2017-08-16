@@ -14,6 +14,7 @@ namespace H.Skeepy.Core.Storage.Individuals
 {
     public class InMemoryIndividualsStore : ICanManageSkeepyStorageFor<Individual>
     {
+        private static readonly BinaryFormatter serializer = new BinaryFormatter();
         private readonly ConcurrentDictionary<string, MemoryStream> storageSpace = new ConcurrentDictionary<string, MemoryStream>();
 
         public Task<bool> Any()
@@ -28,19 +29,19 @@ namespace H.Skeepy.Core.Storage.Individuals
             return Task.Run(() =>
             {
                 var stream = new MemoryStream();
-                new BinaryFormatter().Serialize(stream, fed.ToDto());
+                serializer.Serialize(stream, fed.ToDto());
                 storageSpace.AddOrUpdate(fed.Id, stream, (x, y) => stream);
             });
         }
 
         public Task<Individual> Get(string id)
         {
-            return Task.Run(() => LoadIndividual(storageSpace[id]));
+            return Task.Run(() => LoadModel(storageSpace[id]));
         }
 
         public Task<IEnumerable<LazyEntity<Individual>>> Get()
         {
-            return Task.Run(() => storageSpace.Select(x => new LazyEntity<Individual>(Individual.Existing(x.Key, x.Key), y => LoadIndividual(storageSpace[y.Id]))));
+            return Task.Run(() => storageSpace.Select(x => new LazyEntity<Individual>(Individual.Existing(x.Key, x.Key), y => LoadModel(storageSpace[y.Id]))));
         }
 
         public void Dispose()
@@ -51,10 +52,10 @@ namespace H.Skeepy.Core.Storage.Individuals
             }
         }
 
-        private static Individual LoadIndividual(MemoryStream stream)
+        private static Individual LoadModel(MemoryStream stream)
         {
             stream.Seek(0, SeekOrigin.Begin);
-            return ((IndividualDto)new BinaryFormatter().Deserialize(stream)).ToSkeepy();
+            return ((IndividualDto)serializer.Deserialize(stream)).ToSkeepy();
         }
     }
 }

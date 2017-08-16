@@ -23,7 +23,7 @@ namespace H.Skeepy.Testicles.Core.Storage
 
         public static Party GenerateParty()
         {
-            return Party.New(commerceGenerator.ProductName(), Enumerable.Range(0, random.Int(0, 10)).Select(x => GenerateIndividual()).ToArray());
+            return Party.New(commerceGenerator.ProductName(), Enumerable.Range(0, random.Int(1, 10)).Select(x => GenerateIndividual()).ToArray());
         }
     }
 }
