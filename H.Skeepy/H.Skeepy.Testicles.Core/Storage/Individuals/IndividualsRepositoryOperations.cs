@@ -36,6 +36,14 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         }
 
         [TestMethod]
+        public void IndividualsRepository_CanStoreNewIndividuals()
+        {
+            var fed = FakeData.GenerateIndividual();
+            repository.Save(fed).Wait();
+            repository.All().Result.Should().BeEquivalentTo(fed);
+        }
+
+        [TestMethod]
         public void IndividualsRepository_CanGiveMeExistingData()
         {
             repository.All().Result.Should().BeEmpty();

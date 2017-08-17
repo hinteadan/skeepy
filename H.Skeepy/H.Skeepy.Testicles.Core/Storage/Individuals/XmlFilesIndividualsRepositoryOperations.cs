@@ -13,7 +13,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         private static string tmpStorageFolder;
 
         public XmlFilesIndividualsRepositoryOperations()
-            : base(() => new XmlFilesIndividualsStorage(tmpStorageFolder), TimeSpan.FromMilliseconds(100))
+            : base(() => new XmlFilesIndividualsStorage(tmpStorageFolder), TimeSpan.FromSeconds(0.5))
         {
         }
 

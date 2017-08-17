@@ -29,10 +29,10 @@ namespace H.Skeepy.Testicles.Core.Storage
 
         public static void FillStorage(ICanManageSkeepyStorageFor<Individual> storage, int count = 1000)
         {
-            for (var i = 0; i < count; i++)
-            {
-                storage.Put(GenerateIndividual());
-            }
+            Enumerable
+                .Range(0, count)
+                .AsParallel()
+                .ForAll(x => storage.Put(GenerateIndividual()));
         }
     }
 }
