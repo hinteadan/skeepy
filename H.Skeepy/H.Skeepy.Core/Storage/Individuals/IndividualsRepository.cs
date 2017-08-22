@@ -10,7 +10,7 @@ namespace H.Skeepy.Core.Storage.Individuals
 {
     public class IndividualsRepository : IDisposable
     {
-        private const int defaultCount = 100;
+        private const int defaultCount = 1000;
 
         private readonly ICanManageSkeepyStorageFor<Individual> storage;
         private readonly ConcurrentDictionary<string, Individual> inMemoryIndividuals = new ConcurrentDictionary<string, Individual>();
