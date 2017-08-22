@@ -1,4 +1,5 @@
-﻿using H.Skeepy.Core.Storage;
+﻿using H.Skeepy.Azure.Storage.Model;
+using H.Skeepy.Core.Storage;
 using H.Skeepy.Model;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -13,12 +14,14 @@ namespace H.Skeepy.Azure.Storage
     public class AzureTableStorageIndividualsStore : ICanManageSkeepyStorageFor<Individual>
     {
         private readonly CloudStorageAccount storageAccount;
-        private readonly CloudTableClient tableStore;
+        private readonly CloudTableClient tableStoreClient;
+        private readonly CloudTable tablesStore;
 
         public AzureTableStorageIndividualsStore(string connectionString)
         {
             storageAccount = CloudStorageAccount.Parse(connectionString);
-            tableStore = storageAccount.CreateCloudTableClient();
+            tableStoreClient = storageAccount.CreateCloudTableClient();
+            tablesStore = tableStoreClient.GetTableReference("Individuals");
         }
 
         public Task<bool> Any()
@@ -43,7 +46,9 @@ namespace H.Skeepy.Azure.Storage
 
         public Task Put(Individual model)
         {
-            throw new NotImplementedException();
+            return tablesStore
+                .CreateIfNotExistsAsync()
+                .ContinueWith(x => tablesStore.Execute(TableOperation.InsertOrReplace(new IndividualTableEntity(model))));
         }
     }
 }

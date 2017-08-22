@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\AzureTableStorageIndividualsStore.cs" />
+    <Compile Include="Storage\Model\IndividualTableEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
