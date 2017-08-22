@@ -10,7 +10,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
     public class InMemoryIndividualsRepositoryOperations : IndividualsRepositoryOperations
     {
         public InMemoryIndividualsRepositoryOperations()
-            : base(() => new InMemoryIndividualsStore(), TimeSpan.FromMilliseconds(10))
+            : base(() => new InMemoryIndividualsStore(), TimeSpan.FromMilliseconds(50))
         {
         }
     }
