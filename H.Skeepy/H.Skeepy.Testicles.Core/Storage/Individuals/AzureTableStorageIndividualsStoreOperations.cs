@@ -10,7 +10,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
     public class AzureTableStorageIndividualsStoreOperations : IndividualsStoreOperations
     {
         public AzureTableStorageIndividualsStoreOperations()
-            : base(() => new AzureTableStorageIndividualsStore("dfsdf"))
+            : base(() => new AzureTableStorageIndividualsStore("DefaultEndpointsProtocol=https;AccountName=hskeepydev;AccountKey=gdhovqMPlUxFcFyLG4G12NnRdceGKu0YNEE+EdX250GgTGBkXUTbttFpwoZk5KjuliFjE1OFJ/KtWtwLr7bw5g==;EndpointSuffix=core.windows.net"))
         {
         }
 
