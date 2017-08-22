@@ -31,7 +31,7 @@ namespace H.Skeepy.Testicles.Core.Storage
         [TestCleanup]
         public virtual void Uninit()
         {
-            store.Dispose();
+            store?.Dispose();
         }
 
         [TestMethod]

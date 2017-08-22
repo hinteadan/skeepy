@@ -70,6 +70,7 @@
     <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\IndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsRepositoryOperations.cs" />
+    <Compile Include="Storage\Individuals\AzureTableStorageIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
@@ -80,6 +81,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H.Skeepy.Azure\H.Skeepy.Azure.csproj">
+      <Project>{a91ba3fa-cbbf-4782-8026-8284f4795dd6}</Project>
+      <Name>H.Skeepy.Azure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
       <Project>{15c6aba6-fd26-4f5b-b7f3-598b4ce235d6}</Project>
       <Name>H.Skeepy.Core</Name>
