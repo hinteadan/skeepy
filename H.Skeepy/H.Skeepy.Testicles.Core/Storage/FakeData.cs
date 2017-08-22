@@ -32,7 +32,7 @@ namespace H.Skeepy.Testicles.Core.Storage
             Enumerable
                 .Range(0, count)
                 .AsParallel()
-                .ForAll(x => storage.Put(GenerateIndividual()));
+                .ForAll(x => storage.Put(GenerateIndividual()).Wait());
         }
     }
 }
