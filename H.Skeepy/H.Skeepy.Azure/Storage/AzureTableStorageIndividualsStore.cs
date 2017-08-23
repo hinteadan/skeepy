@@ -17,12 +17,15 @@ namespace H.Skeepy.Azure.Storage
         private readonly CloudTableClient tableStoreClient;
         private readonly CloudTable tablesStore;
 
-        public AzureTableStorageIndividualsStore(string connectionString)
+        public AzureTableStorageIndividualsStore(string connectionString, string collectionName)
         {
             storageAccount = CloudStorageAccount.Parse(connectionString);
             tableStoreClient = storageAccount.CreateCloudTableClient();
-            tablesStore = tableStoreClient.GetTableReference("Individuals");
+            tablesStore = tableStoreClient.GetTableReference(collectionName);
         }
+
+        public AzureTableStorageIndividualsStore(string connectionString)
+            : this(connectionString, "SkeepyIndividuals") { }
 
         public Task<bool> Any()
         {
