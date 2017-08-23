@@ -31,14 +31,17 @@ namespace H.Skeepy.Azure.Storage
         {
             return tablesStore
                 .ExistsAsync()
-                .ContinueWith<bool>(xt =>
+                .ContinueWith(existsTask =>
                 {
-                    if (!xt.Result)
+                    if (!existsTask.Result)
                     {
                         return false;
                     }
 
-                    return tablesStore.ExecuteQuery(new TableQuery<IndividualTableEntity>().Take(1)).Any();
+                    return tablesStore
+                        .ExecuteQuery(new TableQuery<IndividualTableEntity>().Take(1))
+                        .ToArray()
+                        .Any();
                 });
         }
 
@@ -59,7 +62,19 @@ namespace H.Skeepy.Azure.Storage
 
         public Task<IEnumerable<LazyEntity<Individual>>> Get()
         {
-            throw new NotImplementedException();
+            return tablesStore
+                .CreateIfNotExistsAsync()
+                .ContinueWith(x =>
+                {
+                    return tablesStore
+                        .CreateQuery<IndividualTableEntity>()
+                        .Select(r => r.RowKey)
+                        .ToArray()
+                        .Select(id =>
+                            new LazyEntity<Individual>(Individual.Existing(id, id),
+                            y => (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(y.Id, y.Id)).Result as IndividualTableEntity)?.ToSkeepy())
+                        );
+                });
         }
 
         public Task Put(Individual model)
