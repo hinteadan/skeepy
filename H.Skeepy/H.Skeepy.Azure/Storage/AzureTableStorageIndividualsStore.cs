@@ -83,5 +83,10 @@ namespace H.Skeepy.Azure.Storage
                 .CreateIfNotExistsAsync()
                 .ContinueWith(x => tablesStore.Execute(TableOperation.InsertOrReplace(new IndividualTableEntity(model))));
         }
+
+        public Task Zap(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

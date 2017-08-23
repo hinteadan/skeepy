@@ -10,5 +10,6 @@ namespace H.Skeepy.Core.Storage
     public interface ICanStoreSkeepy<TSkeepy> : IDisposable where TSkeepy : IHaveId
     {
         Task Put(TSkeepy model);
+        Task Zap(string id);
     }
 }

@@ -65,5 +65,10 @@ namespace H.Skeepy.Core.Storage.Parties
             individualProvider = dependencyProvider;
             return this;
         }
+
+        public Task Zap(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

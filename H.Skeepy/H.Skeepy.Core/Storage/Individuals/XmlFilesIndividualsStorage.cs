@@ -77,5 +77,10 @@ namespace H.Skeepy.Core.Storage.Individuals
                 return ((IndividualDto)serializer.Deserialize(reader)).ToSkeepy();
             }
         }
+
+        public Task Zap(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

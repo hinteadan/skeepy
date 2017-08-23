@@ -57,5 +57,10 @@ namespace H.Skeepy.Core.Storage.Individuals
             stream.Seek(0, SeekOrigin.Begin);
             return ((IndividualDto)serializer.Deserialize(stream)).ToSkeepy();
         }
+
+        public Task Zap(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

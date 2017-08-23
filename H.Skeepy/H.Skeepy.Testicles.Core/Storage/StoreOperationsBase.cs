@@ -66,5 +66,14 @@ namespace H.Skeepy.Testicles.Core.Storage
             store.Get().Result.Select(x => x.Summary.Id).Should().BeEquivalentTo(fed.Id, rafa.Id, stan.Id);
             store.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new TSkeepy[] { fed, rafa, stan });
         }
+
+        [TestMethod]
+        public void SkeepyStore_CanDeleteEntity()
+        {
+            var fed = CreateModel();
+            store.Put(fed).Wait();
+            store.Zap(fed.Id).Wait();
+            store.Get(fed.Id).Result.Should().BeNull();
+        }
     }
 }
