@@ -29,7 +29,17 @@ namespace H.Skeepy.Azure.Storage
 
         public Task<bool> Any()
         {
-            throw new NotImplementedException();
+            return tablesStore
+                .ExistsAsync()
+                .ContinueWith<bool>(xt =>
+                {
+                    if (!xt.Result)
+                    {
+                        return false;
+                    }
+
+                    return tablesStore.ExecuteQuery(new TableQuery<IndividualTableEntity>().Take(1)).Any();
+                });
         }
 
         public void Dispose()
@@ -39,7 +49,12 @@ namespace H.Skeepy.Azure.Storage
 
         public Task<Individual> Get(string id)
         {
-            throw new NotImplementedException();
+            return tablesStore
+                .CreateIfNotExistsAsync()
+                .ContinueWith(x =>
+                {
+                    return (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(id, id)).Result as IndividualTableEntity)?.ToSkeepy();
+                });
         }
 
         public Task<IEnumerable<LazyEntity<Individual>>> Get()

@@ -27,5 +27,12 @@ namespace H.Skeepy.Azure.Storage.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Details { get; set; }
+
+        public Individual ToSkeepy()
+        {
+            var individual = Individual.Existing(Id, FirstName, LastName);
+            individual.SetDetails(JsonConvert.DeserializeObject<Dictionary<string, string>>(Details).Select(x => (x.Key, x.Value)));
+            return individual;
+        }
     }
 }
