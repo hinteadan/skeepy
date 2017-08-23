@@ -27,8 +27,8 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         [TestCleanup]
         public override void Uninit()
         {
-            Directory.Delete(tmpStorageFolder, true);
             base.Uninit();
+            Directory.Delete(tmpStorageFolder, true);
         }
     }
 }

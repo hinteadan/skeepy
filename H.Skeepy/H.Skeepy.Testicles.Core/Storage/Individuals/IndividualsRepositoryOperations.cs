@@ -15,11 +15,15 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         protected readonly Func<ICanManageSkeepyStorageFor<Individual>> storeFactory;
         protected ICanManageSkeepyStorageFor<Individual> storage;
         protected readonly TimeSpan fetchExecutionTimeLimit;
+        protected readonly int storeSize;
+        protected readonly int batchSize;
 
-        public IndividualsRepositoryOperations(Func<ICanManageSkeepyStorageFor<Individual>> storeFactory, TimeSpan fetchExecutionTimeLimit)
+        public IndividualsRepositoryOperations(Func<ICanManageSkeepyStorageFor<Individual>> storeFactory, TimeSpan fetchExecutionTimeLimit, int storeSize = 1000, int batchSize = 100)
         {
             this.storeFactory = storeFactory;
             this.fetchExecutionTimeLimit = fetchExecutionTimeLimit;
+            this.storeSize = storeSize;
+            this.batchSize = batchSize;
         }
 
         [TestInitialize]
@@ -47,7 +51,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         public void IndividualsRepository_CanGiveMeExistingData()
         {
             repository.All().Result.Should().BeEmpty();
-            FakeData.FillStorage(storage, 10);
+            FakeData.FillStorage(storage, storeSize / 100 <= 0 ? 2 : storeSize / 100);
             repository.All().Result.Should().NotBeEmpty();
             repository.All().Result.ShouldAllBeEquivalentTo(storage.Get().Result.Select(x => x.Full));
         }
@@ -55,14 +59,14 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         [TestMethod]
         public void IndividualsRepository_GivesMeDataInReasonableTime()
         {
-            FakeData.FillStorage(storage, 1000);
+            FakeData.FillStorage(storage, storeSize);
             repository.ExecutionTimeOf(x => x.All().Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
         }
 
         [TestMethod]
         public void IndividualsRepository_CanGiveMeChunks()
         {
-            FakeData.FillStorage(storage, 1000);
+            FakeData.FillStorage(storage, storeSize);
             repository.All(100).Result.ShouldAllBeEquivalentTo(storage.Get().Result.Take(100).Select(x => x.Full));
             repository.All(100, 100).Result.ShouldAllBeEquivalentTo(storage.Get().Result.Skip(100).Take(100).Select(x => x.Full));
         }
@@ -70,10 +74,10 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         [TestMethod]
         public void IndividualsRepository_ChunkRetrievalDoesntAffectExecutionTime()
         {
-            FakeData.FillStorage(storage, 1000);
-            repository.ExecutionTimeOf(x => x.All(100).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
-            repository.ExecutionTimeOf(x => x.All(100, 500).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
-            repository.ExecutionTimeOf(x => x.All(100, 900).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
+            FakeData.FillStorage(storage, storeSize);
+            repository.ExecutionTimeOf(x => x.All(batchSize).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
+            repository.ExecutionTimeOf(x => x.All(batchSize, storeSize / 2).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
+            repository.ExecutionTimeOf(x => x.All(batchSize, storeSize / 4 * 3).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
         }
     }
 }

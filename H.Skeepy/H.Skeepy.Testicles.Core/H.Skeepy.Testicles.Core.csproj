@@ -90,6 +90,7 @@
     <Compile Include="Storage\Individuals\IndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\AzureTableStorageIndividualsStoreOperations.cs" />
+    <Compile Include="Storage\Individuals\AzureTableStorageIndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsRepositoryOperations.cs" />
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
