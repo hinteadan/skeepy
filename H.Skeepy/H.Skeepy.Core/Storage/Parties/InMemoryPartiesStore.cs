@@ -34,7 +34,7 @@ namespace H.Skeepy.Core.Storage.Parties
 
         public Task<Party> Get(string id)
         {
-            return Task.Run(() => LoadModel(id));
+            return Task.Run(() => !storageSpace.ContainsKey(id) ? null : LoadModel(id));
         }
 
         public Task<IEnumerable<LazyEntity<Party>>> Get()
@@ -68,7 +68,7 @@ namespace H.Skeepy.Core.Storage.Parties
 
         public Task Zap(string id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => { storageSpace.TryRemove(id, out MemoryStream old); });
         }
     }
 }

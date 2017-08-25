@@ -36,7 +36,7 @@ namespace H.Skeepy.Core.Storage.Individuals
 
         public Task<Individual> Get(string id)
         {
-            return Task.Run(() => LoadModel(storageSpace[id]));
+            return Task.Run(() => storageSpace.ContainsKey(id) ? LoadModel(storageSpace[id]) : null);
         }
 
         public Task<IEnumerable<LazyEntity<Individual>>> Get()
@@ -60,7 +60,7 @@ namespace H.Skeepy.Core.Storage.Individuals
 
         public Task Zap(string id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => { storageSpace.TryRemove(id, out MemoryStream old); });
         }
     }
 }

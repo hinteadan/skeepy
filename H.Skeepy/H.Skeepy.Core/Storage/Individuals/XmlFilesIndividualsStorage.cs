@@ -39,7 +39,14 @@ namespace H.Skeepy.Core.Storage.Individuals
         {
             return Task.Run(() =>
             {
-                using (var reader = XmlReader.Create(Path.Combine(rootDir.FullName, $"{id}.xml")))
+                var individualFilePath = IndividualFilePath(id);
+
+                if (!File.Exists(individualFilePath))
+                {
+                    return null;
+                }
+
+                using (var reader = XmlReader.Create(individualFilePath))
                 {
                     return LoadIndividual(id);
                 }
@@ -63,7 +70,7 @@ namespace H.Skeepy.Core.Storage.Individuals
         {
             return Task.Run(() =>
             {
-                using (var writer = XmlWriter.Create(Path.Combine(rootDir.FullName, $"{model.Id}.xml"), new XmlWriterSettings { Indent = true }))
+                using (var writer = XmlWriter.Create(IndividualFilePath(model.Id), new XmlWriterSettings { Indent = true }))
                 {
                     serializer.Serialize(writer, model.ToDto());
                 }
@@ -80,7 +87,15 @@ namespace H.Skeepy.Core.Storage.Individuals
 
         public Task Zap(string id)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                File.Delete(IndividualFilePath(id));
+            });
+        }
+
+        private string IndividualFilePath(string id)
+        {
+            return Path.Combine(rootDir.FullName, $"{id}.xml");
         }
     }
 }

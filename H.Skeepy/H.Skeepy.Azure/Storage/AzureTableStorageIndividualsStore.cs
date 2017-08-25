@@ -86,7 +86,7 @@ namespace H.Skeepy.Azure.Storage
 
         public Task Zap(string id)
         {
-            throw new NotImplementedException();
+            return tablesStore.ExecuteAsync(TableOperation.Delete(new IndividualTableEntity { RowKey = id, PartitionKey = id, ETag = "*" }));
         }
     }
 }

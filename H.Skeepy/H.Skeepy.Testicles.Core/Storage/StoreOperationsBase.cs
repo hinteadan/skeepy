@@ -41,6 +41,12 @@ namespace H.Skeepy.Testicles.Core.Storage
         }
 
         [TestMethod]
+        public void SkeepyStore_ReturnsNullForInexsitentEntities()
+        {
+            store.Get("InexistentId").Result.Should().BeNull();
+        }
+
+        [TestMethod]
         public void SkeepyStore_CanSaveAndRetrieveAnEntity()
         {
             var fed = CreateModel();
