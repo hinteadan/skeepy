@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\AuthenticationResult.cs" />
+    <Compile Include="Authentication\ICanAuthenticate.cs" />
     <Compile Include="Authentication\InMemoryCredentialsAuthenticator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
