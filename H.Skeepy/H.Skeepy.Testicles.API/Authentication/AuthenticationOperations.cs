@@ -25,5 +25,12 @@ namespace H.Skeepy.Testicles.API.Authentication
             authenticator.Authenticate(invalidId).IsSuccessful.Should().BeFalse();
             authenticator.Authenticate(validId).IsSuccessful.Should().BeTrue();
         }
+
+        [TestMethod]
+        public void AkeepyAuthApi_GeneratesTokenUponSuccessfulAuthentication()
+        {
+            authenticator.Authenticate(invalidId).Token.Should().BeNull();
+            authenticator.Authenticate(validId).Token.Should().NotBeNull();
+        }
     }
 }

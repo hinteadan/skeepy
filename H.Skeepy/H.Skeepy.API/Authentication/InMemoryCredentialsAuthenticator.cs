@@ -24,7 +24,7 @@ namespace H.Skeepy.API.Authentication
         private AuthenticationResult Authenticate(string username, string password)
         {
             return users.ContainsKey(username) && users[username] == password ?
-                AuthenticationResult.Successful :
+                AuthenticationResult.Successful(string.Empty) :
                 AuthenticationResult.Failed;
         }
     }
