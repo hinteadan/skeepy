@@ -16,9 +16,11 @@ namespace H.Skeepy.API.Authentication
             this.users = new ReadOnlyDictionary<string, string>(users.ToDictionary(x => x.Item1, x => x.Item2));
         }
 
-        public bool Authenticate(string username, string password)
+        public AuthenticationResult Authenticate(string username, string password)
         {
-            return users.ContainsKey(username) && users[username] == password;
+            return users.ContainsKey(username) && users[username] == password ? 
+                AuthenticationResult.Successful : 
+                AuthenticationResult.Failed;
         }
     }
 }

@@ -13,9 +13,9 @@ namespace H.Skeepy.Testicles.API.Authentication
         [TestMethod]
         public void SkeepyAuthApi_CanAuthenticateUserViaCredentials()
         {
-            authenticator.Authenticate("asd", "cxcvv").Should().BeFalse();
-            authenticator.Authenticate("hintee", "123qwe").Should().BeTrue();
-            authenticator.Authenticate("hintee2", "123qwerty").Should().BeTrue();
+            authenticator.Authenticate("asd", "cxcvv").IsSuccessful.Should().BeFalse();
+            authenticator.Authenticate("hintee", "123qwe").IsSuccessful.Should().BeTrue();
+            authenticator.Authenticate("hintee2", "123qwerty").IsSuccessful.Should().BeTrue();
         }
     }
 }
