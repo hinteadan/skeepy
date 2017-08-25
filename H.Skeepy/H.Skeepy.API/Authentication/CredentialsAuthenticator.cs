@@ -8,9 +8,9 @@ namespace H.Skeepy.API.Authentication
 {
     public class CredentialsAuthenticator
     {
-        public object Authenticate(string v1, string v2)
+        public bool Authenticate(string username, string password)
         {
-            throw new NotImplementedException();
+            return username == "hintee" && password == "123qwe";
         }
     }
 }
