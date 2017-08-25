@@ -57,6 +57,14 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         }
 
         [TestMethod]
+        public void IndividualsRepostiroy_CanGiveMeOneSpecificIndividual()
+        {
+            var fed = FakeData.GenerateIndividual();
+            repository.Save(fed).Wait();
+            repository[fed.Id].Result.Should().Be(fed);
+        }
+
+        [TestMethod]
         public void IndividualsRepository_GivesMeDataInReasonableTime()
         {
             FakeData.FillStorage(storage, storeSize);
@@ -78,6 +86,15 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
             repository.ExecutionTimeOf(x => x.All(batchSize).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
             repository.ExecutionTimeOf(x => x.All(batchSize, storeSize / 2).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
             repository.ExecutionTimeOf(x => x.All(batchSize, storeSize / 4 * 3).Wait()).ShouldNotExceed(fetchExecutionTimeLimit);
+        }
+
+        [TestMethod]
+        public void IndividualsRepository_CanRemoveAnIndividual()
+        {
+            var fed = FakeData.GenerateIndividual();
+            repository.Save(fed).Wait();
+            repository.Remove(fed.Id).Wait();
+            repository[fed.Id].Result.Should().BeNull();
         }
     }
 }

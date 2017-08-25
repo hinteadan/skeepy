@@ -25,6 +25,14 @@ namespace H.Skeepy.Core.Storage.Individuals
             storage.Dispose();
         }
 
+        public Task<Individual> this[string id]
+        {
+            get
+            {
+                return LoadIndividual(id);
+            }
+        }
+
         public Task<IEnumerable<Individual>> All(int count, int from)
         {
             return storage.Get().ContinueWith(t => t.Result.Skip(from).Take(count).Select(LoadIndividual));
@@ -50,6 +58,20 @@ namespace H.Skeepy.Core.Storage.Individuals
                 });
         }
 
+        private Task<Individual> LoadIndividual(string id)
+        {
+            if (inMemoryIndividuals.ContainsKey(id))
+            {
+                var taskSource = new TaskCompletionSource<Individual>();
+                taskSource.SetResult(inMemoryIndividuals[id]);
+                return taskSource.Task;
+            }
+
+            return storage
+                .Get(id)
+                .ContinueWith(t => inMemoryIndividuals.AddOrUpdate(id, t.Result, (x, y) => t.Result));
+        }
+
         private Individual LoadIndividual(LazyEntity<Individual> lazyGuy)
         {
             if (inMemoryIndividuals.ContainsKey(lazyGuy.Summary.Id))
@@ -59,6 +81,16 @@ namespace H.Skeepy.Core.Storage.Individuals
 
             var guy = lazyGuy.Full;
             return inMemoryIndividuals.AddOrUpdate(lazyGuy.Summary.Id, guy, (x, y) => guy);
+        }
+
+        public Task Remove(string id)
+        {
+            return storage
+                .Zap(id)
+                .ContinueWith(t =>
+                {
+                    inMemoryIndividuals.TryRemove(id, out Individual guy);
+                });
         }
     }
 }
