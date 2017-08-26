@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public class CredentialsAuthenticator : ICanAuthenticate<Credentials>
+    public abstract class CredentialsAuthenticator : ICanAuthenticate<Credentials>
     {
         private readonly ICanGenerateTokens<Credentials> tokenGenerator;
         private readonly ICanGetSkeepyEntity<Credentials> credentialStore;
