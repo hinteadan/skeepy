@@ -7,24 +7,36 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public class InMemoryCredentialsAuthenticator : ICanAuthenticate<(string, string)>
+    public class InMemoryCredentialsAuthenticator : ICanAuthenticate<InMemoryCredentialsAuthenticator.Credentials>
     {
+        public class Credentials
+        {
+            public readonly string Username;
+            public readonly string Password;
+
+            public Credentials(string username, string password)
+            {
+                Username = username;
+                Password = password;
+            }
+        }
+
         private readonly ICanGenerateTokens tokenGenerator;
         private readonly ReadOnlyDictionary<string, string> users;
 
-        public InMemoryCredentialsAuthenticator(ICanGenerateTokens tokenGenerator, params (string, string)[] users)
+        public InMemoryCredentialsAuthenticator(ICanGenerateTokens tokenGenerator, params Credentials[] users)
         {
             this.tokenGenerator = tokenGenerator;
-            this.users = new ReadOnlyDictionary<string, string>(users.ToDictionary(x => x.Item1, x => x.Item2));
+            this.users = new ReadOnlyDictionary<string, string>(users.ToDictionary(x => x.Username, x => x.Password));
         }
-        public InMemoryCredentialsAuthenticator(params (string, string)[] users)
+        public InMemoryCredentialsAuthenticator(params Credentials[] users)
             : this(new GuidTokenGenerator(), users)
         { }
 
 
-        public AuthenticationResult Authenticate((string, string) identifier)
+        public AuthenticationResult Authenticate(Credentials identifier)
         {
-            return Authenticate(identifier.Item1, identifier.Item2);
+            return Authenticate(identifier.Username, identifier.Password);
         }
 
         private AuthenticationResult Authenticate(string username, string password)
@@ -33,5 +45,7 @@ namespace H.Skeepy.API.Authentication
                 AuthenticationResult.Successful(tokenGenerator.Generate()) :
                 AuthenticationResult.Failed;
         }
+
+
     }
 }
