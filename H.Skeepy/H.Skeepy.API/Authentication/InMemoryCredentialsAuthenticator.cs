@@ -7,20 +7,8 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public class InMemoryCredentialsAuthenticator : ICanAuthenticate<InMemoryCredentialsAuthenticator.Credentials>
+    public class InMemoryCredentialsAuthenticator : ICanAuthenticate<Credentials>
     {
-        public class Credentials
-        {
-            public readonly string Username;
-            public readonly string Password;
-
-            public Credentials(string username, string password)
-            {
-                Username = username;
-                Password = password;
-            }
-        }
-
         private readonly ICanGenerateTokens tokenGenerator;
         private readonly ReadOnlyDictionary<string, string> users;
 

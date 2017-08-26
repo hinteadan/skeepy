@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.API.Authentication;
-using static H.Skeepy.API.Authentication.InMemoryCredentialsAuthenticator;
 
 namespace H.Skeepy.Testicles.API.Authentication
 {

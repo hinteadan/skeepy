@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\AuthenticationResult.cs" />
+    <Compile Include="Authentication\Credentials.cs" />
     <Compile Include="Authentication\GuidTokenGenerator.cs" />
     <Compile Include="Authentication\ICanAuthenticate.cs" />
     <Compile Include="Authentication\ICanGenerateTokens.cs" />
