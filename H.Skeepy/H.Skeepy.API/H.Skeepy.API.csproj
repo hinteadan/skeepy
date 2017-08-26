@@ -47,6 +47,7 @@
     <Compile Include="Authentication\ICanAuthenticate.cs" />
     <Compile Include="Authentication\ICanGenerateTokens.cs" />
     <Compile Include="Authentication\InMemoryCredentialsAuthenticator.cs" />
+    <Compile Include="Authentication\JsonWebTokenGenerator.cs" />
     <Compile Include="Authentication\Storage\InMemoryCredentialsStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
