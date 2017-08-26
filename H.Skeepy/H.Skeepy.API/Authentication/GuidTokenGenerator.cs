@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public class GuidTokenGenerator : ICanGenerateTokens
+    public class GuidTokenGenerator : ICanGenerateTokens<Credentials>
     {
-        public string Generate()
+        public string Generate(Credentials payload)
         {
             return Guid.NewGuid().ToString();
         }

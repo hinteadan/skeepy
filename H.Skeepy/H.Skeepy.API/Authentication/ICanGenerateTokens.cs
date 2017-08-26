@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public interface ICanGenerateTokens
+    public interface ICanGenerateTokens<T>
     {
-        string Generate();
+        string Generate(T payload);
     }
 }

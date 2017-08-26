@@ -7,9 +7,9 @@ namespace H.Skeepy.Testicles.API.Authentication
 {
     public abstract class TokenGeneratorOperations
     {
-        private readonly ICanGenerateTokens tokenGenerator;
+        private readonly ICanGenerateTokens<Credentials> tokenGenerator;
 
-        public TokenGeneratorOperations(ICanGenerateTokens tokenGenerator)
+        public TokenGeneratorOperations(ICanGenerateTokens<Credentials> tokenGenerator)
         {
             this.tokenGenerator = tokenGenerator;
         }
@@ -17,7 +17,7 @@ namespace H.Skeepy.Testicles.API.Authentication
         [TestMethod]
         public void TokenGenerator_GeneratesUniqueTokens()
         {
-            tokenGenerator.Generate().Should().NotBe(tokenGenerator.Generate());
+            tokenGenerator.Generate(new Credentials("fed", "123qwe")).Should().NotBe(tokenGenerator.Generate(new Credentials("fed", "123qwe")));
         }
     }
 }

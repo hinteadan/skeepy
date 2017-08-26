@@ -9,10 +9,10 @@ namespace H.Skeepy.API.Authentication
 {
     public class CredentialsAuthenticator : ICanAuthenticate<Credentials>
     {
-        private readonly ICanGenerateTokens tokenGenerator;
+        private readonly ICanGenerateTokens<Credentials> tokenGenerator;
         private readonly ICanGetSkeepyEntity<Credentials> credentialStore;
 
-        public CredentialsAuthenticator(ICanGetSkeepyEntity<Credentials> credentialStore, ICanGenerateTokens tokenGenerator)
+        public CredentialsAuthenticator(ICanGetSkeepyEntity<Credentials> credentialStore, ICanGenerateTokens<Credentials> tokenGenerator)
         {
             this.credentialStore = credentialStore ?? throw new InvalidOperationException($"Must provide a {nameof(credentialStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
@@ -29,7 +29,7 @@ namespace H.Skeepy.API.Authentication
                     }
 
                     return t.Result.Username == identifier.Username && t.Result.Password == identifier.Password ?
-                        AuthenticationResult.Successful(tokenGenerator.Generate()) :
+                        AuthenticationResult.Successful(tokenGenerator.Generate(identifier)) :
                         AuthenticationResult.Failed;
                 });
         }
