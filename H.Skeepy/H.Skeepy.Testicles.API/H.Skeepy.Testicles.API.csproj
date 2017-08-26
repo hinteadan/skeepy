@@ -62,6 +62,7 @@
     <Compile Include="Authentication\GuidTokenGeneratorOperations.cs" />
     <Compile Include="Authentication\JsonWebTokenGeneratorOperations.cs" />
     <Compile Include="Authentication\InMemoryTokenAuthenticationOperations.cs" />
+    <Compile Include="Authentication\TokenOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
