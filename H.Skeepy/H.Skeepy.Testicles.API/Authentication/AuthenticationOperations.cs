@@ -5,8 +5,7 @@ using FluentAssertions;
 
 namespace H.Skeepy.Testicles.API.Authentication
 {
-    [TestClass]
-    public class AuthenticationOperations<T>
+    public abstract class AuthenticationOperations<T>
     {
         private readonly ICanAuthenticate<T> authenticator;
         private readonly T validId;
@@ -27,7 +26,7 @@ namespace H.Skeepy.Testicles.API.Authentication
         }
 
         [TestMethod]
-        public void AkeepyAuthApi_GeneratesTokenUponSuccessfulAuthentication()
+        public void SkeepyAuthApi_GeneratesTokenUponSuccessfulAuthentication()
         {
             authenticator.Authenticate(invalidId).Token.Should().BeNull();
             authenticator.Authenticate(validId).Token.Should().NotBeNull();

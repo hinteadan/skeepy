@@ -9,12 +9,18 @@ namespace H.Skeepy.API.Authentication
 {
     public class InMemoryCredentialsAuthenticator : ICanAuthenticate<(string, string)>
     {
+        private readonly ICanGenerateTokens tokenGenerator;
         private readonly ReadOnlyDictionary<string, string> users;
 
-        public InMemoryCredentialsAuthenticator(params (string, string)[] users)
+        public InMemoryCredentialsAuthenticator(ICanGenerateTokens tokenGenerator, params (string, string)[] users)
         {
+            this.tokenGenerator = tokenGenerator;
             this.users = new ReadOnlyDictionary<string, string>(users.ToDictionary(x => x.Item1, x => x.Item2));
         }
+        public InMemoryCredentialsAuthenticator(params (string, string)[] users)
+            : this(new GuidTokenGenerator(), users)
+        { }
+
 
         public AuthenticationResult Authenticate((string, string) identifier)
         {
@@ -24,7 +30,7 @@ namespace H.Skeepy.API.Authentication
         private AuthenticationResult Authenticate(string username, string password)
         {
             return users.ContainsKey(username) && users[username] == password ?
-                AuthenticationResult.Successful(string.Empty) :
+                AuthenticationResult.Successful(tokenGenerator.Generate()) :
                 AuthenticationResult.Failed;
         }
     }
