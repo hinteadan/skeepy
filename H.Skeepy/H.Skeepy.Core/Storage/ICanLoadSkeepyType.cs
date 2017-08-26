@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Core.Storage
 {
-    public interface ICanLoadSkeepy<TSkeepy> : IDisposable where TSkeepy : IHaveId
+    public interface ICanLoadSkeepy<TSkeepy> : ICanGetSkeepyEntity<TSkeepy>, IDisposable where TSkeepy : IHaveId
     {
         Task<bool> Any();
-        Task<TSkeepy> Get(string id);
         Task<IEnumerable<LazyEntity<TSkeepy>>> Get();
     }
 }

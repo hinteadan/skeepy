@@ -1,7 +1,9 @@
-﻿namespace H.Skeepy.API.Authentication
+﻿using System.Threading.Tasks;
+
+namespace H.Skeepy.API.Authentication
 {
     public interface ICanAuthenticate<T>
     {
-        AuthenticationResult Authenticate(T identifier);
+        Task<AuthenticationResult> Authenticate(T identifier);
     }
 }

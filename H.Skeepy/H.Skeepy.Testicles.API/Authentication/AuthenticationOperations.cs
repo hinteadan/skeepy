@@ -21,15 +21,15 @@ namespace H.Skeepy.Testicles.API.Authentication
         [TestMethod]
         public void SkeepyAuthApi_CanAuthenticateIdentity()
         {
-            authenticator.Authenticate(invalidId).IsSuccessful.Should().BeFalse();
-            authenticator.Authenticate(validId).IsSuccessful.Should().BeTrue();
+            authenticator.Authenticate(invalidId).Result.IsSuccessful.Should().BeFalse();
+            authenticator.Authenticate(validId).Result.IsSuccessful.Should().BeTrue();
         }
 
         [TestMethod]
         public void SkeepyAuthApi_GeneratesTokenUponSuccessfulAuthentication()
         {
-            authenticator.Authenticate(invalidId).Token.Should().BeNull();
-            authenticator.Authenticate(validId).Token.Should().NotBeNull();
+            authenticator.Authenticate(invalidId).Result.Token.Should().BeNull();
+            authenticator.Authenticate(validId).Result.Token.Should().NotBeNull();
         }
     }
 }

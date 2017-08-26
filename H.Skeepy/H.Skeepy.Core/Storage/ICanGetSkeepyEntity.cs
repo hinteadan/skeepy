@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Core.Storage
 {
-    public interface ICanManageSkeepyStorageFor<TSkeepy> : ICanStoreSkeepy<TSkeepy>, ICanLoadSkeepy<TSkeepy>, IDisposable where TSkeepy : IHaveId
+    public interface ICanGetSkeepyEntity<TSkeepy> : IDisposable where TSkeepy : IHaveId
     {
-
+        Task<TSkeepy> Get(string id);
     }
 }
