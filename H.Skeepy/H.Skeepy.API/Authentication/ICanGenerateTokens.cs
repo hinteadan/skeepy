@@ -8,6 +8,6 @@ namespace H.Skeepy.API.Authentication
 {
     public interface ICanGenerateTokens<T>
     {
-        string Generate(T payload);
+        Token Generate(T payload);
     }
 }

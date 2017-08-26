@@ -15,9 +15,10 @@ namespace H.Skeepy.Testicles.API.Authentication
         }
 
         [TestMethod]
-        public void TokenGenerator_GeneratesUniqueTokens()
+        public void TokenGenerator_GeneratesUniquePublicTokens()
         {
-            tokenGenerator.Generate(new Credentials("fed", "123qwe")).Should().NotBe(tokenGenerator.Generate(new Credentials("fed", "123qwe")));
+            tokenGenerator.Generate(new Credentials("fed", "123qwe")).Public.Should().NotBe(tokenGenerator.Generate(new Credentials("fed", "123qwe")).Public);
+            tokenGenerator.Generate(new Credentials("fed", "123qwe")).Secret.Should().NotBe(tokenGenerator.Generate(new Credentials("fed", "123qwe")).Secret);
         }
     }
 }

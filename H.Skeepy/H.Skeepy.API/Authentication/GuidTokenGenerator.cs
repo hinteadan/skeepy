@@ -8,9 +8,9 @@ namespace H.Skeepy.API.Authentication
 {
     public class GuidTokenGenerator : ICanGenerateTokens<Credentials>
     {
-        public string Generate(Credentials payload)
+        public Token Generate(Credentials payload)
         {
-            return Guid.NewGuid().ToString();
+            return new Token(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
         }
     }
 }
