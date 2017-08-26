@@ -14,7 +14,7 @@ namespace H.Skeepy.API.Authentication.Storage
 
         public InMemoryTokensStore(params Token[] tokens)
         {
-            this.tokens = new ReadOnlyDictionary<string, Token>(tokens.ToDictionary(x => x.Id));
+            this.tokens = new ReadOnlyDictionary<string, Token>(tokens.ToDictionary(x => x.Public));
         }
 
         public void Dispose()

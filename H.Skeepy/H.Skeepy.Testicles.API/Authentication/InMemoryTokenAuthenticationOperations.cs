@@ -8,7 +8,7 @@ namespace H.Skeepy.Testicles.API.Authentication
     public class InMemoryTokenAuthenticationOperations : AuthenticationOperations<string>
     {
         public InMemoryTokenAuthenticationOperations()
-            : base(new InMemoryTokenAuthenticator(), "", "")
+            : base(new InMemoryTokenAuthenticator(new Token("secretKey", "publicKey")), "publicKey", "invalidPublicKey")
         {
         }
     }

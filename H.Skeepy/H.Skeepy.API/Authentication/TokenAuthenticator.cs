@@ -18,7 +18,23 @@ namespace H.Skeepy.API.Authentication
 
         public Task<AuthenticationResult> Authenticate(string identifier)
         {
-            throw new NotImplementedException();
+            return tokenStore
+                .Get(identifier)
+                .ContinueWith(t => t.Result == null ?
+                    AuthenticationResult.Failed :
+                    AuthenticateToken(t.Result));
+        }
+
+        private AuthenticationResult AuthenticateToken(Token token)
+        {
+            return !token.HasExpired() && IsTokenValid() ?
+                AuthenticationResult.Successful(token) :
+                AuthenticationResult.Failed;
+        }
+
+        protected virtual bool IsTokenValid()
+        {
+            return true;
         }
     }
 }
