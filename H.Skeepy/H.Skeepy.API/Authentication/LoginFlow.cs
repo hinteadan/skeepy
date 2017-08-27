@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public class LoginFlow
+    public sealed class LoginFlow
     {
         private readonly ICanStoreSkeepy<Token> tokenStore;
         private readonly ICanAuthenticate<Credentials> credentialsAuthenticator;

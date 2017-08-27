@@ -36,5 +36,12 @@ namespace H.Skeepy.Testicles.API.Authentication
             tokenStore.Any().Result.Should().BeTrue();
             tokenStore.Get(token.Id).Result.ShouldBeEquivalentTo(token);
         }
+
+        [TestMethod]
+        public void LoginFlow_GeneratesTokensThatCanAfterwardsBeAuthenticated()
+        {
+            var token = loginFlow.Login(new Credentials("fed", "123")).Result.Token;
+            new InMemoryTokenAuthenticator(tokenStore).Authenticate(token.Public).Result.ShouldBeEquivalentTo(AuthenticationResult.Successful(token));
+        }
     }
 }

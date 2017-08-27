@@ -10,9 +10,13 @@ namespace H.Skeepy.API.Authentication
 {
     public class InMemoryTokenAuthenticator : TokenAuthenticator
     {
-        public InMemoryTokenAuthenticator(params Token[] validTokens) 
+        public InMemoryTokenAuthenticator(params Token[] validTokens)
             : base(new InMemoryTokensStore(validTokens))
         {
         }
+
+        public InMemoryTokenAuthenticator(ICanGetSkeepyEntity<Token> store)
+            : base(store)
+        { }
     }
 }
