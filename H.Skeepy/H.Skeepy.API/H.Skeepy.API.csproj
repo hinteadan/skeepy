@@ -56,6 +56,7 @@
     <Compile Include="Authentication\InMemoryCredentialsAuthenticator.cs" />
     <Compile Include="Authentication\InMemoryTokenAuthenticator.cs" />
     <Compile Include="Authentication\JsonWebTokenGenerator.cs" />
+    <Compile Include="Authentication\LoginFlow.cs" />
     <Compile Include="Authentication\Storage\InMemoryCredentialsStore.cs" />
     <Compile Include="Authentication\Storage\InMemoryTokensStore.cs" />
     <Compile Include="Authentication\Token.cs" />
