@@ -21,6 +21,11 @@ namespace H.Skeepy.API
                     return HttpStatusCode.NotImplemented;
                 }
 
+                if (exception is InvalidOperationException)
+                {
+                    return HttpStatusCode.UnprocessableEntity;
+                }
+
                 return HttpStatusCode.InternalServerError;
             });
         }
