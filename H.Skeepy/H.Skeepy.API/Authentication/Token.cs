@@ -13,6 +13,7 @@ namespace H.Skeepy.API.Authentication
         public readonly string Secret;
         public readonly string UserId;
         public readonly DateTime ValidUntil;
+        public readonly DateTime GeneratedAt;
 
         public bool HasExpired()
         {
@@ -21,15 +22,19 @@ namespace H.Skeepy.API.Authentication
 
         public string Id => Public;
 
-        public Token(string userId, string secretToken, string publicToken, DateTime validUntil)
+        public Token(string userId, string secretToken, string publicToken, DateTime validUntil, DateTime generatedAt)
         {
             Public = publicToken;
             Secret = secretToken;
             UserId = userId;
             ValidUntil = validUntil;
+            GeneratedAt = generatedAt;
         }
 
+        public Token(string userId, string secretToken, string publicToken, DateTime validUntil)
+             : this(userId, secretToken, publicToken, validUntil, DateTime.Now) { }
+
         public Token(string userId, string secretToken, string publicToken)
-             : this(userId, secretToken, publicToken, DateTime.MaxValue) { }
+             : this(userId, secretToken, publicToken, DateTime.MaxValue, DateTime.Now) { }
     }
 }

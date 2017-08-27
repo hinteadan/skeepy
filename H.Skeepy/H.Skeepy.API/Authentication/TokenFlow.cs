@@ -36,7 +36,7 @@ namespace H.Skeepy.API.Authentication
                         return t.Result;
                     }
 
-                    if (t.Result.Token.HasExpired())
+                    if (t.Result.Token.HasExpired() && !HasTimedOut(t.Result.Token))
                     {
                         var newToken = tokenGenerator.Generate(t.Result.Token.UserId);
                         Task.WaitAll(
@@ -46,8 +46,14 @@ namespace H.Skeepy.API.Authentication
                         return AuthenticationResult.Successful(newToken);
                     }
 
-                    return t.Result;
+                    tokenStore.Zap(t.Result.Token.Id).Wait();
+                    return AuthenticationResult.Failed(AuthenticationFailureReason.TokenExpiredAndTimedOut, t.Result.Token);
                 });
+        }
+
+        private bool HasTimedOut(Token token)
+        {
+            return DateTime.Now >= token.GeneratedAt + tokenRegenerationTimeout;
         }
     }
 }

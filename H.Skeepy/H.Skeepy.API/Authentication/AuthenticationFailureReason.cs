@@ -12,6 +12,7 @@ namespace H.Skeepy.API.Authentication
         InvalidCredentials,
         InvalidToken,
         TokenExpired,
+        TokenExpiredAndTimedOut,
         Unknwon,
     }
 }

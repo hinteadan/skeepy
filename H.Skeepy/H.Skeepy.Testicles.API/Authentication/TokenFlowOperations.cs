@@ -41,7 +41,7 @@ namespace H.Skeepy.Testicles.API.Authentication
         }
 
         [TestMethod]
-        public void TokenFlow_RegenratesTokenIfIsExpiredAndNotTimedOutAndUpdatesTheStore()
+        public void TokenFlow_RegeneratesTokenIfIsExpiredAndNotTimedOutAndUpdatesTheStore()
         {
             tokenFlow = new TokenFlow(new InMemoryTokenAuthenticator(tokenStore), new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)), tokenStore, TimeSpan.FromMinutes(10));
             loginFlow = new LoginFlow(new InMemoryCredentialsAuthenticator(new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)), validCredentials), tokenStore);
@@ -53,6 +53,21 @@ namespace H.Skeepy.Testicles.API.Authentication
             tokenResult.Token.UserId.Should().Be(loginResult.Token.UserId);
             tokenStore.Get(loginResult.Token.Id).Result.Should().BeNull();
             tokenStore.Get(tokenResult.Token.Id).Result.ShouldBeEquivalentTo(tokenResult.Token);
+        }
+
+        [TestMethod]
+        public void TokenFlow_DoesntValidateTokensExpiredAndTimedOut()
+        {
+            tokenFlow = new TokenFlow(new InMemoryTokenAuthenticator(tokenStore), new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)), tokenStore, TimeSpan.FromMinutes(-1));
+            loginFlow = new LoginFlow(new InMemoryCredentialsAuthenticator(new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)), validCredentials), tokenStore);
+
+            var loginResult = loginFlow.Login(validCredentials).Result;
+            var tokenResult = tokenFlow.Authenticate(loginResult.Token.Public).Result;
+            tokenResult.IsSuccessful.Should().BeFalse();
+            tokenResult.FailureReason.Should().Be(AuthenticationFailureReason.TokenExpiredAndTimedOut);
+
+            tokenStore.Get(loginResult.Token.Id).Result.Should().BeNull();
+            tokenStore.Get(tokenResult.Token.Id).Result.Should().BeNull();
         }
     }
 }
