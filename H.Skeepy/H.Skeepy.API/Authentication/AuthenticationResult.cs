@@ -3,7 +3,7 @@
     public class AuthenticationResult
     {
         public static AuthenticationResult Successful(Token token) { return new AuthenticationResult(true, token); }
-        public static AuthenticationResult Failed(AuthenticationFailureReason reason) { return new AuthenticationResult(false, null, reason); }
+        public static AuthenticationResult Failed(AuthenticationFailureReason reason, Token failedToken = null) { return new AuthenticationResult(false, failedToken, reason); }
 
         private AuthenticationResult(bool isSuccessful, Token token, AuthenticationFailureReason failureReason)
         {

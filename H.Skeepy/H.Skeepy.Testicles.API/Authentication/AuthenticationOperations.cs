@@ -28,7 +28,6 @@ namespace H.Skeepy.Testicles.API.Authentication
         [TestMethod]
         public void SkeepyAuthApi_GeneratesTokenUponSuccessfulAuthentication()
         {
-            authenticator.Authenticate(invalidId).Result.Token.Should().BeNull();
             authenticator.Authenticate(validId).Result.Token.Should().NotBeNull();
         }
     }

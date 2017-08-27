@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
-    public class JsonWebTokenGenerator : ICanGenerateTokens<Credentials>
+    public class JsonWebTokenGenerator : ICanGenerateTokens<Credentials>, ICanGenerateTokens<string>
     {
         private readonly TimeSpan validitySpan = TimeSpan.MaxValue;
 
@@ -28,10 +28,7 @@ namespace H.Skeepy.API.Authentication
 
         public Token Generate(Credentials payload)
         {
-            var secret = GenerateSecretKey();
-            return validitySpan == TimeSpan.MaxValue ?
-                new Token(secret, jwtEncoder.Encode(new { userId = payload.Id }, secret)) :
-                new Token(secret, jwtEncoder.Encode(new { userId = payload.Id, exp = CalculateUnixTimeValidity() }, secret), DateTime.Now + validitySpan);
+            return Generate(payload.Id);
         }
 
         private int CalculateUnixTimeValidity()
@@ -43,6 +40,14 @@ namespace H.Skeepy.API.Authentication
         private string GenerateSecretKey()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public Token Generate(string payload)
+        {
+            var secret = GenerateSecretKey();
+            return validitySpan == TimeSpan.MaxValue ?
+                new Token(payload, secret, jwtEncoder.Encode(new { userId = payload }, secret)) :
+                new Token(payload, secret, jwtEncoder.Encode(new { userId = payload, exp = CalculateUnixTimeValidity() }, secret), DateTime.Now + validitySpan);
         }
     }
 }

@@ -10,12 +10,44 @@ namespace H.Skeepy.API.Authentication
     public sealed class TokenFlow
     {
         private readonly TokenAuthenticator tokenAuthenticator;
+        private readonly ICanGenerateTokens<string> tokenGenerator;
         private readonly ICanStoreSkeepy<Token> tokenStore;
+        private readonly TimeSpan tokenRegenerationTimeout;
 
-        public TokenFlow(TokenAuthenticator tokenAuthenticator, ICanStoreSkeepy<Token> tokenStore)
+        public TokenFlow(TokenAuthenticator tokenAuthenticator, ICanGenerateTokens<string> tokenGenerator, ICanStoreSkeepy<Token> tokenStore, TimeSpan tokenRegenerationTimeout)
         {
             this.tokenAuthenticator = tokenAuthenticator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenAuthenticator)}");
+            this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
+            this.tokenRegenerationTimeout = tokenRegenerationTimeout;
+        }
+
+        public TokenFlow(TokenAuthenticator tokenAuthenticator, ICanGenerateTokens<string> tokenGenerator, ICanStoreSkeepy<Token> tokenStore) : this(tokenAuthenticator, tokenGenerator, tokenStore, TimeSpan.FromDays(14))
+        { }
+
+        public Task<AuthenticationResult> Authenticate(string publicToken)
+        {
+            return tokenAuthenticator
+                .Authenticate(publicToken)
+                .ContinueWith(t =>
+                {
+                    if (t.Result.IsSuccessful)
+                    {
+                        return t.Result;
+                    }
+
+                    if (t.Result.Token.HasExpired())
+                    {
+                        var newToken = tokenGenerator.Generate(t.Result.Token.UserId);
+                        Task.WaitAll(
+                            tokenStore.Zap(t.Result.Token.Id),
+                            tokenStore.Put(newToken)
+                            );
+                        return AuthenticationResult.Successful(newToken);
+                    }
+
+                    return t.Result;
+                });
         }
     }
 }

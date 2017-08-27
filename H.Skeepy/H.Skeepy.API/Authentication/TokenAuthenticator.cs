@@ -27,14 +27,14 @@ namespace H.Skeepy.API.Authentication
 
         private AuthenticationResult AuthenticateToken(Token token)
         {
-            if(token.HasExpired())
+            if (token.HasExpired())
             {
-                return AuthenticationResult.Failed(AuthenticationFailureReason.TokenExpired);
+                return AuthenticationResult.Failed(AuthenticationFailureReason.TokenExpired, token);
             }
 
-            return IsTokenValid(out var reason) ? 
-                AuthenticationResult.Successful(token) : 
-                AuthenticationResult.Failed(reason);
+            return IsTokenValid(out var reason) ?
+                AuthenticationResult.Successful(token) :
+                AuthenticationResult.Failed(reason, token);
         }
 
         protected virtual bool IsTokenValid(out AuthenticationFailureReason reason)

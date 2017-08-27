@@ -11,9 +11,9 @@ namespace H.Skeepy.Testicles.API.Authentication
         [TestMethod]
         public void Tokens_CanExpire()
         {
-            new Token("", "").HasExpired().Should().BeFalse();
-            new Token("", "", DateTime.Now.AddSeconds(10)).HasExpired().Should().BeFalse();
-            new Token("", "", DateTime.Now.AddSeconds(-1)).HasExpired().Should().BeTrue();
+            new Token("", "", "").HasExpired().Should().BeFalse();
+            new Token("", "", "", DateTime.Now.AddSeconds(10)).HasExpired().Should().BeFalse();
+            new Token("", "", "", DateTime.Now.AddSeconds(-1)).HasExpired().Should().BeTrue();
         }
     }
 }
