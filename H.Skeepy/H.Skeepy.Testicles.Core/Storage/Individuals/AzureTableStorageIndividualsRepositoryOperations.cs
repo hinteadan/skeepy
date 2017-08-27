@@ -17,7 +17,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         private static CloudTableClient tableStoreClient = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
         public AzureTableStorageIndividualsRepositoryOperations()
-            : base(() => new AzureTableStorageIndividualsStore(connectionString, collectionName), TimeSpan.FromSeconds(0.4), 50, 10)
+            : base(() => new AzureTableStorageIndividualsStore(connectionString, collectionName), TimeSpan.FromSeconds(0.7), 50, 10)
         {
         }
 
