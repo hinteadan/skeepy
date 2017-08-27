@@ -10,9 +10,9 @@ namespace H.Skeepy.API.Authentication
     public sealed class LoginFlow
     {
         private readonly ICanStoreSkeepy<Token> tokenStore;
-        private readonly ICanAuthenticate<Credentials> credentialsAuthenticator;
+        private readonly CredentialsAuthenticator credentialsAuthenticator;
 
-        public LoginFlow(ICanAuthenticate<Credentials> credentialsAuthenticator, ICanStoreSkeepy<Token> tokenStore)
+        public LoginFlow(CredentialsAuthenticator credentialsAuthenticator, ICanStoreSkeepy<Token> tokenStore)
         {
             this.credentialsAuthenticator = credentialsAuthenticator ?? throw new InvalidOperationException($"Must provide a {nameof(credentialsAuthenticator)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");

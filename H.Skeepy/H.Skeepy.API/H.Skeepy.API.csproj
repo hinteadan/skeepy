@@ -61,6 +61,7 @@
     <Compile Include="Authentication\Storage\InMemoryTokensStore.cs" />
     <Compile Include="Authentication\Token.cs" />
     <Compile Include="Authentication\TokenAuthenticator.cs" />
+    <Compile Include="Authentication\TokenFlow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -64,6 +64,7 @@
     <Compile Include="Authentication\InMemoryTokenAuthenticationOperations.cs" />
     <Compile Include="Authentication\TokenOperations.cs" />
     <Compile Include="Authentication\LoginFlowOperations.cs" />
+    <Compile Include="Authentication\TokenFlowOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
