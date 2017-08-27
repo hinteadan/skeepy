@@ -15,35 +15,12 @@ namespace H.Skeepy.API.HTTP
         public RegistrationModule()
             : base("/registration")
         {
-            Post["/apply"] = _ =>
+            Post["/apply", true] = async (_, c) =>
             {
-                var applicant = this.Bind<ApplicantDto>();
-
-                if (!IsApplicantValid(applicant))
-                {
-                    return HttpStatusCode.UnprocessableEntity;
-                }
+                await new RegistrationFlow().Apply(this.Bind<ApplicantDto>());
 
                 return HttpStatusCode.Accepted;
             };
-        }
-
-        private bool IsApplicantValid(ApplicantDto applicant)
-        {
-            return (!string.IsNullOrWhiteSpace(applicant.FirstName) || !string.IsNullOrWhiteSpace(applicant.LastName)) &&
-                IsValidEmail(applicant.Email);
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                return new MailAddress(email).Address.Equals(email, StringComparison.InvariantCultureIgnoreCase);
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }

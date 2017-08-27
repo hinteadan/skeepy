@@ -16,18 +16,19 @@ namespace H.Skeepy.API
             base.ApplicationStartup(container, pipelines);
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
             {
-                if (exception is NotImplementedException)
+                return new Response
                 {
-                    return HttpStatusCode.NotImplemented;
-                }
-
-                if (exception is InvalidOperationException)
-                {
-                    return HttpStatusCode.UnprocessableEntity;
-                }
-
-                return HttpStatusCode.InternalServerError;
+                    StatusCode = StatusForException(exception),
+                    ReasonPhrase = exception.Message
+                };
             });
+        }
+
+        private HttpStatusCode StatusForException(Exception exception)
+        {
+            if (exception is NotImplementedException) return HttpStatusCode.NotImplemented;
+            if (exception is InvalidOperationException) return HttpStatusCode.UnprocessableEntity;
+            return HttpStatusCode.InternalServerError;
         }
     }
 }
