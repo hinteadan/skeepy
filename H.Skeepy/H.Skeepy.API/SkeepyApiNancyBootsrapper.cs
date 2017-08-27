@@ -14,6 +14,15 @@ namespace H.Skeepy.API
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             base.ApplicationStartup(container, pipelines);
+            pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
+            {
+                if (exception is NotImplementedException)
+                {
+                    return HttpStatusCode.NotImplemented;
+                }
+
+                return HttpStatusCode.InternalServerError;
+            });
         }
     }
 }

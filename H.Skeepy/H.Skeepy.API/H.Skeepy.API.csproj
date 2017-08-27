@@ -68,6 +68,7 @@
     <Compile Include="HTTP\PingModule.cs" />
     <Compile Include="HTTP\RegistrationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\ApplicantDto.cs" />
     <Compile Include="SkeepyApiNancyBootsrapper.cs" />
   </ItemGroup>
   <ItemGroup>

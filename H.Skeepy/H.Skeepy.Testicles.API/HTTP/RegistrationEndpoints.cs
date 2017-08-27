@@ -31,7 +31,7 @@ namespace H.Skeepy.Testicles.API.HTTP
         [TestMethod]
         public void Registration_ChecksApplicantData()
         {
-            browser.Post("/registration/apply", x => { x.JsonBody(null as object); })
+            browser.Post("/registration/apply", x => { x.JsonBody(new { }); })
                 .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
             browser.Post("/registration/apply", x => { x.JsonBody(new { FirstName = "Roger" }); })
                 .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
@@ -41,8 +41,10 @@ namespace H.Skeepy.Testicles.API.HTTP
                 .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
             browser.Post("/registration/apply", x => { x.JsonBody(new { FirstName = "Roger", LastName = "Federer", Email = "dfasdfas" }); })
                 .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
-            browser.Post("/registration/apply", x => { x.JsonBody(new { FirstName = "Roger", LastName = "Federer", Email = "abc@asdasd" }); })
-               .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+            browser.Post("/registration/apply", x => { x.JsonBody(new { FirstName = "Roger", LastName = "Federer", Email = "@dfasdfas" }); })
+                .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
+            browser.Post("/registration/apply", x => { x.JsonBody(new { FirstName = "Roger", LastName = "Federer", Email = "dfasdfas@" }); })
+                .StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         }
     }
 }
