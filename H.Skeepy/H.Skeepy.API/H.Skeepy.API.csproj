@@ -66,6 +66,7 @@
     <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Authentication\TokenFlow.cs" />
     <Compile Include="HTTP\PingModule.cs" />
+    <Compile Include="HTTP\RegistrationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SkeepyApiNancyBootsrapper.cs" />
   </ItemGroup>
