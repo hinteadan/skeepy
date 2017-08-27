@@ -21,19 +21,25 @@ namespace H.Skeepy.API.Authentication
             return tokenStore
                 .Get(identifier)
                 .ContinueWith(t => t.Result == null ?
-                    AuthenticationResult.Failed :
+                    AuthenticationResult.Failed(AuthenticationFailureReason.InvalidToken) :
                     AuthenticateToken(t.Result));
         }
 
         private AuthenticationResult AuthenticateToken(Token token)
         {
-            return !token.HasExpired() && IsTokenValid() ?
-                AuthenticationResult.Successful(token) :
-                AuthenticationResult.Failed;
+            if(token.HasExpired())
+            {
+                return AuthenticationResult.Failed(AuthenticationFailureReason.TokenExpired);
+            }
+
+            return IsTokenValid(out var reason) ? 
+                AuthenticationResult.Successful(token) : 
+                AuthenticationResult.Failed(reason);
         }
 
-        protected virtual bool IsTokenValid()
+        protected virtual bool IsTokenValid(out AuthenticationFailureReason reason)
         {
+            reason = AuthenticationFailureReason.None;
             return true;
         }
     }

@@ -25,12 +25,12 @@ namespace H.Skeepy.API.Authentication
                 .ContinueWith(t => {
                     if(t.Result == null)
                     {
-                        return AuthenticationResult.Failed;
+                        return AuthenticationResult.Failed(AuthenticationFailureReason.InvalidCredentials);
                     }
 
                     return t.Result.Username == identifier.Username && t.Result.Password == identifier.Password ?
                         AuthenticationResult.Successful(tokenGenerator.Generate(identifier)) :
-                        AuthenticationResult.Failed;
+                        AuthenticationResult.Failed(AuthenticationFailureReason.InvalidCredentials);
                 });
         }
     }
