@@ -1,4 +1,5 @@
-﻿using System;
+﻿using H.Skeepy.API.Authentication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -9,9 +10,20 @@ namespace H.Skeepy.API.Registration
 {
     public class RegistrationFlow
     {
-        public Task Apply(ApplicantDto applicant)
+        private readonly ICanGenerateTokens<string> tokenGenerator;
+
+        public RegistrationFlow(ICanGenerateTokens<string> tokenGenerator)
         {
-            return Task.Run(() => { ValidateApplicant(applicant); });
+            this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
+        }
+
+        public Task<Token> Apply(ApplicantDto applicant)
+        {
+            return Task.Run(() =>
+            {
+                ValidateApplicant(applicant);
+                return tokenGenerator.Generate(applicant.Email);
+            });
         }
 
         private static void ValidateApplicant(ApplicantDto applicant)
