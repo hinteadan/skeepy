@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,19 @@ namespace H.Skeepy.API.Registration
     public class RegistrationFlow
     {
         private readonly ICanGenerateTokens<string> tokenGenerator;
+        private readonly ICanStoreSkeepy<Token> tokenStore;
 
-        public RegistrationFlow(ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationFlow(ICanStoreSkeepy<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
         {
+            this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
         }
 
         public Task<Token> Apply(ApplicantDto applicant)
         {
-            return Task.Run(() =>
-            {
-                ValidateApplicant(applicant);
-                return tokenGenerator.Generate(applicant.Email);
-            });
+            ValidateApplicant(applicant);
+            var token = tokenGenerator.Generate(applicant.Email);
+            return tokenStore.Put(token).ContinueWith(t => token);
         }
 
         private static void ValidateApplicant(ApplicantDto applicant)

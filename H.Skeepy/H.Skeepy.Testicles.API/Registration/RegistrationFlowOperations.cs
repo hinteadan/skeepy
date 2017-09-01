@@ -17,7 +17,7 @@ namespace H.Skeepy.Testicles.API.Registration
         {
             var tokenStore = new InMemoryTokensStore();
 
-            var registrationToken = new RegistrationFlow(tokenGenerator).Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+            var registrationToken = new RegistrationFlow(tokenStore, tokenGenerator).Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
             registrationToken.Should().NotBeNull();
             registrationToken.UserId.Should().Be("hintea_dan@yahoo.co.uk");
             tokenStore.Get(registrationToken.Id).Result.ShouldBeEquivalentTo(registrationToken);

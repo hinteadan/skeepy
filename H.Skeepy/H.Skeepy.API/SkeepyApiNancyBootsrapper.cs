@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
 using H.Skeepy.API.Authentication;
+using H.Skeepy.Core.Storage;
+using H.Skeepy.API.Authentication.Storage;
 
 namespace H.Skeepy.API
 {
@@ -16,7 +18,10 @@ namespace H.Skeepy.API
         {
             base.ApplicationStartup(container, pipelines);
 
+            var tokenStore = new InMemoryTokensStore();
+
             container.Register<ICanGenerateTokens<string>>(new JsonWebTokenGenerator(TimeSpan.FromHours(24)));
+            container.Register<ICanStoreSkeepy<Token>>(tokenStore);
 
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
             {
