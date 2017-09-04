@@ -12,9 +12,9 @@ namespace H.Skeepy.API.Registration
     public class RegistrationFlow
     {
         private readonly ICanGenerateTokens<string> tokenGenerator;
-        private readonly ICanStoreSkeepy<Token> tokenStore;
+        private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
 
-        public RegistrationFlow(ICanStoreSkeepy<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationFlow(ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
         {
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
@@ -46,6 +46,11 @@ namespace H.Skeepy.API.Registration
             {
                 throw new InvalidOperationException("Invalid email address", ex);
             }
+        }
+
+        public Task<Token> Validate(string publicToken)
+        {
+            return tokenStore.Get(publicToken);
         }
     }
 }

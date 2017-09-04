@@ -15,18 +15,29 @@ namespace H.Skeepy.Testicles.API.Registration
         [TestMethod]
         public void RegistrationFlow_GeneratesAndStoresTokenForValidatingApplicant()
         {
-            var tokenStore = new InMemoryTokensStore();
-
-            var registrationToken = new RegistrationFlow(tokenStore, tokenGenerator).Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
-            registrationToken.Should().NotBeNull();
-            registrationToken.UserId.Should().Be("hintea_dan@yahoo.co.uk");
-            tokenStore.Get(registrationToken.Id).Result.ShouldBeEquivalentTo(registrationToken);
+            using (var tokenStore = new InMemoryTokensStore())
+            {
+                var registrationToken = new RegistrationFlow(tokenStore, tokenGenerator).Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+                registrationToken.Should().NotBeNull();
+                registrationToken.UserId.Should().Be("hintea_dan@yahoo.co.uk");
+                tokenStore.Get(registrationToken.Id).Result.ShouldBeEquivalentTo(registrationToken);
+            }
         }
 
         [TestMethod]
-        public void RegistrationFlow_ValidatesApplicantToken()
+        public void RegistrationFlow_CorrectlyValidatesApplicantToken()
         {
+            using (var tokenStore = new InMemoryTokensStore())
+            {
+                var registration = new RegistrationFlow(tokenStore, tokenGenerator);
+                var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+                registration.Validate(registrationToken.Public).Result.ShouldBeEquivalentTo(registrationToken);
+                registration.Validate("SomeRandomInexistentTokenPublicKey").Result.Should().BeNull();
 
+                var expiredRegistrationFlow = new RegistrationFlow(tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)));
+                var expiredToken = expiredRegistrationFlow.Apply(new ApplicantDto { FirstName = "Rafa", Email = "hinteadan@yahoo.co.uk" }).Result;
+                expiredRegistrationFlow.Validate(expiredToken.Public).Result.HasExpired().Should().BeTrue();
+            }
         }
 
         [TestMethod]

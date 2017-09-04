@@ -14,7 +14,7 @@ namespace H.Skeepy.API.HTTP
 {
     public class RegistrationModule : NancyModule
     {
-        public RegistrationModule(ICanStoreSkeepy<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationModule(ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
             : base("/registration")
         {
             Post["/apply", true] = async (_, c) =>

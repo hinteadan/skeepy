@@ -21,7 +21,7 @@ namespace H.Skeepy.API
             var tokenStore = new InMemoryTokensStore();
 
             container.Register<ICanGenerateTokens<string>>(new JsonWebTokenGenerator(TimeSpan.FromHours(24)));
-            container.Register<ICanStoreSkeepy<Token>>(tokenStore);
+            container.Register<ICanManageSkeepyStorageFor<Token>>(tokenStore);
 
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
             {
