@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,22 @@ namespace H.Skeepy.API.Registration
     {
         private readonly ICanGenerateTokens<string> tokenGenerator;
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
+        private readonly ICanManageSkeepyStorageFor<RegisteredUser> userStore;
 
-        public RegistrationFlow(ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
         {
+            this.userStore = userStore ?? throw new InvalidOperationException($"Must provide a {nameof(userStore)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
         }
 
-        public Task<Token> Apply(ApplicantDto applicant)
+        public async Task<Token> Apply(ApplicantDto applicant)
         {
             ValidateApplicant(applicant);
             var token = tokenGenerator.Generate(applicant.Email);
-            return tokenStore.Put(token).ContinueWith(t => token);
+            await userStore.Put(new RegisteredUser(applicant));
+            await tokenStore.Put(token);
+            return token;
         }
 
         private static void ValidateApplicant(ApplicantDto applicant)

@@ -70,6 +70,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\ApplicantDto.cs" />
     <Compile Include="Registration\RegistrationFlow.cs" />
+    <Compile Include="Registration\Storage\InMemoryRegistrationStore.cs" />
+    <Compile Include="Registration\Storage\RegisteredUser.cs" />
     <Compile Include="SkeepyApiNancyBootsrapper.cs" />
   </ItemGroup>
   <ItemGroup>
