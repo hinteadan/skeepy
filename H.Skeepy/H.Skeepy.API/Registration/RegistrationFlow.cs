@@ -53,9 +53,36 @@ namespace H.Skeepy.API.Registration
             }
         }
 
-        public Task<Token> Validate(string publicToken)
+        public async Task<Token> Validate(string publicToken)
         {
-            return tokenStore.Get(publicToken);
+            var token = await tokenStore.Get(publicToken);
+            if (token == null || token.HasExpired())
+            {
+                return token;
+            }
+
+            var applicant = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
+
+            applicant.Status = RegisteredUser.AccountStatus.PendingSetPassword;
+
+            await userStore.Put(applicant);
+
+            return token;
+        }
+
+        public async Task SetPassword(string publicToken, string password)
+        {
+            var token = await tokenStore.Get(publicToken);
+            if (token == null || token.HasExpired())
+            {
+                throw new InvalidOperationException("The application has expired. You can apply for a new registration.");
+            }
+
+            var user = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
+
+            user.Status = RegisteredUser.AccountStatus.Valid;
+
+            await userStore.Put(user);
         }
     }
 }

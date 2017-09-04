@@ -63,7 +63,11 @@ namespace H.Skeepy.Testicles.API.Registration
         [TestMethod]
         public void RegistrationFlow_SetsPasswordForValidatedApplicant()
         {
-
+            var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+            registration.Validate(registrationToken.Public).Wait();
+            registrationStore.Get("hintea_dan@yahoo.co.uk").Result.Status.Should().Be(RegisteredUser.AccountStatus.PendingSetPassword);
+            registration.SetPassword(registrationToken.Public, "123qwe").Wait();
+            registrationStore.Get("hintea_dan@yahoo.co.uk").Result.Status.Should().Be(RegisteredUser.AccountStatus.Valid);
         }
 
         [TestMethod]

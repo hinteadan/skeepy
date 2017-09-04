@@ -9,6 +9,13 @@ namespace H.Skeepy.API.Registration.Storage
 {
     public class RegisteredUser : IHaveId
     {
+        public enum AccountStatus
+        {
+            PendingValidation,
+            PendingSetPassword,
+            Valid,
+        }
+
         public RegisteredUser()
         {
 
@@ -19,11 +26,14 @@ namespace H.Skeepy.API.Registration.Storage
             FirstName = applicant.FirstName;
             LastName = applicant.LastName;
             Email = applicant.Email;
+            Status = AccountStatus.PendingValidation;
         }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Id => Email;
+
+        public AccountStatus Status { get; set; } = AccountStatus.PendingValidation;
     }
 }
