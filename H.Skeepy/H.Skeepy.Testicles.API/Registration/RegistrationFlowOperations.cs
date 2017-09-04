@@ -15,6 +15,7 @@ namespace H.Skeepy.Testicles.API.Registration
         private readonly ICanGenerateTokens<string> tokenGenerator = new JsonWebTokenGenerator();
         private ICanManageSkeepyStorageFor<Token> tokenStore;
         private ICanManageSkeepyStorageFor<RegisteredUser> registrationStore;
+        private InMemoryCredentialsStore credentialStore;
         private RegistrationFlow registration;
 
         [TestInitialize]
@@ -22,12 +23,14 @@ namespace H.Skeepy.Testicles.API.Registration
         {
             tokenStore = new InMemoryTokensStore();
             registrationStore = new InMemoryRegistrationStore();
+            credentialStore = new InMemoryCredentialsStore();
             registration = new RegistrationFlow(registrationStore, tokenStore, tokenGenerator);
         }
 
         [TestCleanup]
         public void UnInit()
         {
+            credentialStore.Dispose();
             registrationStore.Dispose();
             tokenStore.Dispose();
         }
