@@ -4,6 +4,7 @@ using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.Model;
 using Nancy;
+using Nancy.Extensions;
 using Nancy.ModelBinding;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,11 @@ namespace H.Skeepy.API.HTTP
         {
             Post["/apply", true] = async (_, c) => Response.AsText((await registrationFlow.Apply(this.Bind<ApplicantDto>())).Public).WithStatusCode(HttpStatusCode.Accepted);
             Get["/validate/{Token}", true] = async (p, c) => TokenToHttpStatusCode(await registrationFlow.Validate((string)p.Token));
+            Post["/pass/{Token}", true] = async (p, c) =>
+            {
+                await registrationFlow.SetPassword((string)p.Token, Request.Body.AsString());
+                return HttpStatusCode.OK;
+            };
         }
 
         private static HttpStatusCode TokenToHttpStatusCode(Token token)

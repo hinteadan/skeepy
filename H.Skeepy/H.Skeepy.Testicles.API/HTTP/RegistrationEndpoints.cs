@@ -69,7 +69,7 @@ namespace H.Skeepy.Testicles.API.HTTP
         [TestMethod]
         public void Registration_SetsApplicantPassword()
         {
-            browser.Post("/registration/pass/InexistentRegistrationToken", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.NotFound);
+            browser.Post("/registration/pass/InexistentRegistrationToken", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
             var token = browser.Post("/registration/apply", x => { x.JsonBody(applicant); }).Body.AsString();
             browser.Post($"/registration/pass/{token}", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.OK);
         }
