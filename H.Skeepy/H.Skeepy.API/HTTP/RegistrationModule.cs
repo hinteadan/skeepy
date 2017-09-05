@@ -16,13 +16,12 @@ namespace H.Skeepy.API.HTTP
 {
     public class RegistrationModule : NancyModule
     {
-        public RegistrationModule(ICanManageSkeepyStorageFor<RegisteredUser> registrationStore, ICanStoreSkeepy<Credentials> credentialStore, ICanManageSkeepyStorageFor<Individual> individualStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationModule(RegistrationFlow registrationFlow)
             : base("/registration")
         {
             Post["/apply", true] = async (_, c) =>
             {
-                await new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, tokenGenerator).Apply(this.Bind<ApplicantDto>());
-
+                await registrationFlow.Apply(this.Bind<ApplicantDto>());
                 return HttpStatusCode.Accepted;
             };
         }

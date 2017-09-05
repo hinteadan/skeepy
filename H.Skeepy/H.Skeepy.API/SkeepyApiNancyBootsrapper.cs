@@ -12,6 +12,7 @@ using H.Skeepy.API.Authentication.Storage;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.Model;
+using H.Skeepy.API.Registration;
 
 namespace H.Skeepy.API
 {
@@ -21,16 +22,19 @@ namespace H.Skeepy.API
         {
             base.ApplicationStartup(container, pipelines);
 
-            var tokenStore = new InMemoryTokensStore();
-            var registrationStore = new InMemoryRegistrationStore();
-            var credentialStore = new InMemoryCredentialsStore();
-            var individualStore = new InMemoryIndividualsStore();
-
             container.Register<ICanGenerateTokens<string>>(new JsonWebTokenGenerator(TimeSpan.FromHours(24)));
-            container.Register<ICanManageSkeepyStorageFor<Token>>(tokenStore);
-            container.Register<ICanManageSkeepyStorageFor<RegisteredUser>>(registrationStore);
-            container.Register<ICanStoreSkeepy<Credentials>>(credentialStore);
-            container.Register<ICanManageSkeepyStorageFor<Individual>>(individualStore);
+            container.Register<ICanManageSkeepyStorageFor<Token>>(new InMemoryTokensStore());
+            container.Register<ICanManageSkeepyStorageFor<RegisteredUser>>(new InMemoryRegistrationStore());
+            container.Register<ICanStoreSkeepy<Credentials>>(new InMemoryCredentialsStore());
+            container.Register<ICanManageSkeepyStorageFor<Individual>>(new InMemoryIndividualsStore());
+
+            container.Register(new RegistrationFlow(
+                container.Resolve<ICanManageSkeepyStorageFor<RegisteredUser>>(),
+                container.Resolve<ICanStoreSkeepy<Credentials>>(),
+                container.Resolve<ICanManageSkeepyStorageFor<Individual>>(),
+                container.Resolve<ICanManageSkeepyStorageFor<Token>>(),
+                container.Resolve<ICanGenerateTokens<string>>()
+                ));
 
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
             {
