@@ -77,6 +77,11 @@ namespace H.Skeepy.API.Registration
 
         public async Task SetPassword(string publicToken, string password)
         {
+            if(string.IsNullOrWhiteSpace(password))
+            {
+                throw new InvalidOperationException("Password cannot be empty");
+            }
+
             var token = await Validate(publicToken);
             if (token == null || token.HasExpired())
             {

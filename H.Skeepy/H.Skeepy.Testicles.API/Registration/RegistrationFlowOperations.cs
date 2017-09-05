@@ -69,6 +69,15 @@ namespace H.Skeepy.Testicles.API.Registration
         }
 
         [TestMethod]
+        public void RegistrationFlow_ThrowsExceptionOnInvalidPasswords()
+        {
+            var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+            new Action(() => { registration.SetPassword(registrationToken.Public, null).Wait(); }).ShouldThrow<InvalidOperationException>();
+            new Action(() => { registration.SetPassword(registrationToken.Public, string.Empty).Wait(); }).ShouldThrow<InvalidOperationException>();
+            new Action(() => { registration.SetPassword(registrationToken.Public, "   \t ").Wait(); }).ShouldThrow<InvalidOperationException>();
+        }
+
+        [TestMethod]
         public void RegistrationFlow_SetsPasswordForValidatedApplicant()
         {
             var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;

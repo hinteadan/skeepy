@@ -11,13 +11,19 @@ namespace H.Skeepy.Testicles.API.HTTP
     [TestClass]
     public class RegistrationEndpoints
     {
-        private readonly Browser browser = new Browser(new SkeepyApiInMemoryNancyBootsrapper());
+        private Browser browser;
         private readonly ApplicantDto applicant = new ApplicantDto
         {
             FirstName = "Roger",
             LastName = "Federer",
             Email = "hintea_dan@yahoo.co.uk",
         };
+
+        [TestInitialize]
+        public void Init()
+        {
+            browser = new Browser(new SkeepyApiInMemoryNancyBootsrapper());
+        }
 
         [TestMethod]
         public void Registration_RequestCanBeSubmittedByAnyone()
@@ -58,6 +64,14 @@ namespace H.Skeepy.Testicles.API.HTTP
             token.Should().NotBeNullOrWhiteSpace();
             response = browser.Get($"/registration/validate/{token}");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void Registration_SetsApplicantPassword()
+        {
+            browser.Post("/registration/pass/InexistentRegistrationToken", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.NotFound);
+            var token = browser.Post("/registration/apply", x => { x.JsonBody(applicant); }).Body.AsString();
+            browser.Post($"/registration/pass/{token}", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.OK);
         }
     }
 }
