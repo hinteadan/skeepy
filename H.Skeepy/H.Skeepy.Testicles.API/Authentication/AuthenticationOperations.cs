@@ -7,9 +7,9 @@ namespace H.Skeepy.Testicles.API.Authentication
 {
     public abstract class AuthenticationOperations<T>
     {
-        private readonly ICanAuthenticate<T> authenticator;
-        private readonly T validId;
-        private readonly T invalidId;
+        protected readonly ICanAuthenticate<T> authenticator;
+        protected readonly T validId;
+        protected readonly T invalidId;
 
         public AuthenticationOperations(ICanAuthenticate<T> authenticator, T validId, T invalidId)
         {
