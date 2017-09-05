@@ -81,10 +81,9 @@ namespace H.Skeepy.API.Registration
             }
 
             var user = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
-
             user.Status = RegisteredUser.AccountStatus.Valid;
-
             await userStore.Put(user);
+            await credentialStore.Put(new Credentials(user.Id, password));
         }
     }
 }
