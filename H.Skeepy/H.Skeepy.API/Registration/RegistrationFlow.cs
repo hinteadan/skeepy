@@ -74,7 +74,7 @@ namespace H.Skeepy.API.Registration
 
         public async Task SetPassword(string publicToken, string password)
         {
-            var token = await tokenStore.Get(publicToken);
+            var token = await Validate(publicToken);
             if (token == null || token.HasExpired())
             {
                 throw new InvalidOperationException("The application has expired. You can apply for a new registration.");
