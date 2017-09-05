@@ -114,7 +114,9 @@ namespace H.Skeepy.Testicles.API.Registration
         [TestMethod]
         public void RegistrationFlow_CleansUpTokensAfterRegistrationCompletes()
         {
-
+            var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+            registration.SetPassword(registrationToken.Public, "123qwe").Wait();
+            tokenStore.Get(registrationToken.Id).Result.Should().BeNull();
         }
     }
 }

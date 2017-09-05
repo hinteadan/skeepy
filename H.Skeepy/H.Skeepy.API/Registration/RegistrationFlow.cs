@@ -91,6 +91,7 @@ namespace H.Skeepy.API.Registration
             await skeepyIndividualStore.Put(fed);
             user.SkeepyId = fed.Id;
             await userStore.Put(user);
+            await tokenStore.Zap(publicToken);
         }
     }
 }
