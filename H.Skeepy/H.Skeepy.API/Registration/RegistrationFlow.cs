@@ -15,10 +15,12 @@ namespace H.Skeepy.API.Registration
         private readonly ICanGenerateTokens<string> tokenGenerator;
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
         private readonly ICanManageSkeepyStorageFor<RegisteredUser> userStore;
+        private readonly ICanStoreSkeepy<Credentials> credentialStore;
 
-        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanStoreSkeepy<Credentials> credentialStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
         {
             this.userStore = userStore ?? throw new InvalidOperationException($"Must provide a {nameof(userStore)}");
+            this.credentialStore = credentialStore ?? throw new InvalidOperationException($"Must provide a {nameof(credentialStore)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
         }

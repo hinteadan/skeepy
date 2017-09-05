@@ -24,7 +24,7 @@ namespace H.Skeepy.Testicles.API.Registration
             tokenStore = new InMemoryTokensStore();
             registrationStore = new InMemoryRegistrationStore();
             credentialStore = new InMemoryCredentialsStore();
-            registration = new RegistrationFlow(registrationStore, tokenStore, tokenGenerator);
+            registration = new RegistrationFlow(registrationStore, credentialStore, tokenStore, tokenGenerator);
         }
 
         [TestCleanup]
@@ -58,7 +58,7 @@ namespace H.Skeepy.Testicles.API.Registration
             registration.Validate(registrationToken.Public).Result.ShouldBeEquivalentTo(registrationToken);
             registration.Validate("SomeRandomInexistentTokenPublicKey").Result.Should().BeNull();
 
-            var expiredRegistrationFlow = new RegistrationFlow(registrationStore, tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)));
+            var expiredRegistrationFlow = new RegistrationFlow(registrationStore, credentialStore, tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)));
             var expiredToken = expiredRegistrationFlow.Apply(new ApplicantDto { FirstName = "Rafa", Email = "hinteadan@yahoo.co.uk" }).Result;
             expiredRegistrationFlow.Validate(expiredToken.Public).Result.HasExpired().Should().BeTrue();
         }
@@ -71,6 +71,17 @@ namespace H.Skeepy.Testicles.API.Registration
             registrationStore.Get("hintea_dan@yahoo.co.uk").Result.Status.Should().Be(RegisteredUser.AccountStatus.PendingSetPassword);
             registration.SetPassword(registrationToken.Public, "123qwe").Wait();
             registrationStore.Get("hintea_dan@yahoo.co.uk").Result.Status.Should().Be(RegisteredUser.AccountStatus.Valid);
+        }
+
+        [TestMethod]
+        public void RegistrationFlow_HashesPasswords()
+        {
+            var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+            registration.SetPassword(registrationToken.Public, "123qwe").Wait();
+            credentialStore.Get("hintea_dan@yahoo.co.uk").Result.Should().NotBeNull();
+            credentialStore.Get("hintea_dan@yahoo.co.uk").Result.Password.Should().NotBeEmpty();
+            credentialStore.Get("hintea_dan@yahoo.co.uk").Result.Password.Should().NotBe("123qwe");
+
         }
 
         [TestMethod]

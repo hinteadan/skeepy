@@ -21,10 +21,12 @@ namespace H.Skeepy.API
 
             var tokenStore = new InMemoryTokensStore();
             var registrationStore = new InMemoryRegistrationStore();
+            var credentialStore = new InMemoryCredentialsStore();
 
             container.Register<ICanGenerateTokens<string>>(new JsonWebTokenGenerator(TimeSpan.FromHours(24)));
             container.Register<ICanManageSkeepyStorageFor<Token>>(tokenStore);
             container.Register<ICanManageSkeepyStorageFor<RegisteredUser>>(registrationStore);
+            container.Register<ICanStoreSkeepy<Credentials>>(credentialStore);
 
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
             {
