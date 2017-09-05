@@ -16,7 +16,14 @@ namespace H.Skeepy.API
 
         public static bool Verify(string hash, string value)
         {
-            return Crypto.VerifyHashedPassword(hash, value);
+            try
+            {
+                return Crypto.VerifyHashedPassword(hash, value);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

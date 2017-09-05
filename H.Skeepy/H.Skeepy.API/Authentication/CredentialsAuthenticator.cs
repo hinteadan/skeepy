@@ -22,13 +22,14 @@ namespace H.Skeepy.API.Authentication
         {
             return credentialStore
                 .Get(identifier.Id)
-                .ContinueWith(t => {
-                    if(t.Result == null)
+                .ContinueWith(t =>
+                {
+                    if (t.Result == null)
                     {
                         return AuthenticationResult.Failed(AuthenticationFailureReason.InvalidCredentials);
                     }
 
-                    return t.Result.Username == identifier.Username && t.Result.Password == identifier.Password ?
+                    return t.Result.Username == identifier.Username && (t.Result.Password == identifier.Password || Hasher.Verify(t.Result.Password, identifier.Password)) ?
                         AuthenticationResult.Successful(tokenGenerator.Generate(identifier)) :
                         AuthenticationResult.Failed(AuthenticationFailureReason.InvalidCredentials);
                 });

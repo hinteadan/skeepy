@@ -10,7 +10,7 @@ namespace H.Skeepy.Testicles.API.Authentication
     public class InMemoryCredentialsAuthenticatiorOperations : AuthenticationOperations<Credentials>
     {
         public InMemoryCredentialsAuthenticatiorOperations() 
-            : base(new InMemoryCredentialsAuthenticator(new Credentials("fed", "123"), new Credentials("hintee", Hasher.Hash("132qwe"))), new Credentials("fed", "123"), new Credentials("rafa", "fed"))
+            : base(new InMemoryCredentialsAuthenticator(new Credentials("fed", "123"), new Credentials("hintee", Hasher.Hash("123qwe"))), new Credentials("fed", "123"), new Credentials("rafa", "fed"))
         {
         }
 
