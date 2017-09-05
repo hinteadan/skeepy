@@ -19,11 +19,15 @@ namespace H.Skeepy.API.HTTP
         public RegistrationModule(RegistrationFlow registrationFlow)
             : base("/registration")
         {
-            Post["/apply", true] = async (_, c) =>
-            {
-                await registrationFlow.Apply(this.Bind<ApplicantDto>());
-                return HttpStatusCode.Accepted;
-            };
+            Post["/apply", true] = async (_, c) => Response.AsText((await registrationFlow.Apply(this.Bind<ApplicantDto>())).Public).WithStatusCode(HttpStatusCode.Accepted);
+            Get["/validate/{Token}", true] = async (p, c) => TokenToHttpStatusCode(await registrationFlow.Validate((string)p.Token));
+        }
+
+        private static HttpStatusCode TokenToHttpStatusCode(Token token)
+        {
+            if (token == null) return HttpStatusCode.NotFound;
+            if (token.HasExpired()) return HttpStatusCode.Gone;
+            return HttpStatusCode.OK;
         }
     }
 }

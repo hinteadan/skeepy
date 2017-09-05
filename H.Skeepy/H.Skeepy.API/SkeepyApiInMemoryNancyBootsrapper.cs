@@ -16,7 +16,7 @@ using H.Skeepy.API.Registration;
 
 namespace H.Skeepy.API
 {
-    public class SkeepyApiNancyBootsrapper : DefaultNancyBootstrapper
+    public class SkeepyApiInMemoryNancyBootsrapper : DefaultNancyBootstrapper
     {
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {

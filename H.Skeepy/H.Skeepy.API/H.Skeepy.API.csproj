@@ -82,7 +82,7 @@
     <Compile Include="Registration\RegistrationFlow.cs" />
     <Compile Include="Registration\Storage\InMemoryRegistrationStore.cs" />
     <Compile Include="Registration\Storage\RegisteredUser.cs" />
-    <Compile Include="SkeepyApiNancyBootsrapper.cs" />
+    <Compile Include="SkeepyApiInMemoryNancyBootsrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
