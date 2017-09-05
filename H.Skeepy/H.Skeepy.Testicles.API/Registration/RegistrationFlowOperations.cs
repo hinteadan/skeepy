@@ -81,7 +81,6 @@ namespace H.Skeepy.Testicles.API.Registration
             credentialStore.Get("hintea_dan@yahoo.co.uk").Result.Should().NotBeNull();
             credentialStore.Get("hintea_dan@yahoo.co.uk").Result.Password.Should().NotBeEmpty();
             credentialStore.Get("hintea_dan@yahoo.co.uk").Result.Password.Should().NotBe("123qwe");
-
         }
 
         [TestMethod]
