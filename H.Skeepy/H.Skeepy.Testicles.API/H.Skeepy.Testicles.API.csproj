@@ -78,6 +78,7 @@
     <Compile Include="HTTP\RegistrationEndpoints.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\RegistrationFlowOperations.cs" />
+    <Compile Include="HashOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
