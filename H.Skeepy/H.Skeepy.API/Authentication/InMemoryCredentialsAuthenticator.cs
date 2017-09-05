@@ -14,9 +14,17 @@ namespace H.Skeepy.API.Authentication
         public InMemoryCredentialsAuthenticator(ICanGenerateTokens<Credentials> tokenGenerator, params Credentials[] users)
             : base(new InMemoryCredentialsStore(users), tokenGenerator)
         { }
+        public InMemoryCredentialsAuthenticator(ICanGenerateTokens<Credentials> tokenGenerator, ICanGetSkeepyEntity<Credentials> credentialStore)
+            : base(credentialStore, tokenGenerator)
+        { }
+
 
         public InMemoryCredentialsAuthenticator(params Credentials[] users)
             : this(new GuidTokenGenerator(), users)
         { }
+        public InMemoryCredentialsAuthenticator(ICanGetSkeepyEntity<Credentials> credentialStore)
+            : this(new GuidTokenGenerator(), credentialStore)
+        { }
+
     }
 }

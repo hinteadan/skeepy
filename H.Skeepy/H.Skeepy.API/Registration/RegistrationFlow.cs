@@ -1,6 +1,7 @@
 ﻿using H.Skeepy.API.Authentication;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
+using H.Skeepy.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace H.Skeepy.API.Registration
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
         private readonly ICanManageSkeepyStorageFor<RegisteredUser> userStore;
         private readonly ICanStoreSkeepy<Credentials> credentialStore;
+        private readonly ICanStoreSkeepy<Individual> skeepyIndividualStore;
 
-        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanStoreSkeepy<Credentials> credentialStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanStoreSkeepy<Credentials> credentialStore, ICanStoreSkeepy<Individual> skeepyIndividualStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
         {
             this.userStore = userStore ?? throw new InvalidOperationException($"Must provide a {nameof(userStore)}");
             this.credentialStore = credentialStore ?? throw new InvalidOperationException($"Must provide a {nameof(credentialStore)}");
+            this.skeepyIndividualStore = skeepyIndividualStore ?? throw new InvalidOperationException($"Must provide a {nameof(skeepyIndividualStore)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
         }
@@ -82,8 +85,12 @@ namespace H.Skeepy.API.Registration
 
             var user = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
             user.Status = RegisteredUser.AccountStatus.Valid;
-            await userStore.Put(user);
             await credentialStore.Put(new Credentials(user.Id, Hasher.Hash(password)));
+            var fed = Individual.New(user.FirstName, user.LastName);
+            fed.SetDetail("Email", user.Email);
+            await skeepyIndividualStore.Put(fed);
+            user.SkeepyId = fed.Id;
+            await userStore.Put(user);
         }
     }
 }

@@ -10,6 +10,8 @@ using H.Skeepy.API.Authentication;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.API.Authentication.Storage;
 using H.Skeepy.API.Registration.Storage;
+using H.Skeepy.Core.Storage.Individuals;
+using H.Skeepy.Model;
 
 namespace H.Skeepy.API
 {
@@ -22,11 +24,13 @@ namespace H.Skeepy.API
             var tokenStore = new InMemoryTokensStore();
             var registrationStore = new InMemoryRegistrationStore();
             var credentialStore = new InMemoryCredentialsStore();
+            var individualStore = new InMemoryIndividualsStore();
 
             container.Register<ICanGenerateTokens<string>>(new JsonWebTokenGenerator(TimeSpan.FromHours(24)));
             container.Register<ICanManageSkeepyStorageFor<Token>>(tokenStore);
             container.Register<ICanManageSkeepyStorageFor<RegisteredUser>>(registrationStore);
             container.Register<ICanStoreSkeepy<Credentials>>(credentialStore);
+            container.Register<ICanManageSkeepyStorageFor<Individual>>(individualStore);
 
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>
             {

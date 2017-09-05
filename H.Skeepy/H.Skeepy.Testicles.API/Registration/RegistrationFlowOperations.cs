@@ -6,6 +6,8 @@ using FluentAssertions;
 using H.Skeepy.API.Authentication.Storage;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.API.Registration.Storage;
+using H.Skeepy.Model;
+using H.Skeepy.Core.Storage.Individuals;
 
 namespace H.Skeepy.Testicles.API.Registration
 {
@@ -17,6 +19,7 @@ namespace H.Skeepy.Testicles.API.Registration
         private ICanManageSkeepyStorageFor<RegisteredUser> registrationStore;
         private InMemoryCredentialsStore credentialStore;
         private RegistrationFlow registration;
+        private ICanManageSkeepyStorageFor<Individual> individualStore;
 
         [TestInitialize]
         public void Init()
@@ -24,12 +27,14 @@ namespace H.Skeepy.Testicles.API.Registration
             tokenStore = new InMemoryTokensStore();
             registrationStore = new InMemoryRegistrationStore();
             credentialStore = new InMemoryCredentialsStore();
-            registration = new RegistrationFlow(registrationStore, credentialStore, tokenStore, tokenGenerator);
+            individualStore = new InMemoryIndividualsStore();
+            registration = new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, tokenGenerator);
         }
 
         [TestCleanup]
         public void UnInit()
         {
+            individualStore.Dispose();
             credentialStore.Dispose();
             registrationStore.Dispose();
             tokenStore.Dispose();
@@ -58,7 +63,7 @@ namespace H.Skeepy.Testicles.API.Registration
             registration.Validate(registrationToken.Public).Result.ShouldBeEquivalentTo(registrationToken);
             registration.Validate("SomeRandomInexistentTokenPublicKey").Result.Should().BeNull();
 
-            var expiredRegistrationFlow = new RegistrationFlow(registrationStore, credentialStore, tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)));
+            var expiredRegistrationFlow = new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)));
             var expiredToken = expiredRegistrationFlow.Apply(new ApplicantDto { FirstName = "Rafa", Email = "hinteadan@yahoo.co.uk" }).Result;
             expiredRegistrationFlow.Validate(expiredToken.Public).Result.HasExpired().Should().BeTrue();
         }
@@ -85,6 +90,29 @@ namespace H.Skeepy.Testicles.API.Registration
 
         [TestMethod]
         public void RegistrationFlow_MakesApplicantAuthenticateableAndIndividualInSkeepy()
+        {
+            var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
+            registration.SetPassword(registrationToken.Public, "123qwe").Wait();
+
+            var auth = new InMemoryCredentialsAuthenticator(credentialStore);
+            var authResult = auth.Authenticate(new Credentials("hintea_dan@yahoo.co.uk", "123qwe")).Result;
+            authResult.Should().NotBeNull();
+            authResult.IsSuccessful.Should().BeTrue();
+            authResult.Token.Should().NotBeNull();
+            authResult.Token.HasExpired().Should().BeFalse();
+
+            var user = registrationStore.Get("hintea_dan@yahoo.co.uk").Result;
+            user.SkeepyId.Should().NotBeNullOrWhiteSpace();
+
+            var fed = individualStore.Get(user.SkeepyId).Result;
+            fed.Should().NotBeNull();
+            fed.FirstName.Should().Be("Fed");
+            fed.LastName.Should().BeNullOrEmpty();
+            fed.GetDetail("Email").Should().Be("hintea_dan@yahoo.co.uk");
+        }
+
+        [TestMethod]
+        public void RegistrationFlow_CleansUpTokensAfterRegistrationCompletes()
         {
 
         }
