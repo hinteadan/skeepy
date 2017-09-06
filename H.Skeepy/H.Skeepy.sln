@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosts", "Hosts", "{8734677E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.Hosts.Self.RegistrationWebApp", "H.Skeepy.Clients.Web.Hosts.Self.RegistrationWebApp\H.Skeepy.Clients.Web.Hosts.Self.RegistrationWebApp.csproj", "{F1A662E1-D922-4232-AB5E-98FC10692626}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp", "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp\H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp.csproj", "{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{F1A662E1-D922-4232-AB5E-98FC10692626}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1A662E1-D922-4232-AB5E-98FC10692626}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1A662E1-D922-4232-AB5E-98FC10692626}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{1A9F31A0-D3DD-4019-8F98-16A02A0D4492} = {7CD6170C-2B5B-49B5-BEDA-B315D3C1FCAD}
 		{8734677E-A74A-4840-AC57-561D3015D13D} = {7CD6170C-2B5B-49B5-BEDA-B315D3C1FCAD}
 		{F1A662E1-D922-4232-AB5E-98FC10692626} = {8734677E-A74A-4840-AC57-561D3015D13D}
+		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00} = {8734677E-A74A-4840-AC57-561D3015D13D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {824699DD-035F-41E9-9347-542F8FAE1335}
