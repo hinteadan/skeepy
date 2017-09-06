@@ -42,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -73,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -128,6 +130,9 @@
     <PostBuildEvent>Robocopy.exe "$(TargetDir)\Views" "$(ProjectDir)\Views" /MIR
 Robocopy.exe "$(TargetDir)\Content" "$(ProjectDir)\Content" /MIR</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="CopyViewsAndStatics" AfterTargets="CopyAllFilesToSingleFolderForPackage" BeforeTargets="MSDeployPublish">
+    <Copy SourceFiles="$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Content\*" DestinationFolder="$(ProjectDir)bin\Release\PublishOutput\Content" ContinueOnError="true" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
