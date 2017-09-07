@@ -1,0 +1,52 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Rubik:400,400i&subset=cyrillic,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,300i&subset=cyrillic,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Rubik:700,700i&subset=cyrillic,latin-ext');
+
+body, html{
+    font-family: 'Rubik', sans-serif;
+    font-size: 14pt;
+    font-weight: normal;
+    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.85);
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.wallpaper {
+    position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+    bottom: 0;
+	width: auto;
+	height: auto;
+	background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);
+	background-size: cover;
+	-webkit-filter: blur(5px);
+	z-index: -2;
+}
+
+.walpaper-mask-gradient {
+    position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: auto;
+	height: auto;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.3)), color-stop(100%,rgba(255,255,255,0.8))); /* Chrome,Safari4+ */
+	z-index: -1;
+	opacity: 0.9;
+}
+
+.content{
+    flex: 1;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+}
