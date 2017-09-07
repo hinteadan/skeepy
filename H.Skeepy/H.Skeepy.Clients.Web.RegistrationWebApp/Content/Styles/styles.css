@@ -106,3 +106,18 @@ form {
     display: flex;
 }
 
+.logo{
+    height: 100px;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../Images/SkeepyLogo_640_640.png');
+}
+
+.logo.medium{
+    height: 200px;
+}
+
+.logo.white{
+    background-image: url('../Images/SkeepyLogo_White_640_640.png');
+}

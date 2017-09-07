@@ -254,3 +254,5 @@ DeployableArtifacts
 H.Skeepy/H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp/Content/
 H.Skeepy/H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp/Views/
 H.Skeepy/H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp/favicon.ico
+
+*.db
