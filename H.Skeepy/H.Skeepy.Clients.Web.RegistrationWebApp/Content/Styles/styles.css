@@ -6,13 +6,58 @@ body, html{
     font-family: 'Rubik', sans-serif;
     font-size: 14pt;
     font-weight: normal;
-    text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.85);
+    text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.9);
     display: flex;
     flex: 1;
     height: 100%;
     flex-direction: column;
     margin: 0;
     padding: 0;
+}
+
+input, select, textarea, button {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14pt;
+    font-weight: 400;
+    text-shadow: 0px 0px 4px rgba(255, 255, 255, 0.9);
+    padding: 8px;
+    margin: 3px;
+    background: transparent;
+	border: 1px solid rgba(0,0,0,0.35);
+    border-radius: 4px;
+}
+
+button {
+    background-color: rgba(255, 255, 255, 0.75);
+    color: rgba(0,0,0,0.85);
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+button:hover{
+	opacity: 0.8;
+}
+button:active{
+	opacity: 0.6;
+}
+button:focus{
+	outline: none;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: rgba(0,0,0,0.35);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: rgba(0,0,0,0.35);
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: rgba(0,0,0,0.35);
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: rgba(0,0,0,0.35);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: rgba(0,0,0,0.35);
 }
 
 .wallpaper {
@@ -50,3 +95,14 @@ body, html{
     justify-content: space-around;
     margin: auto;
 }
+
+form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
