@@ -74,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -130,8 +132,9 @@
     <PostBuildEvent>Robocopy.exe "$(TargetDir)\Views" "$(ProjectDir)\Views" /MIR
 Robocopy.exe "$(TargetDir)\Content" "$(ProjectDir)\Content" /MIR</PostBuildEvent>
   </PropertyGroup>
-  <Target Name="CopyViewsAndStatics" AfterTargets="CopyAllFilesToSingleFolderForPackage" BeforeTargets="MSDeployPublish">
-    <Copy SourceFiles="$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Content\*" DestinationFolder="$(ProjectDir)bin\Release\PublishOutput\Content" ContinueOnError="true" />
+  <Target Name="CopyViewsAndStatics" AfterTargets="GatherAllFilesToPublish">
+    <Exec Command='Robocopy.exe "$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Content" "$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Content" /MIR' IgnoreExitCode="true" />
+    <Exec Command='Robocopy.exe "$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Views" "$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Views" /MIR' IgnoreExitCode="true" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
