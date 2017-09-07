@@ -5,6 +5,17 @@ Welcome
 @EndSection
 
 @Section['Body']
-Hello!
+<form>
+    <div class="logo white medium"></div>
+    <input type="email" placeholder="Email Address" required="required" />
+    <div class="flex">
+        <input type="text" placeholder="First Name" required="required" />
+        <input type="text" placeholder="Last Name" />
+    </div>
+    <button type="submit">Apply</button>
+</form>
+@EndSection
+
+@Section['Scripts']
 <script src="@Path['~/Content/app.js']"></script>
 @EndSection
