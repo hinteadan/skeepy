@@ -129,12 +129,17 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>Robocopy.exe "$(TargetDir)\Views" "$(ProjectDir)\Views" /MIR
-Robocopy.exe "$(TargetDir)\Content" "$(ProjectDir)\Content" /MIR</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="CopyViewsAndStatics" AfterTargets="GatherAllFilesToPublish">
-    <Exec Command='Robocopy.exe "$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Content" "$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Content" /MIR' IgnoreExitCode="true" />
-    <Exec Command='Robocopy.exe "$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Views" "$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Views" /MIR' IgnoreExitCode="true" />
+  <Target Name="CopyViewsAndStaticsAfterPublish" AfterTargets="GatherAllFilesToPublish">
+    <Exec Command="Robocopy.exe &quot;$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Content&quot; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Content&quot; /MIR" IgnoreExitCode="true" />
+    <Exec Command="Robocopy.exe &quot;$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Views&quot; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Views&quot; /MIR" IgnoreExitCode="true" />
+  </Target>
+  <Target Name="CopyViewsAndStaticsAfterBuild" AfterTargets="AfterBuild">
+    <Exec Command="Robocopy.exe &quot;$(TargetDir)Views&quot; &quot;$(ProjectDir)Views&quot; /MIR" IgnoreExitCode="true" />
+    <Exec Command="Robocopy.exe &quot;$(TargetDir)Content&quot; &quot;$(ProjectDir)Content&quot; /MIR" IgnoreExitCode="true" />
+    <Exec Command="Robocopy.exe $(TargetDir) $(ProjectDir) favicon.ico" IgnoreExitCode="true" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
