@@ -22,7 +22,9 @@ namespace H.Skeepy.Testicles.API.HTTP
         [TestInitialize]
         public void Init()
         {
-            browser = new Browser(new SkeepyApiInMemoryNancyBootsrapper());
+            browser = new Browser(new SkeepyApiInMemoryNancyBootsrapper(), x => {
+                x.AjaxRequest();
+            });
         }
 
         [TestMethod]
