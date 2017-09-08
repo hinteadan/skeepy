@@ -74,6 +74,7 @@
     <Compile Include="Authentication\Token.cs" />
     <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Authentication\TokenFlow.cs" />
+    <Compile Include="SkeepyApiConfiguration.cs" />
     <Compile Include="Hasher.cs" />
     <Compile Include="HTTP\PingModule.cs" />
     <Compile Include="HTTP\RegistrationModule.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Registration\Storage\InMemoryRegistrationStore.cs" />
     <Compile Include="Registration\Storage\RegisteredUser.cs" />
     <Compile Include="SkeepyApiInMemoryNancyBootsrapper.cs" />
+    <Compile Include="SkeepyApiNancyBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">

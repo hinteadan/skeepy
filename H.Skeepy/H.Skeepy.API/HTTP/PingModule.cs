@@ -10,7 +10,7 @@ namespace H.Skeepy.API.HTTP
     public class PingModule : NancyModule
     {
         public PingModule()
-            : base("/ping")
+            : base($"{SkeepyApiConfiguration.BasePath}/ping")
         {
             Get["/"] = _ => Response.AsText($"pong @ {DateTime.Now}");
         }

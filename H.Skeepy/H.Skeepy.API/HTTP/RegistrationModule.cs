@@ -18,7 +18,7 @@ namespace H.Skeepy.API.HTTP
     public class RegistrationModule : NancyModule
     {
         public RegistrationModule(RegistrationFlow registrationFlow)
-            : base("/registration")
+            : base($"{SkeepyApiConfiguration.BasePath}/registration")
         {
             Post["/apply", true] = async (_, c) => Response.AsText((await registrationFlow.Apply(this.Bind<ApplicantDto>())).Public).WithStatusCode(HttpStatusCode.Accepted);
             Get["/validate/{Token}", true] = async (p, c) => TokenToHttpStatusCode(await registrationFlow.Validate((string)p.Token));
