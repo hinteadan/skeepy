@@ -1,0 +1,20 @@
+{
+  "name": "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp",
+  "homepage": "https://github.com/hinteadan/skeepy",
+  "authors": [
+    "Hintee <dan.hintea@recognos.ro>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "knockout.js#^3.1.0"
+  }
+}
