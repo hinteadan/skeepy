@@ -34,6 +34,11 @@ button {
     cursor: pointer;
 }
 
+button[disabled], button[disabled]:hover, button[disabled]:active {
+    opacity: 0.35;
+    cursor: default;
+}
+
 button:hover{
 	opacity: 0.8;
 }

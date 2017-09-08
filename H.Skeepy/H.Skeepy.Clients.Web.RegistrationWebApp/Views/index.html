@@ -25,7 +25,7 @@
                data-msg-required="Please provide a name" />
         <input type="text" name="lastName" autocomplete="off" placeholder="Last Name" data-bind="value: applicant.lastName" />
     </div>
-    <button type="submit">Apply</button>
+    <button type="submit" data-bind="text: submitLabel, disable: isApplicationBeingSubmitted">Apply</button>
     <ul id="applicationErrors" style="height: 0; margin: 0; padding: 0; list-style:none; text-align: center;"></ul>
 </form>
 @EndSection
