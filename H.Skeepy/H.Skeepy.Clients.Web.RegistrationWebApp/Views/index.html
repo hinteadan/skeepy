@@ -5,19 +5,39 @@
 @EndSection
 
 @Section['Body']
-<form>
+<form id="applicationForm" name="applicationForm" data-bind="submit: submitApplication">
     <div class="logo white medium"></div>
-    <input type="email" placeholder="Email Address" required="required" />
+    <input type="email"
+           autocomplete="off"
+           data-msg-email="Please provide a valid email address"
+           name="email"
+           placeholder="Email Address"
+           data-bind="value: applicant.email"
+           required="required"
+           data-msg-required="Please provide an email address" />
     <div class="flex">
-        <input type="text" placeholder="First Name" required="required" />
-        <input type="text" placeholder="Last Name" />
+        <input type="text"
+               autocomplete="off"
+               name="firstName"
+               placeholder="First Name"
+               data-bind="value: applicant.firstName"
+               required="required"
+               data-msg-required="Please provide a name" />
+        <input type="text" name="lastName" autocomplete="off" placeholder="Last Name" data-bind="value: applicant.lastName" />
     </div>
     <button type="submit">Apply</button>
+    <ul id="applicationErrors" style="height: 0; margin: 0; padding: 0; list-style:none; text-align: center;"></ul>
 </form>
 @EndSection
 
 @Section['Scripts']
-<script src="@Path['~/Content/Registration/Applicant.js']"></script>
+<script src="@Path['~/Content/Registration/ApplicantViewModel.js']"></script>
 <script src="@Path['~/Content/Registration/RegistrationAppViewModel.js']"></script>
 <script src="@Path['~/Content/Registration/RegistrationApp.js']"></script>
+<script>
+    $('#applicationForm').validate({
+        errorLabelContainer: '#applicationErrors',
+        wrapper: 'li'
+    });
+</script>
 @EndSection
