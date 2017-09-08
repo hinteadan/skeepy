@@ -12,7 +12,7 @@ namespace H.Skeepy.Clients.Web.RegistrationWebApp
         public ViewsModule()
             : base()
         {
-            Get["/"] = p => View["index.html"];
+            Get["/"] = p => View["Index.html"];
         }
     }
 }
