@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "knockout": "knockout.js#^3.1.0"
+    "knockout": "knockout.js#^3.1.0",
+    "knockout-mapping": "^2.4.1"
   }
 }
