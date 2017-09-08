@@ -44,6 +44,13 @@ namespace H.Skeepy.API
                     ReasonPhrase = exception.Message
                 };
             });
+            pipelines.AfterRequest.AddItemToEndOfPipeline(ctx => {
+                ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                ctx.Response.Headers.Add("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT,PATCH,OPTIONS");
+                //ctx.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+                //ctx.Response.Headers.Add("Access-Control-Allow-Headers", "*");
+                //ctx.Response.Headers.Add("Access-Control-Expose-Headers", "Accept,Origin,Content-type");
+            });
         }
 
         private HttpStatusCode StatusForException(Exception exception)
