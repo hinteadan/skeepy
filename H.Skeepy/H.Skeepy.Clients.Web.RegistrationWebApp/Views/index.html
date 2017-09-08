@@ -12,7 +12,7 @@
            data-msg-email="Please provide a valid email address"
            name="email"
            placeholder="Email Address"
-           data-bind="value: applicant.email"
+           data-bind="value: applicant.email, disable: isApplicationBeingSubmitted"
            required="required"
            data-msg-required="Please provide an email address" />
     <div class="flex">
@@ -20,12 +20,19 @@
                autocomplete="off"
                name="firstName"
                placeholder="First Name"
-               data-bind="value: applicant.firstName"
+               data-bind="value: applicant.firstName, disable: isApplicationBeingSubmitted"
                required="required"
                data-msg-required="Please provide a name" />
-        <input type="text" name="lastName" autocomplete="off" placeholder="Last Name" data-bind="value: applicant.lastName" />
+        <input type="text" 
+               name="lastName"
+               autocomplete="off"
+               placeholder="Last Name"
+               data-bind="value: applicant.lastName, disable: isApplicationBeingSubmitted" />
     </div>
-    <button type="submit" data-bind="text: submitLabel, disable: isApplicationBeingSubmitted">Apply</button>
+    <button type="submit"
+            data-bind="text: submitLabel, disable: isApplicationBeingSubmitted">
+            Apply
+    </button>
     <ul id="applicationErrors" style="height: 0; margin: 0; padding: 0; list-style:none; text-align: center;"></ul>
 </form>
 @EndSection

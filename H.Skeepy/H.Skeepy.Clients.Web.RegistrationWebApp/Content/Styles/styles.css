@@ -34,9 +34,9 @@ button {
     cursor: pointer;
 }
 
-button[disabled], button[disabled]:hover, button[disabled]:active {
-    opacity: 0.35;
-    cursor: default;
+[disabled], [disabled]:hover, [disabled]:active {
+    opacity: 0.35!important;
+    cursor: default!important;
 }
 
 button:hover{

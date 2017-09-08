@@ -11,6 +11,15 @@
 
         this.isApplicationBeingSubmitted(true);
         this.submitLabel('Submitting, please wait...');
-        setTimeout(() => { this.isApplicationBeingSubmitted(false); }, 1000);
+
+        $.post('skeepy/registration/apply', ko.mapping.toJS(this.applicant), (token) => {
+            console.log(`Submitted with token: ${token}`);
+        })
+        .fail(() => {
+            this.isApplicationBeingSubmitted(false);
+            this.submitLabel('Application failed, please try again');
+            setTimeout(() => { this.submitLabel('Apply'); }, 5000);
+        })
+        .always(() => { });
     }
 }
