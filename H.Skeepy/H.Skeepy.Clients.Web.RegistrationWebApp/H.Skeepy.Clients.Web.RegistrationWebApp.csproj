@@ -184,4 +184,7 @@
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BowerInstall" AfterTargets="BeforeBuild">
+    <Exec Command="bower install" />
+  </Target>
 </Project>
