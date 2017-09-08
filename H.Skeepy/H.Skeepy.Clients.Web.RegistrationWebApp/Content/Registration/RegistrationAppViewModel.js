@@ -4,6 +4,7 @@
     }
 
     submitApplication(formElement) {
+        if (!$(formElement).valid()) return;
         console.log(this.applicant);
     }
 }
