@@ -63,6 +63,14 @@
       <Project>{a683febb-2365-4fe3-958b-2d3a2869ca80}</Project>
       <Name>H.Skeepy.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
+      <Project>{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}</Project>
+      <Name>H.Skeepy.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.Model\H.Skeepy.Model.csproj">
+      <Project>{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}</Project>
+      <Name>H.Skeepy.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\485601769.jpg">
@@ -198,6 +206,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ApplicationSuccessfull.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Index.html">

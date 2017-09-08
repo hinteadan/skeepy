@@ -13,7 +13,7 @@
         this.submitLabel('Submitting, please wait...');
 
         $.post('skeepy/registration/apply', ko.mapping.toJS(this.applicant), (token) => {
-            console.log(`Submitted with token: ${token}`);
+            window.location.href = `application/success/${token}`;
         })
         .fail(() => {
             this.isApplicationBeingSubmitted(false);
