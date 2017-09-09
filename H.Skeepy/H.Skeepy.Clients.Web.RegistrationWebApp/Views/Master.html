@@ -28,6 +28,17 @@
     <meta name="msapplication-TileImage" content="@Path['~/Content/Images/fav/ms-icon-144x144.png']">
     <meta name="theme-color" content="#ffffff">
 
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (config) {
+            function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
+        }({
+            instrumentationKey: "36586703-38a7-4df6-be1e-db05770b20d7"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+
     @Section['Head'];
 
 </head>
@@ -37,13 +48,14 @@
     <div class="walpaper-mask-gradient"></div>
 
     <div class="content">
-    @Section['Body'];
+        @Section['Body'];
     </div>
 
     <script src="@Path['~/Content/lib/jquery/dist/jquery.js']"></script>
     <script src="@Path['~/Content/lib/jquery-validation/dist/jquery.validate.js']"></script>
     <script src="@Path['~/Content/lib/knockout/knockout.js']"></script>
     <script src="@Path['~/Content/lib/knockout-mapping/build/output/knockout.mapping-latest.js']"></script>
+    <script src="@Path['~/Content/Analytics.js']"></script>
     @Section['Scripts']
 </body>
 </html>
