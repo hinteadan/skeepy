@@ -74,6 +74,8 @@
     <Compile Include="Authentication\Token.cs" />
     <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Authentication\TokenFlow.cs" />
+    <Compile Include="Notifications\EmailNotifier.cs" />
+    <Compile Include="Notifications\NotificationDestination.cs" />
     <Compile Include="SkeepyApiConfiguration.cs" />
     <Compile Include="Hasher.cs" />
     <Compile Include="HTTP\PingModule.cs" />

@@ -76,6 +76,7 @@
     <Compile Include="Authentication\TokenFlowOperations.cs" />
     <Compile Include="HTTP\PingEndpoints.cs" />
     <Compile Include="HTTP\RegistrationEndpoints.cs" />
+    <Compile Include="Notifications\EmailNotifierOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\RegistrationFlowOperations.cs" />
     <Compile Include="HashOperations.cs" />
