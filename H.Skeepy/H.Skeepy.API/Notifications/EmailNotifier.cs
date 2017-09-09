@@ -24,10 +24,9 @@ namespace H.Skeepy.API.Notifications
 
         public Task Notify(NotificationDestination destination, string summary, string content)
         {
-            using (var message = GenerateMessage(destination, summary, content))
-            {
-                return mailClient.SendMailAsync(message);
-            }
+            var message = GenerateMessage(destination, summary, content);
+            return mailClient.SendMailAsync(message)
+                .ContinueWith(t => { message.Dispose(); });
         }
 
         private MailMessage GenerateMessage(NotificationDestination to, string subject, string body)
