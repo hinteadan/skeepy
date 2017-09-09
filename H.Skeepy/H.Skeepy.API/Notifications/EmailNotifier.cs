@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Notifications
 {
-    public class EmailNotifier
+    public class EmailNotifier : ICanNotify
     {
         private readonly MailAddress from = new MailAddress("no-reply-registration@skeepy.ro", "SKeepy Registration");
         private readonly SmtpClient mailClient;
@@ -17,6 +17,10 @@ namespace H.Skeepy.API.Notifications
         {
             this.mailClient = mailClient ?? throw new InvalidOperationException($"{nameof(mailClient)} must be provided");
         }
+
+        public EmailNotifier()
+            : this(new SmtpClient())
+        { }
 
         public Task Notify(NotificationDestination destination, string summary, string content)
         {
@@ -34,6 +38,14 @@ namespace H.Skeepy.API.Notifications
             message.BodyEncoding = Encoding.UTF8;
             message.Subject = subject;
             return message;
+        }
+
+        public void Dispose()
+        {
+            if (mailClient != null)
+            {
+                mailClient.Dispose();
+            }
         }
     }
 }

@@ -36,5 +36,10 @@ namespace H.Skeepy.API.Registration.Storage
         public string Id => Email;
 
         public AccountStatus Status { get; set; } = AccountStatus.PendingValidation;
+
+        public string FullName()
+        {
+            return $"{FirstName} {LastName}".Trim();
+        }
     }
 }

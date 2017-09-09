@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Notifications;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.Model;
@@ -18,22 +19,26 @@ namespace H.Skeepy.API.Registration
         private readonly ICanManageSkeepyStorageFor<RegisteredUser> userStore;
         private readonly ICanStoreSkeepy<Credentials> credentialStore;
         private readonly ICanStoreSkeepy<Individual> skeepyIndividualStore;
+        private readonly ICanNotify notifier;
 
-        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanStoreSkeepy<Credentials> credentialStore, ICanStoreSkeepy<Individual> skeepyIndividualStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator)
+        public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanStoreSkeepy<Credentials> credentialStore, ICanStoreSkeepy<Individual> skeepyIndividualStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator, ICanNotify notifier)
         {
             this.userStore = userStore ?? throw new InvalidOperationException($"Must provide a {nameof(userStore)}");
             this.credentialStore = credentialStore ?? throw new InvalidOperationException($"Must provide a {nameof(credentialStore)}");
             this.skeepyIndividualStore = skeepyIndividualStore ?? throw new InvalidOperationException($"Must provide a {nameof(skeepyIndividualStore)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
             this.tokenGenerator = tokenGenerator ?? throw new InvalidOperationException($"Must provide a {nameof(tokenGenerator)}");
+            this.notifier = notifier ?? throw new InvalidOperationException($"Must provide a {nameof(notifier)}");
         }
 
         public async Task<Token> Apply(ApplicantDto applicant)
         {
             ValidateApplicant(applicant);
             var token = tokenGenerator.Generate(applicant.Email);
-            await userStore.Put(new RegisteredUser(applicant));
+            var user = new RegisteredUser(applicant);
+            await userStore.Put(user);
             await tokenStore.Put(token);
+            await notifier.Notify(new NotificationDestination(user.Email, user.FullName()), "SKeepy Registration", $"{token.UserId}{Environment.NewLine}{token.Public}");
             return token;
         }
 

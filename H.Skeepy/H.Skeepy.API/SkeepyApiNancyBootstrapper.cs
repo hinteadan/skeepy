@@ -12,27 +12,17 @@ using H.Skeepy.Model;
 using H.Skeepy.API.Registration;
 using H.Skeepy.API.Authentication.Storage;
 using H.Skeepy.Core.Storage.Individuals;
+using H.Skeepy.API.Notifications;
 
 namespace H.Skeepy.API
 {
     public class SkeepyApiNancyBootstrapper : SkeepyApiInMemoryNancyBootsrapper
     {
-        protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+        protected override void RegisterSkeepyBuildingBlocks(TinyIoCContainer container)
         {
-            base.ApplicationStartup(container, pipelines);
-            
-            container.Register<ICanManageSkeepyStorageFor<Token>>(new InMemoryTokensStore());
-            container.Register<ICanManageSkeepyStorageFor<RegisteredUser>>(new InMemoryRegistrationStore());
-            container.Register<ICanStoreSkeepy<Credentials>>(new InMemoryCredentialsStore());
-            container.Register<ICanManageSkeepyStorageFor<Individual>>(new InMemoryIndividualsStore());
+            base.RegisterSkeepyBuildingBlocks(container);
 
-            container.Register(new RegistrationFlow(
-                container.Resolve<ICanManageSkeepyStorageFor<RegisteredUser>>(),
-                container.Resolve<ICanStoreSkeepy<Credentials>>(),
-                container.Resolve<ICanManageSkeepyStorageFor<Individual>>(),
-                container.Resolve<ICanManageSkeepyStorageFor<Token>>(),
-                container.Resolve<ICanGenerateTokens<string>>()
-                ));
+            container.Register<ICanNotify>(new EmailNotifier());
         }
     }
 }

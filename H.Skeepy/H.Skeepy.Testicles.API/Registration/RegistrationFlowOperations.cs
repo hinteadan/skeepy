@@ -8,6 +8,7 @@ using H.Skeepy.Core.Storage;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Model;
 using H.Skeepy.Core.Storage.Individuals;
+using H.Skeepy.API.Notifications;
 
 namespace H.Skeepy.Testicles.API.Registration
 {
@@ -28,7 +29,7 @@ namespace H.Skeepy.Testicles.API.Registration
             registrationStore = new InMemoryRegistrationStore();
             credentialStore = new InMemoryCredentialsStore();
             individualStore = new InMemoryIndividualsStore();
-            registration = new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, tokenGenerator);
+            registration = new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, tokenGenerator, new NullNotifier());
         }
 
         [TestCleanup]
@@ -63,7 +64,7 @@ namespace H.Skeepy.Testicles.API.Registration
             registration.Validate(registrationToken.Public).Result.ShouldBeEquivalentTo(registrationToken);
             registration.Validate("SomeRandomInexistentTokenPublicKey").Result.Should().BeNull();
 
-            var expiredRegistrationFlow = new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)));
+            var expiredRegistrationFlow = new RegistrationFlow(registrationStore, credentialStore, individualStore, tokenStore, new JsonWebTokenGenerator(TimeSpan.FromSeconds(-1)), new NullNotifier());
             var expiredToken = expiredRegistrationFlow.Apply(new ApplicantDto { FirstName = "Rafa", Email = "hinteadan@yahoo.co.uk" }).Result;
             expiredRegistrationFlow.Validate(expiredToken.Public).Result.HasExpired().Should().BeTrue();
         }
