@@ -26,7 +26,7 @@ namespace H.Skeepy.Testicles.API.Notifications
         public void Uninit()
         {
             mailClient.Dispose();
-            //Directory.Delete(tmpEmailStorageFolder, true);
+            Directory.Delete(tmpEmailStorageFolder, true);
         }
 
         [TestMethod]
