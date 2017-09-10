@@ -78,6 +78,7 @@
     <Compile Include="Notifications\ICanNotify.cs" />
     <Compile Include="Notifications\NotificationDestination.cs" />
     <Compile Include="Notifications\NullNotifier.cs" />
+    <Compile Include="TemplateParser.cs" />
     <Compile Include="SkeepyApiConfiguration.cs" />
     <Compile Include="Hasher.cs" />
     <Compile Include="HTTP\PingModule.cs" />
@@ -104,7 +105,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Notifications\EmailBodyTemplate.html" />
+    <EmbeddedResource Include="Notifications\HtmlTemplate.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
