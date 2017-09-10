@@ -105,7 +105,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Notifications\HtmlTemplate.html" />
+    <EmbeddedResource Include="Notifications\HtmlRegistrationTemplate.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

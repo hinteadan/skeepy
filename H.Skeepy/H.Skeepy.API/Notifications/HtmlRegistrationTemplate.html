@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@{Title}</title>
+    <title>SKeepy Account Registration</title>
     <style type="text/css">
         /* Client-specific Styles */
         #outlook a {
@@ -320,7 +320,7 @@
                                                             <tr>
                                                                 <td style="font-family: Helvetica, arial, sans-serif; font-size: 13px; color: #333333; text-align:left;line-height: 24px;">
                                                                     <p>
-                                                                        Thank you for applying for a SKeepy account.
+                                                                        Thank you <strong>@{Name}</strong> for applying for a SKeepy account.
                                                                     </p>
                                                                     <p>
                                                                         To validate your registration and <strong>activate</strong> your <strong>SKeepy account</strong>, please <strong>click the link below</strong>.
@@ -336,7 +336,9 @@
                                                             <!-- button -->
                                                             <tr>
                                                                 <td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; font-weight:bold; color: #333333; text-align:center;line-height: 24px;">
-                                                                    <a href="#" style="color:#e57618;text-decoration:none;font-weight:bold;">Click here to activate your SKeepy account</a>
+                                                                    <a href="@{ValidationUrl}" style="color:#e57618;text-decoration:none;font-weight:bold;">Click here to activate your SKeepy account</a>
+                                                                    <br />
+                                                                    <i style="font-size:9px;">@{ValidationUrl}</i>
                                                                 </td>
                                                             </tr>
                                                             <!-- /button -->

@@ -38,8 +38,14 @@ namespace H.Skeepy.API.Registration
             var user = new RegisteredUser(applicant);
             await userStore.Put(user);
             await tokenStore.Put(token);
-            await notifier.Notify(new NotificationDestination(user.Email, user.FullName()), "SKeepy Registration", $"{token.UserId}{Environment.NewLine}{token.Public}");
+            await notifier.Notify(new NotificationDestination(user.Email, user.FullName()), "SKeepy Registration", GenerateNotificationBody(user, token));
             return token;
+        }
+
+        private string GenerateNotificationBody(RegisteredUser user, Token token)
+        {
+
+            throw new NotImplementedException();
         }
 
         private static void ValidateApplicant(ApplicantDto applicant)
