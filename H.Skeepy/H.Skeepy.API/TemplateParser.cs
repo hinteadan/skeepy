@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace H.Skeepy.API
@@ -32,12 +33,12 @@ namespace H.Skeepy.API
         }
 
         private readonly string template;
-        private readonly Queue<Part> parts;
+        private readonly Lazy<Queue<Part>> parts;
 
         public TemplateParser(string template)
         {
             this.template = template ?? string.Empty;
-            parts = SplitTemplate(this.template);
+            parts = new Lazy<Queue<Part>>(() => SplitTemplate(this.template), LazyThreadSafetyMode.PublicationOnly);
         }
 
         private static Queue<Part> SplitTemplate(string template)
@@ -68,7 +69,7 @@ namespace H.Skeepy.API
         {
             var result = new StringBuilder();
 
-            foreach(var part in parts)
+            foreach(var part in parts.Value)
             {
                 result.Append(part.IsTag ? payload.SingleOrDefault(x => x.Item1 == part.Text).Item2 ?? string.Empty : part.Text);
             }
