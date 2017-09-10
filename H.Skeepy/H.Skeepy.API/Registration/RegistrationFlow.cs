@@ -3,11 +3,15 @@ using H.Skeepy.API.Notifications;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.Model;
+using Nancy.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Registration
@@ -20,6 +24,23 @@ namespace H.Skeepy.API.Registration
         private readonly ICanStoreSkeepy<Credentials> credentialStore;
         private readonly ICanStoreSkeepy<Individual> skeepyIndividualStore;
         private readonly ICanNotify notifier;
+        private static readonly string templateResourcePath = "H.Skeepy.API.Notifications.HtmlRegistrationTemplate.html";
+        private readonly Lazy<TemplateParser> registrationEmailTemplate = new Lazy<TemplateParser>(() => new TemplateParser(LoadTemplate()), LazyThreadSafetyMode.PublicationOnly);
+#if DEBUG
+        private readonly string baseUrl = "http://localhost:9901";
+#else
+        private readonly string baseUrl = "http://register.skeepy.ro";
+#endif
+
+        private static string LoadTemplate()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (Stream stream = assembly.GetManifestResourceStream(templateResourcePath))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
 
         public RegistrationFlow(ICanManageSkeepyStorageFor<RegisteredUser> userStore, ICanStoreSkeepy<Credentials> credentialStore, ICanStoreSkeepy<Individual> skeepyIndividualStore, ICanManageSkeepyStorageFor<Token> tokenStore, ICanGenerateTokens<string> tokenGenerator, ICanNotify notifier)
         {
@@ -44,8 +65,10 @@ namespace H.Skeepy.API.Registration
 
         private string GenerateNotificationBody(RegisteredUser user, Token token)
         {
-
-            throw new NotImplementedException();
+            return registrationEmailTemplate.Value.Compile(
+                ("Name", user.FullName()),
+                ("ValidationUrl", $"{baseUrl}/registration/validate/{HttpUtility.UrlEncode(user.Email)}/{token.Public}")
+                );
         }
 
         private static void ValidateApplicant(ApplicantDto applicant)
