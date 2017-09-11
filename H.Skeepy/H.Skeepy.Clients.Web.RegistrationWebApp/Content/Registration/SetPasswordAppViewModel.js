@@ -14,7 +14,7 @@
         this.isFormBeingSubmitted(true);
         this.submitLabel('Submitting, please wait...');
 
-        $.post(`${applicationBaseUrl}skeepy/registration/pass/${registrationToken}`, this.password(), () => {
+        $.post(`${applicationBaseUrl}/skeepy/registration/pass/${registrationToken}`, this.password(), () => {
             Analytics.trackEvent('SetPasswordSucceeded');
             window.location.href = `${applicationBaseUrl}/password/success`;
         })
