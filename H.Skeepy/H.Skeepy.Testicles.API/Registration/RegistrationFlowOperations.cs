@@ -134,7 +134,11 @@ namespace H.Skeepy.Testicles.API.Registration
         public void RegistrationFlow_ShouldNotAllowRegistrationWithSameEmailAddress()
         {
             var email = "hintee@skeepy.ro";
-            registration.Apply(new ApplicantDto { FirstName = "Fed", Email = email }).Wait();
+            var token = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = email }).Result;
+            new Action(() => registration.Apply(new ApplicantDto { FirstName = "Rafa", Email = email }).Wait()).ShouldThrow<SkeepyApiException>();
+            registration.Validate(token.Public).Wait();
+            new Action(() => registration.Apply(new ApplicantDto { FirstName = "Rafa", Email = email }).Wait()).ShouldThrow<SkeepyApiException>();
+            registration.SetPassword(token.Public, "123qwe").Wait();
             new Action(() => registration.Apply(new ApplicantDto { FirstName = "Rafa", Email = email }).Wait()).ShouldThrow<SkeepyApiException>();
         }
     }
