@@ -67,7 +67,7 @@ namespace H.Skeepy.API.Registration
         {
             return registrationEmailTemplate.Value.Compile(
                 ("Name", user.FullName()),
-                ("ValidationUrl", $"{baseUrl}/registration/validate/{HttpUtility.UrlEncode(user.Email)}/{token.Public}")
+                ("ValidationUrl", $"{baseUrl}/registration/validate/{token.Public}")
                 );
         }
 
