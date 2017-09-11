@@ -35,6 +35,13 @@ namespace H.Skeepy.API.HTTP
                 }
                 return Response.AsJson(true);
             };
+            Post["password/validity"] = _ =>
+            {
+                try { PasswordPolicy.Validate((string)Request.Form.password); }
+                catch (SkeepyApiException ex) { return Response.AsJson(ex.DisplayMessage); }
+
+                return Response.AsJson(true);
+            };
         }
 
         private static HttpStatusCode TokenToHttpStatusCode(Token token)

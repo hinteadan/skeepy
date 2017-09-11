@@ -87,5 +87,14 @@ namespace H.Skeepy.Testicles.API.HTTP
             });
             browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("\"Email address is already registered\"");
         }
+
+        [TestMethod]
+        public void RegistrationApi_CanValidatePasswords()
+        {
+            browser.Post($"/registration/password/validity", x => { x.FormValue("password", "123qwe"); }).Body.AsString().Should().Be("true");
+            browser.Post($"/registration/password/validity", x => { x.FormValue("password", null); }).Body.AsString().Should().Be("\"The password cannot be empty\"");
+            browser.Post($"/registration/password/validity", x => { x.FormValue("password", string.Empty); }).Body.AsString().Should().Be("\"The password cannot be empty\"");
+            browser.Post($"/registration/password/validity", x => { x.FormValue("password", "    \t  "); }).Body.AsString().Should().Be("\"The password cannot be empty\"");
+        }
     }
 }

@@ -25,6 +25,7 @@ namespace H.Skeepy.Clients.Web.RegistrationWebApp
                 return View["ApplicationSuccessfull.html"];
             };
             Get["/validate/{Token}"] = p => View["ValidateToken.html", (string)p.Token];
+            Get["/password/success"] = _ => View["PasswordSetSuccessfull.html"];
             Get["/password/{Token}"] = p => View["SetPassword.html", (string)p.Token];
 
             Get["/expired"] = _ => View["Expired.html"];
