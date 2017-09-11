@@ -54,7 +54,7 @@ namespace H.Skeepy.API.Registration
 
         public async Task<Token> Apply(ApplicantDto applicant)
         {
-            ValidateApplicant(applicant);
+            await ValidateApplicant(applicant);
             var token = tokenGenerator.Generate(applicant.Email);
             var user = new RegisteredUser(applicant);
             await userStore.Put(user);
@@ -71,16 +71,25 @@ namespace H.Skeepy.API.Registration
                 );
         }
 
-        private static void ValidateApplicant(ApplicantDto applicant)
+        private async Task ValidateApplicant(ApplicantDto applicant)
         {
             if (string.IsNullOrWhiteSpace(applicant.FirstName) && string.IsNullOrWhiteSpace(applicant.LastName))
             {
                 throw new SkeepyApiException("At least one name, first or last, must be provided.");
             }
-            ValidateEmail(applicant.Email);
+            ValidateEmailAddressFormat(applicant.Email);
+            await ValidateEmailAddressAvailability(applicant.Email);
         }
 
-        private static void ValidateEmail(string email)
+        private async Task ValidateEmailAddressAvailability(string email)
+        {
+            if(await userStore.Get(email) != null)
+            {
+                throw new SkeepyApiException("Email address is already registered");
+            }
+        }
+
+        private static void ValidateEmailAddressFormat(string email)
         {
             try
             {
