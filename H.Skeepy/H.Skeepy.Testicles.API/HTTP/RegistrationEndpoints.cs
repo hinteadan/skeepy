@@ -80,12 +80,12 @@ namespace H.Skeepy.Testicles.API.HTTP
         [TestMethod]
         public void Registration_ValidatesEmailAvailability()
         {
-            browser.Get($"/registration/email/availability/{HttpUtility.UrlEncode(applicant.Email)}", x => { x.Query("email", HttpUtility.UrlEncode(applicant.Email)); x.Query("t", "whatever"); }).Body.AsString().Should().Be("true");
+            browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("true");
             browser.Post("/registration/apply", x =>
             {
                 x.JsonBody(applicant);
             });
-            browser.Get($"/registration/email/availability/{HttpUtility.UrlEncode(applicant.Email)}", x => { x.Query("email", HttpUtility.UrlEncode(applicant.Email)); x.Query("t", "whatever"); }).Body.AsString().Should().Be("\"Email address is already registered\"");
+            browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("\"Email address is already registered\"");
         }
     }
 }

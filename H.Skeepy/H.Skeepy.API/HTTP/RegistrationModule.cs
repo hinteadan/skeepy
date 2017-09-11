@@ -27,9 +27,9 @@ namespace H.Skeepy.API.HTTP
                 await registrationFlow.SetPassword((string)p.Token, Request.Body.AsString());
                 return HttpStatusCode.OK;
             };
-            Get["/email/availability/{Email}", true] = async (p, c) =>
+            Post["/email/availability", true] = async (p, c) =>
             {
-                if (await userStore.Get((string)p.Email) != null)
+                if (await userStore.Get((string)Request.Form.email) != null)
                 {
                     return Response.AsJson("Email address is already registered");
                 }

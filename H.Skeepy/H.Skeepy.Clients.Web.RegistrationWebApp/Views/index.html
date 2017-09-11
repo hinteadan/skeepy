@@ -23,7 +23,7 @@
                data-bind="value: applicant.firstName, disable: isApplicationBeingSubmitted"
                required="required"
                data-msg-required="Please provide a name" />
-        <input type="text" 
+        <input type="text"
                name="lastName"
                autocomplete="off"
                placeholder="Last Name"
@@ -31,7 +31,7 @@
     </div>
     <button type="submit"
             data-bind="text: submitLabel, disable: isApplicationBeingSubmitted">
-            Apply
+        Apply
     </button>
     <ul id="applicationErrors" style="height: 0; margin: 0; padding: 0; list-style:none; text-align: center;"></ul>
 </form>
@@ -44,7 +44,18 @@
 <script>
     $('#applicationForm').validate({
         errorLabelContainer: '#applicationErrors',
-        wrapper: 'li'
+        wrapper: 'li',
+        rules: {
+            email: {
+                required: true,
+                email: true,
+                remote: {
+                    url: 'skeepy/registration/email/availability',
+                    type: 'post'
+                }
+
+            }
+        }
     });
 </script>
 @EndSection
