@@ -38,6 +38,9 @@
         window.appInsights = appInsights;
         appInsights.trackPageView();
     </script>
+    <script>
+        const applicationBaseUrl = `@Path['~']`;
+    </script>
 
     @Section['Head'];
 
@@ -56,6 +59,7 @@
     <script src="@Path['~/Content/lib/knockout/knockout.js']"></script>
     <script src="@Path['~/Content/lib/knockout-mapping/build/output/knockout.mapping-latest.js']"></script>
     <script src="@Path['~/Content/Analytics.js']"></script>
+    <script src="@Path['~/Content/HttpErrorHandler.js']"></script>
     @Section['Scripts'];
 </body>
 </html>

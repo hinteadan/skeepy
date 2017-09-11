@@ -14,9 +14,9 @@
         this.isApplicationBeingSubmitted(true);
         this.submitLabel('Submitting, please wait...');
 
-        $.post('skeepy/registration/apply', ko.mapping.toJS(this.applicant), (token) => {
+        $.post(`${applicationBaseUrl}skeepy/registration/apply`, ko.mapping.toJS(this.applicant), (token) => {
             Analytics.trackEvent('ApplyForRegistrationSucceeded', token);
-            window.location.href = `application/success/${token}`;
+            window.location.href = `${applicationBaseUrl}/application/success/${token}`;
         })
         .fail(() => {
             this.isApplicationBeingSubmitted(false);
