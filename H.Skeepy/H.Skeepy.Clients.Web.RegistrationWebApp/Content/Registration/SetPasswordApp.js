@@ -1,0 +1,1 @@
+﻿ko.applyBindings(new SetPasswordAppViewModel());
