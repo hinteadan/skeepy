@@ -81,6 +81,7 @@
     <Compile Include="Registration\RegistrationFlowOperations.cs" />
     <Compile Include="HashOperations.cs" />
     <Compile Include="TemplateParserOperations.cs" />
+    <Compile Include="PasswordPolicyOperations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
