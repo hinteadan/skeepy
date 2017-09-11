@@ -78,6 +78,7 @@
     <Compile Include="Notifications\ICanNotify.cs" />
     <Compile Include="Notifications\NotificationDestination.cs" />
     <Compile Include="Notifications\NullNotifier.cs" />
+    <Compile Include="SkeepyApiException.cs" />
     <Compile Include="TemplateParser.cs" />
     <Compile Include="SkeepyApiConfiguration.cs" />
     <Compile Include="Hasher.cs" />

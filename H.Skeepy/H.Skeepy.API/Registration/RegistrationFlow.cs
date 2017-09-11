@@ -75,7 +75,7 @@ namespace H.Skeepy.API.Registration
         {
             if (string.IsNullOrWhiteSpace(applicant.FirstName) && string.IsNullOrWhiteSpace(applicant.LastName))
             {
-                throw new InvalidOperationException("At least one name, first or last, must be provided.");
+                throw new SkeepyApiException("At least one name, first or last, must be provided.");
             }
             ValidateEmail(applicant.Email);
         }
@@ -88,7 +88,7 @@ namespace H.Skeepy.API.Registration
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException("Invalid email address", ex);
+                throw new SkeepyApiException("Invalid email address", ex);
             }
         }
 
@@ -113,16 +113,16 @@ namespace H.Skeepy.API.Registration
         {
             if(string.IsNullOrWhiteSpace(password))
             {
-                throw new InvalidOperationException("Password cannot be empty");
+                throw new SkeepyApiException("Password cannot be empty");
             }
 
             var token = await Validate(publicToken);
             if (token == null || token.HasExpired())
             {
-                throw new InvalidOperationException("The application has expired. You can apply for a new registration.");
+                throw new SkeepyApiException("The application has expired. You can apply for a new registration.");
             }
 
-            var user = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
+            var user = await userStore.Get(token.UserId) ?? throw new SkeepyApiException($"Inexistent applicant {token.UserId}");
             user.Status = RegisteredUser.AccountStatus.Valid;
             await credentialStore.Put(new Credentials(user.Id, Hasher.Hash(password)));
             var fed = Individual.New(user.FirstName, user.LastName);

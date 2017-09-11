@@ -9,6 +9,7 @@ using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Model;
 using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.API.Notifications;
+using H.Skeepy.API;
 
 namespace H.Skeepy.Testicles.API.Registration
 {
@@ -127,6 +128,14 @@ namespace H.Skeepy.Testicles.API.Registration
             var registrationToken = registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Result;
             registration.SetPassword(registrationToken.Public, "123qwe").Wait();
             tokenStore.Get(registrationToken.Id).Result.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void RegistrationFlow_ShouldNotAllowRegistrationWithSameEmailAddress()
+        {
+            var email = "hintee@skeepy.ro";
+            registration.Apply(new ApplicantDto { FirstName = "Fed", Email = email }).Wait();
+            new Action(() => registration.Apply(new ApplicantDto { FirstName = "Rafa", Email = email }).Wait()).ShouldThrow<SkeepyApiException>();
         }
     }
 }
