@@ -5,6 +5,7 @@ using H.Skeepy.API;
 using FluentAssertions;
 using Nancy;
 using H.Skeepy.API.Registration;
+using Nancy.Helpers;
 
 namespace H.Skeepy.Testicles.API.HTTP
 {
@@ -74,6 +75,17 @@ namespace H.Skeepy.Testicles.API.HTTP
             browser.Post("/registration/pass/InexistentRegistrationToken", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
             var token = browser.Post("/registration/apply", x => { x.JsonBody(applicant); }).Body.AsString();
             browser.Post($"/registration/pass/{token}", x => { x.Body("123qwe"); }).StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void Registration_ValidatesEmailAvailability()
+        {
+            browser.Get($"/registration/email/availability/{HttpUtility.UrlEncode(applicant.Email)}", x => { x.Query("email", HttpUtility.UrlEncode(applicant.Email)); x.Query("t", "whatever"); }).Body.AsString().Should().Be("true");
+            browser.Post("/registration/apply", x =>
+            {
+                x.JsonBody(applicant);
+            });
+            browser.Get($"/registration/email/availability/{HttpUtility.UrlEncode(applicant.Email)}", x => { x.Query("email", HttpUtility.UrlEncode(applicant.Email)); x.Query("t", "whatever"); }).Body.AsString().Should().Be("\"Email address is already registered\"");
         }
     }
 }

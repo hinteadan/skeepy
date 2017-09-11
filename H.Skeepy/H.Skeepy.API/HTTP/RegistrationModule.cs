@@ -17,7 +17,7 @@ namespace H.Skeepy.API.HTTP
 {
     public class RegistrationModule : NancyModule
     {
-        public RegistrationModule(RegistrationFlow registrationFlow)
+        public RegistrationModule(RegistrationFlow registrationFlow, ICanManageSkeepyStorageFor<RegisteredUser> userStore)
             : base($"{SkeepyApiConfiguration.BasePath}/registration")
         {
             Post["/apply", true] = async (_, c) => Response.AsText((await registrationFlow.Apply(this.Bind<ApplicantDto>())).Public).WithStatusCode(HttpStatusCode.Accepted);
@@ -26,6 +26,14 @@ namespace H.Skeepy.API.HTTP
             {
                 await registrationFlow.SetPassword((string)p.Token, Request.Body.AsString());
                 return HttpStatusCode.OK;
+            };
+            Get["/email/availability/{Email}", true] = async (p, c) =>
+            {
+                if (await userStore.Get((string)p.Email) != null)
+                {
+                    return Response.AsJson("Email address is already registered");
+                }
+                return Response.AsJson(true);
             };
         }
 
