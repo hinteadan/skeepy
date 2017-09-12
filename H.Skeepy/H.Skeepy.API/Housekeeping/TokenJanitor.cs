@@ -17,9 +17,17 @@ namespace H.Skeepy.API.Housekeeping
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
         }
 
-        public Task Clean()
+        public async Task Clean()
         {
-            return Task.CompletedTask;
+            foreach (var lazyToken in await tokenStore.Get())
+            {
+                if (!lazyToken.Full.HasExpired())
+                {
+                    continue;
+                }
+
+                await tokenStore.Zap(lazyToken.Summary.Id);
+            }
         }
     }
 }
