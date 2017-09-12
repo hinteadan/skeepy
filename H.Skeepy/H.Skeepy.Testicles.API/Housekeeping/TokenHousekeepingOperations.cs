@@ -17,12 +17,6 @@ namespace H.Skeepy.Testicles.API.Housekeeping
 
         private ICanManageSkeepyStorageFor<Token> tokenStore;
 
-        [TestInitialize]
-        public void TestInit()
-        {
-
-        }
-
         [TestCleanup]
         public void TestUninit()
         {
