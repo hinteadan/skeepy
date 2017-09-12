@@ -37,5 +37,14 @@ namespace H.Skeepy.Testicles.API.Housekeeping
             new TokenJanitor(tokenStore).Clean().Wait();
             tokenStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(tokens);
         }
+
+        [TestMethod]
+        public void TokenHousekeeping_ZapsExpiredTokens()
+        {
+            var tokens = new Token[] { expiredTokenGenerator.Generate("hintee1"), validTokenGenerator.Generate("hintee2") };
+            tokenStore = new InMemoryTokensStore(tokens);
+            new TokenJanitor(tokenStore).Clean().Wait();
+            tokenStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new Token[] { tokens[1] });
+        }
     }
 }
