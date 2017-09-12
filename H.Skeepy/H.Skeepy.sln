@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.Hosts.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.RegistrationHousekeepingService", "H.Skeepy.Clients.RegistrationHousekeepingService\H.Skeepy.Clients.RegistrationHousekeepingService.csproj", "{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob", "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob\H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob.csproj", "{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.RegistrationHousekeepingWebJob", "H.Skeepy.RegistrationHousekeepingWebJob\H.Skeepy.RegistrationHousekeepingWebJob.csproj", "{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
