@@ -1,0 +1,36 @@
+﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Authentication.Storage;
+using H.Skeepy.API.Notifications;
+using H.Skeepy.API.Registration.Storage;
+using H.Skeepy.Core.Storage;
+using H.Skeepy.Core.Storage.Individuals;
+using H.Skeepy.Model;
+using Nancy.TinyIoc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace H.Skeepy.API.Infrastructure
+{
+    public static class DefaultBuildingBlocks
+    {
+        public static readonly ICanGenerateTokens<string> TokenGenerator = new JsonWebTokenGenerator(TimeSpan.FromHours(24));
+        public static readonly ICanManageSkeepyStorageFor<Token> TokenStorage = new InMemoryTokensStore();
+        public static readonly ICanManageSkeepyStorageFor<RegisteredUser> UserStore = new InMemoryRegistrationStore();
+        public static readonly ICanManageSkeepyStorageFor<Individual> SkeepyIndividualStore = new InMemoryIndividualsStore();
+        public static readonly ICanStoreSkeepy<Credentials> CredentialStore = new InMemoryCredentialsStore();
+        public static readonly ICanNotify Notifier = new EmailNotifier();
+
+        public static void RegisterWithTinyIoc(TinyIoCContainer container)
+        {
+            container.Register(TokenGenerator);
+            container.Register(TokenStorage);
+            container.Register(UserStore);
+            container.Register(SkeepyIndividualStore);
+            container.Register(CredentialStore);
+            container.Register(Notifier);
+        }
+    }
+}

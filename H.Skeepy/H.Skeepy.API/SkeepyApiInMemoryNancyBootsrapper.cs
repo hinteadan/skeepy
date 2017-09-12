@@ -14,6 +14,7 @@ using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.Model;
 using H.Skeepy.API.Registration;
 using H.Skeepy.API.Notifications;
+using H.Skeepy.API.Infrastructure;
 
 namespace H.Skeepy.API
 {
@@ -21,11 +22,8 @@ namespace H.Skeepy.API
     {
         protected virtual void RegisterSkeepyBuildingBlocks(TinyIoCContainer container)
         {
-            container.Register<ICanGenerateTokens<string>>(new JsonWebTokenGenerator(TimeSpan.FromHours(24)));
-            container.Register<ICanManageSkeepyStorageFor<Token>>(new InMemoryTokensStore());
-            container.Register<ICanManageSkeepyStorageFor<RegisteredUser>>(new InMemoryRegistrationStore());
-            container.Register<ICanStoreSkeepy<Credentials>>(new InMemoryCredentialsStore());
-            container.Register<ICanManageSkeepyStorageFor<Individual>>(new InMemoryIndividualsStore());
+            DefaultBuildingBlocks.RegisterWithTinyIoc(container);
+
             container.Register<ICanNotify>(new NullNotifier());
         }
 
@@ -52,7 +50,8 @@ namespace H.Skeepy.API
                     ReasonPhrase = exception.Message
                 };
             });
-            pipelines.AfterRequest.AddItemToEndOfPipeline(ctx => {
+            pipelines.AfterRequest.AddItemToEndOfPipeline(ctx =>
+            {
                 ctx.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 ctx.Response.Headers.Add("Access-Control-Allow-Methods", "POST,GET,DELETE,PUT,PATCH,OPTIONS");
                 //ctx.Response.Headers.Add("Access-Control-Allow-Credentials", "true");

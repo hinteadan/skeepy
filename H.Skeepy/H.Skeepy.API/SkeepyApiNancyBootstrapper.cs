@@ -13,6 +13,7 @@ using H.Skeepy.API.Registration;
 using H.Skeepy.API.Authentication.Storage;
 using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.API.Notifications;
+using H.Skeepy.API.Infrastructure;
 
 namespace H.Skeepy.API
 {
@@ -22,7 +23,7 @@ namespace H.Skeepy.API
         {
             base.RegisterSkeepyBuildingBlocks(container);
 
-            container.Register<ICanNotify>(new EmailNotifier());
+            DefaultBuildingBlocks.RegisterWithTinyIoc(container);
         }
     }
 }
