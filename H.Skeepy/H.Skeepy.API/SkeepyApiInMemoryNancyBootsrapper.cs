@@ -22,7 +22,7 @@ namespace H.Skeepy.API
     {
         protected virtual void RegisterSkeepyBuildingBlocks(TinyIoCContainer container)
         {
-            DefaultBuildingBlocks.RegisterWithTinyIoc(container);
+            DefaultSkeepyApiBuildingBlocks.RegisterWithTinyIoc(container);
 
             container.Register<ICanNotify>(new NullNotifier());
         }

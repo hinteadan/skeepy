@@ -23,7 +23,7 @@ namespace H.Skeepy.API
         {
             base.RegisterSkeepyBuildingBlocks(container);
 
-            DefaultBuildingBlocks.RegisterWithTinyIoc(container);
+            DefaultSkeepyApiBuildingBlocks.RegisterWithTinyIoc(container);
         }
     }
 }

@@ -77,7 +77,7 @@
     <Compile Include="Housekeeping\ImAJanitor.cs" />
     <Compile Include="Housekeeping\RegistrationJanitor.cs" />
     <Compile Include="Housekeeping\TokenJanitor.cs" />
-    <Compile Include="Infrastructure\DefaultBuildingBlocks.cs" />
+    <Compile Include="Infrastructure\DefaultSkeepyApiBuildingBlocks.cs" />
     <Compile Include="Notifications\EmailNotifier.cs" />
     <Compile Include="Notifications\ICanNotify.cs" />
     <Compile Include="Notifications\NotificationDestination.cs" />

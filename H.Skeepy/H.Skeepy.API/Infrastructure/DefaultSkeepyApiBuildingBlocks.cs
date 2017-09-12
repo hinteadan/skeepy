@@ -1,5 +1,6 @@
 ﻿using H.Skeepy.API.Authentication;
 using H.Skeepy.API.Authentication.Storage;
+using H.Skeepy.API.Housekeeping;
 using H.Skeepy.API.Notifications;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Infrastructure
 {
-    public static class DefaultBuildingBlocks
+    public static class DefaultSkeepyApiBuildingBlocks
     {
         public static readonly Func<ICanGenerateTokens<string>> TokenGenerator = () => new JsonWebTokenGenerator(TimeSpan.FromHours(24));
         public static readonly Func<ICanManageSkeepyStorageFor<Token>> TokenStorage = () => new InMemoryTokensStore();
@@ -31,6 +32,12 @@ namespace H.Skeepy.API.Infrastructure
             container.Register(SkeepyIndividualStore());
             container.Register(CredentialStore());
             container.Register(Notifier());
+            container.RegisterMultiple<ImAJanitor>(new[] { typeof(TokenJanitor), typeof(RegistrationJanitor) });
+        }
+
+        public static void RegisterWithTinyIoc()
+        {
+            RegisterWithTinyIoc(TinyIoCContainer.Current);
         }
     }
 }
