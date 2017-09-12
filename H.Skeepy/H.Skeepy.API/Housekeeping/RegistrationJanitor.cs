@@ -10,7 +10,7 @@ namespace H.Skeepy.API.Housekeeping
     {
         public Task Clean()
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

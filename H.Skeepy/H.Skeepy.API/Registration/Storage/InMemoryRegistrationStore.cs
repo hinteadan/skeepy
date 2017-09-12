@@ -25,7 +25,9 @@ namespace H.Skeepy.API.Registration.Storage
 
         public Task<IEnumerable<LazyEntity<RegisteredUser>>> Get()
         {
-            throw new NotImplementedException();
+            var taskSource = new TaskCompletionSource<IEnumerable<LazyEntity<RegisteredUser>>>();
+            taskSource.SetResult(repo.Select(x => new LazyEntity<RegisteredUser>(x.Value, u => u)));
+            return taskSource.Task;
         }
 
         public Task<RegisteredUser> Get(string id)
