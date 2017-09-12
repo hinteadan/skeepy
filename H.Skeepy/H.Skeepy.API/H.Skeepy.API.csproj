@@ -74,6 +74,7 @@
     <Compile Include="Authentication\Token.cs" />
     <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Authentication\TokenFlow.cs" />
+    <Compile Include="Housekeeping\TokenJanitor.cs" />
     <Compile Include="Notifications\EmailNotifier.cs" />
     <Compile Include="Notifications\ICanNotify.cs" />
     <Compile Include="Notifications\NotificationDestination.cs" />
@@ -109,5 +110,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Notifications\HtmlRegistrationTemplate.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
