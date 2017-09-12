@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Housekeeping
 {
-    public class TokenJanitor
+    public class TokenJanitor : ImAJanitor
     {
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
 
