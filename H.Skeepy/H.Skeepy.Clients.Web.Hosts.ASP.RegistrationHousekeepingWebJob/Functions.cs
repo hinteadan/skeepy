@@ -5,16 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using H.Skeepy.API.Housekeeping;
+using Nancy.TinyIoc;
 
 namespace H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob
 {
     public class Functions
     {
-        // This function will get triggered/executed when a new message is written 
-        // on an Azure Queue called queue.
-        public static void ProcessQueueMessage([QueueTrigger("queue")] string message, TextWriter log)
+        private static readonly IEnumerable<ImAJanitor> janitors;
+
+        static Functions()
         {
-            log.WriteLine(message);
+            janitors = TinyIoCContainer.Current.Resolve<IEnumerable<ImAJanitor>>();
+        }
+
+        public static void RunHousekeeping([TimerTrigger("00:30:00", RunOnStartup = true)] TimerInfo timerInfo, TextWriter log)
+        {
+            log.WriteLine($"Running Housekeeping on Registration Web App @ {DateTime.Now}");
+            Task.WaitAll(janitors.Select(x => x.Clean()).ToArray());
+            log.WriteLine($"Finished Running Housekeeping on Registration Web App @ {DateTime.Now}");
         }
     }
 }

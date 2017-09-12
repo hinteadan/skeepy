@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using H.Skeepy.API.Infrastructure;
 
 namespace H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob
 {
@@ -14,7 +15,14 @@ namespace H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob
         // AzureWebJobsDashboard and AzureWebJobsStorage
         static void Main()
         {
-            var config = new JobHostConfiguration();
+            DefaultSkeepyApiBuildingBlocks.RegisterWithTinyIoc();
+
+            var config = new JobHostConfiguration
+            {
+                DashboardConnectionString = "DefaultEndpointsProtocol=https;AccountName=hskeepydev;AccountKey=gdhovqMPlUxFcFyLG4G12NnRdceGKu0YNEE+EdX250GgTGBkXUTbttFpwoZk5KjuliFjE1OFJ/KtWtwLr7bw5g==;EndpointSuffix=core.windows.net",
+                StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=hskeepydev;AccountKey=gdhovqMPlUxFcFyLG4G12NnRdceGKu0YNEE+EdX250GgTGBkXUTbttFpwoZk5KjuliFjE1OFJ/KtWtwLr7bw5g==;EndpointSuffix=core.windows.net",
+            };
+            config.UseTimers();
 
             if (config.IsDevelopment)
             {
