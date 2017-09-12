@@ -19,6 +19,7 @@ namespace H.Skeepy.Clients.Web.Hosts.Self.RegistrationWebApp
                 host.Start();
                 Console.WriteLine($"Running on {hostUri}");
                 Process.Start(hostUri.ToString());
+                Process.Start(".\\H.Skeepy.Clients.RegistrationHousekeepingService.exe");
                 Console.ReadLine();
             }
         }

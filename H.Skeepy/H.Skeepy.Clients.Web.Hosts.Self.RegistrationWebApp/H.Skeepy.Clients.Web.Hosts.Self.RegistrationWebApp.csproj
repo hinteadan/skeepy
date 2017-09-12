@@ -60,6 +60,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H.Skeepy.Clients.RegistrationHousekeepingService\H.Skeepy.Clients.RegistrationHousekeepingService.csproj">
+      <Project>{e71bd3d5-3452-41c4-b3b7-f22c3a039bd6}</Project>
+      <Name>H.Skeepy.Clients.RegistrationHousekeepingService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.Clients.Web.RegistrationWebApp\H.Skeepy.Clients.Web.RegistrationWebApp.csproj">
       <Project>{1a9f31a0-d3dd-4019-8f98-16a02a0d4492}</Project>
       <Name>H.Skeepy.Clients.Web.RegistrationWebApp</Name>
