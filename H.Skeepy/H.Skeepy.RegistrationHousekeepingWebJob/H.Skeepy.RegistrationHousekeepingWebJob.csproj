@@ -92,7 +92,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\h-skeepy-register - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\SkeepyRegistrationHousekeepingWebJob - Web Deploy.pubxml" />
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
