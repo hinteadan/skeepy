@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.Hosts.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.RegistrationHousekeepingService", "H.Skeepy.Clients.RegistrationHousekeepingService\H.Skeepy.Clients.RegistrationHousekeepingService.csproj", "{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob", "H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob\H.Skeepy.Clients.Web.Hosts.ASP.RegistrationHousekeepingWebJob.csproj", "{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{F1A662E1-D922-4232-AB5E-98FC10692626} = {8734677E-A74A-4840-AC57-561D3015D13D}
 		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00} = {8734677E-A74A-4840-AC57-561D3015D13D}
 		{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6} = {CB871BAB-E557-4C5F-87C6-CDCFC3253D64}
+		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6} = {8734677E-A74A-4840-AC57-561D3015D13D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {824699DD-035F-41E9-9347-542F8FAE1335}
