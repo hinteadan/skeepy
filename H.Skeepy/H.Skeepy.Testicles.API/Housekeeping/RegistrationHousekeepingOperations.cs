@@ -52,7 +52,7 @@ namespace H.Skeepy.Testicles.API.Housekeeping
         {
             var applicant = new ApplicantDto { Email = "hintee@skeepy.ro", FirstName = "Hintee" };
             validRegistration.Apply(applicant).Wait();
-            new RegistrationJanitor().Clean().Wait();
+            new RegistrationJanitor(tokenStore, registrationStore).Clean().Wait();
             registrationStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new RegisteredUser[] { new RegisteredUser(applicant) });
         }
 
@@ -63,7 +63,7 @@ namespace H.Skeepy.Testicles.API.Housekeeping
             var expiredApplicant = new ApplicantDto { Email = "hintee2@skeepy.ro", FirstName = "Hintee2" };
             validRegistration.Apply(validApplicant).Wait();
             expiredRegistration.Apply(expiredApplicant).Wait();
-            new RegistrationJanitor().Clean().Wait();
+            new RegistrationJanitor(tokenStore, registrationStore).Clean().Wait();
             registrationStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new RegisteredUser[] { new RegisteredUser(validApplicant) });
         }
     }

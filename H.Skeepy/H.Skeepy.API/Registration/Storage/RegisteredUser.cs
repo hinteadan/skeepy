@@ -41,5 +41,10 @@ namespace H.Skeepy.API.Registration.Storage
         {
             return $"{FirstName} {LastName}".Trim();
         }
+
+        public bool IsConfirmed()
+        {
+            return Status != AccountStatus.PendingValidation && Status != AccountStatus.PendingSetPassword;
+        }
     }
 }
