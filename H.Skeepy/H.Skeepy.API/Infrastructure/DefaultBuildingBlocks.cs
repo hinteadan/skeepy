@@ -16,21 +16,21 @@ namespace H.Skeepy.API.Infrastructure
 {
     public static class DefaultBuildingBlocks
     {
-        public static readonly ICanGenerateTokens<string> TokenGenerator = new JsonWebTokenGenerator(TimeSpan.FromHours(24));
-        public static readonly ICanManageSkeepyStorageFor<Token> TokenStorage = new InMemoryTokensStore();
-        public static readonly ICanManageSkeepyStorageFor<RegisteredUser> UserStore = new InMemoryRegistrationStore();
-        public static readonly ICanManageSkeepyStorageFor<Individual> SkeepyIndividualStore = new InMemoryIndividualsStore();
-        public static readonly ICanStoreSkeepy<Credentials> CredentialStore = new InMemoryCredentialsStore();
-        public static readonly ICanNotify Notifier = new EmailNotifier();
+        public static readonly Func<ICanGenerateTokens<string>> TokenGenerator = () => new JsonWebTokenGenerator(TimeSpan.FromHours(24));
+        public static readonly Func<ICanManageSkeepyStorageFor<Token>> TokenStorage = () => new InMemoryTokensStore();
+        public static readonly Func<ICanManageSkeepyStorageFor<RegisteredUser>> UserStore = () => new InMemoryRegistrationStore();
+        public static readonly Func<ICanManageSkeepyStorageFor<Individual>> SkeepyIndividualStore = () => new InMemoryIndividualsStore();
+        public static readonly Func<ICanStoreSkeepy<Credentials>> CredentialStore = () => new InMemoryCredentialsStore();
+        public static readonly Func<ICanNotify> Notifier = () => new EmailNotifier();
 
         public static void RegisterWithTinyIoc(TinyIoCContainer container)
         {
-            container.Register(TokenGenerator);
-            container.Register(TokenStorage);
-            container.Register(UserStore);
-            container.Register(SkeepyIndividualStore);
-            container.Register(CredentialStore);
-            container.Register(Notifier);
+            container.Register(TokenGenerator());
+            container.Register(TokenStorage());
+            container.Register(UserStore());
+            container.Register(SkeepyIndividualStore());
+            container.Register(CredentialStore());
+            container.Register(Notifier());
         }
     }
 }
