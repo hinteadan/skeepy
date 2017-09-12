@@ -8,6 +8,9 @@ using H.Skeepy.Model;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.API.Notifications;
+using H.Skeepy.API.Housekeeping;
+using FluentAssertions;
+using System.Linq;
 
 namespace H.Skeepy.Testicles.API.Housekeeping
 {
@@ -47,13 +50,21 @@ namespace H.Skeepy.Testicles.API.Housekeeping
         [TestMethod]
         public void RegistrationJanitor_DoesnNothingForValidRegistartions()
         {
-
+            var applicant = new ApplicantDto { Email = "hintee@skeepy.ro", FirstName = "Hintee" };
+            validRegistration.Apply(applicant).Wait();
+            new RegistrationJanitor().Clean().Wait();
+            registrationStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new RegisteredUser[] { new RegisteredUser(applicant) });
         }
 
         [TestMethod]
         public void RegistrationJanitor_ZapsApplicationWithExpiredOrInexistentTokens()
         {
-
+            var validApplicant = new ApplicantDto { Email = "hintee1@skeepy.ro", FirstName = "Hintee1" };
+            var expiredApplicant = new ApplicantDto { Email = "hintee2@skeepy.ro", FirstName = "Hintee2" };
+            validRegistration.Apply(validApplicant).Wait();
+            expiredRegistration.Apply(expiredApplicant).Wait();
+            new RegistrationJanitor().Clean().Wait();
+            registrationStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new RegisteredUser[] { new RegisteredUser(validApplicant) });
         }
     }
 }

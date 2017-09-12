@@ -75,6 +75,7 @@
     <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Authentication\TokenFlow.cs" />
     <Compile Include="Housekeeping\ImAJanitor.cs" />
+    <Compile Include="Housekeeping\RegistrationJanitor.cs" />
     <Compile Include="Housekeeping\TokenJanitor.cs" />
     <Compile Include="Notifications\EmailNotifier.cs" />
     <Compile Include="Notifications\ICanNotify.cs" />
