@@ -57,7 +57,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Individuals
         }
 
         [TestMethod]
-        public void IndividualsRepostiroy_CanGiveMeOneSpecificIndividual()
+        public void IndividualsRepository_CanGiveMeOneSpecificIndividual()
         {
             var fed = FakeData.GenerateIndividual();
             repository.Save(fed).Wait();
