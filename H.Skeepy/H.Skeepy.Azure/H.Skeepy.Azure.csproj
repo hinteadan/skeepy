@@ -65,7 +65,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\AzureTableStorageCredentialStore.cs" />
     <Compile Include="Storage\AzureTableStorageIndividualsStore.cs" />
+    <Compile Include="Storage\AzureTableStorageRegistrationStore.cs" />
+    <Compile Include="Storage\AzureTableStorageTokenStore.cs" />
     <Compile Include="Storage\Model\IndividualTableEntity.cs" />
   </ItemGroup>
   <ItemGroup>
