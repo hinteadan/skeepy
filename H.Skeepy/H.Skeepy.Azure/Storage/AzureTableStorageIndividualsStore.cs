@@ -27,22 +27,16 @@ namespace H.Skeepy.Azure.Storage
         public AzureTableStorageIndividualsStore(string connectionString)
             : this(connectionString, "SkeepyIndividuals") { }
 
-        public Task<bool> Any()
+        public async Task<bool> Any()
         {
-            return tablesStore
-                .ExistsAsync()
-                .ContinueWith(existsTask =>
-                {
-                    if (!existsTask.Result)
-                    {
-                        return false;
-                    }
+            if (!await tablesStore.ExistsAsync())
+            {
+                return false;
+            }
 
-                    return tablesStore
-                        .ExecuteQuery(new TableQuery<IndividualTableEntity>().Take(1))
-                        .ToArray()
-                        .Any();
-                });
+            return tablesStore.ExecuteQuery(new TableQuery<IndividualTableEntity>().Take(1))
+                .ToArray()
+                .Any();
         }
 
         public void Dispose()
@@ -50,43 +44,35 @@ namespace H.Skeepy.Azure.Storage
 
         }
 
-        public Task<Individual> Get(string id)
+        public async Task<Individual> Get(string id)
         {
-            return tablesStore
-                .CreateIfNotExistsAsync()
-                .ContinueWith(x =>
-                {
-                    return (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(id, id)).Result as IndividualTableEntity)?.ToSkeepy();
-                });
+            await tablesStore.CreateIfNotExistsAsync();
+            return (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(id, id)).Result as IndividualTableEntity)?.ToSkeepy();
         }
 
-        public Task<IEnumerable<LazyEntity<Individual>>> Get()
+        public async Task<IEnumerable<LazyEntity<Individual>>> Get()
         {
+            await tablesStore.CreateIfNotExistsAsync();
+
             return tablesStore
-                .CreateIfNotExistsAsync()
-                .ContinueWith(x =>
-                {
-                    return tablesStore
-                        .CreateQuery<IndividualTableEntity>()
-                        .Select(r => r.RowKey)
-                        .ToArray()
-                        .Select(id =>
-                            new LazyEntity<Individual>(Individual.Existing(id, id),
-                            y => (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(y.Id, y.Id)).Result as IndividualTableEntity)?.ToSkeepy())
-                        );
-                });
+                .CreateQuery<IndividualTableEntity>()
+                .Select(r => r.RowKey)
+                .ToArray()
+                .Select(id =>
+                    new LazyEntity<Individual>(Individual.Existing(id, id),
+                    y => (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(y.Id, y.Id)).Result as IndividualTableEntity)?.ToSkeepy())
+                );
         }
 
-        public Task Put(Individual model)
+        public async Task Put(Individual model)
         {
-            return tablesStore
-                .CreateIfNotExistsAsync()
-                .ContinueWith(x => tablesStore.Execute(TableOperation.InsertOrReplace(new IndividualTableEntity(model))));
+            await tablesStore.CreateIfNotExistsAsync();
+            tablesStore.Execute(TableOperation.InsertOrReplace(new IndividualTableEntity(model)));
         }
 
-        public Task Zap(string id)
+        public async Task Zap(string id)
         {
-            return tablesStore.ExecuteAsync(TableOperation.Delete(new IndividualTableEntity { RowKey = id, PartitionKey = id, ETag = "*" }));
+            await tablesStore.ExecuteAsync(TableOperation.Delete(new IndividualTableEntity { RowKey = id, PartitionKey = id, ETag = "*" }));
         }
     }
 }
