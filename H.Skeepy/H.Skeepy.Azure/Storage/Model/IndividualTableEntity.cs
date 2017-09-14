@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Azure.Storage.Model
 {
-    internal class IndividualTableEntity : TableEntity
+    public class IndividualTableEntity : TableEntity
     {
         public IndividualTableEntity(Individual individual)
         {

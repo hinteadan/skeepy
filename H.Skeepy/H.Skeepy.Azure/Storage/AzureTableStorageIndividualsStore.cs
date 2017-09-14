@@ -11,68 +11,33 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Azure.Storage
 {
-    public class AzureTableStorageIndividualsStore : ICanManageSkeepyStorageFor<Individual>
+    public class AzureTableStorageIndividualsStore : AzureTableStorage<IndividualTableEntity, Individual>
     {
-        private readonly CloudStorageAccount storageAccount;
-        private readonly CloudTableClient tableStoreClient;
-        private readonly CloudTable tablesStore;
-
         public AzureTableStorageIndividualsStore(string connectionString, string collectionName)
+            : base(connectionString, collectionName)
         {
-            storageAccount = CloudStorageAccount.Parse(connectionString);
-            tableStoreClient = storageAccount.CreateCloudTableClient();
-            tablesStore = tableStoreClient.GetTableReference(collectionName);
         }
 
         public AzureTableStorageIndividualsStore(string connectionString)
-            : this(connectionString, "SkeepyIndividuals") { }
-
-        public async Task<bool> Any()
+            : this(connectionString, "SkeepyIndividuals")
         {
-            if (!await tablesStore.ExistsAsync())
-            {
-                return false;
-            }
-
-            return tablesStore.ExecuteQuery(new TableQuery<IndividualTableEntity>().Take(1))
-                .ToArray()
-                .Any();
         }
 
-        public void Dispose()
+        protected override IndividualTableEntity Map(Individual model)
         {
-
+            if (model == null) throw new InvalidOperationException($"Must provide a {nameof(model)} to convert to Azure Table Entry");
+            return new IndividualTableEntity(model);
         }
 
-        public async Task<Individual> Get(string id)
+        protected override Individual Map(IndividualTableEntity entry)
         {
-            await tablesStore.CreateIfNotExistsAsync();
-            return (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(id, id)).Result as IndividualTableEntity)?.ToSkeepy();
+            if (entry == null) return null;
+            return entry.ToSkeepy();
         }
 
-        public async Task<IEnumerable<LazyEntity<Individual>>> Get()
+        protected override Individual SummaryFor(string id)
         {
-            await tablesStore.CreateIfNotExistsAsync();
-
-            return tablesStore
-                .CreateQuery<IndividualTableEntity>()
-                .Select(r => r.RowKey)
-                .ToArray()
-                .Select(id =>
-                    new LazyEntity<Individual>(Individual.Existing(id, id),
-                    y => (tablesStore.Execute(TableOperation.Retrieve<IndividualTableEntity>(y.Id, y.Id)).Result as IndividualTableEntity)?.ToSkeepy())
-                );
-        }
-
-        public async Task Put(Individual model)
-        {
-            await tablesStore.CreateIfNotExistsAsync();
-            tablesStore.Execute(TableOperation.InsertOrReplace(new IndividualTableEntity(model)));
-        }
-
-        public async Task Zap(string id)
-        {
-            await tablesStore.ExecuteAsync(TableOperation.Delete(new IndividualTableEntity { RowKey = id, PartitionKey = id, ETag = "*" }));
+            return Individual.Existing(id, id);
         }
     }
 }
