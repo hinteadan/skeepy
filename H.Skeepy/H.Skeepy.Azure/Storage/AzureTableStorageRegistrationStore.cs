@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Registration.Storage;
+using H.Skeepy.Azure.Storage.Model;
 using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Generic;
@@ -8,36 +9,29 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Azure.Storage
 {
-    public class AzureTableStorageRegistrationStore : ICanManageSkeepyStorageFor<RegisteredUser>
+    public class AzureTableStorageRegistrationStore : AzureTableStorage<RegisteredUserTableEntity, RegisteredUser>
     {
-        public Task<bool> Any()
+        public AzureTableStorageRegistrationStore(string connectionString, string collectionName)
+            : base(connectionString, collectionName)
+        { }
+
+        public AzureTableStorageRegistrationStore(string connectionString)
+            : this(connectionString, "SkeepyRegistrations")
+        { }
+
+        protected override RegisteredUserTableEntity Map(RegisteredUser model)
         {
-            throw new NotImplementedException();
+            return new RegisteredUserTableEntity(model);
         }
 
-        public void Dispose()
+        protected override RegisteredUser Map(RegisteredUserTableEntity entry)
         {
-            throw new NotImplementedException();
+            return entry?.ToSkeepy();
         }
 
-        public Task<IEnumerable<LazyEntity<RegisteredUser>>> Get()
+        protected override RegisteredUser SummaryFor(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<RegisteredUser> Get(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Put(RegisteredUser model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Zap(string id)
-        {
-            throw new NotImplementedException();
+            return new RegisteredUser { Email = id };
         }
     }
 }

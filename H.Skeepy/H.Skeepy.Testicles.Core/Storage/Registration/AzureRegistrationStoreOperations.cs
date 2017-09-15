@@ -16,7 +16,7 @@ namespace H.Skeepy.Testicles.Core.Storage.Registration
 
         private static CloudTableClient tableStoreClient = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
 
-        public AzureRegistrationStoreOperations() : base(() => new AzureTableStorageRegistrationStore())
+        public AzureRegistrationStoreOperations() : base(() => new AzureTableStorageRegistrationStore(connectionString, collectionName))
         {
         }
 
