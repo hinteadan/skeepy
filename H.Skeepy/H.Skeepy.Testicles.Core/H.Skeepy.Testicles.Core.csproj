@@ -96,6 +96,7 @@
     <Compile Include="Storage\Individuals\XmlFilesIndividualsStoreOperations.cs" />
     <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
     <Compile Include="Storage\Parties\InMemoryPartiesStoreOperations.cs" />
+    <Compile Include="Storage\Registration\AzureRegistrationStoreOperations.cs" />
     <Compile Include="Storage\StoreOperationsBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +104,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
+      <Project>{A683FEBB-2365-4FE3-958B-2D3A2869CA80}</Project>
+      <Name>H.Skeepy.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.Azure\H.Skeepy.Azure.csproj">
       <Project>{a91ba3fa-cbbf-4782-8026-8284f4795dd6}</Project>
       <Name>H.Skeepy.Azure</Name>
