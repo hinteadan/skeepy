@@ -9,21 +9,16 @@ using H.Skeepy.Azure.Storage;
 namespace H.Skeepy.Testicles.Core.Storage.Registration
 {
     [TestClass]
-    public class AzureTokenStoreOperations : StoreOperationsBase<Token>
+    public class AzureTokenStoreOperations : AzureStoreOperationsBase<Token>
     {
-        private static readonly string connectionString = "DefaultEndpointsProtocol=https;AccountName=hskeepydev;AccountKey=gdhovqMPlUxFcFyLG4G12NnRdceGKu0YNEE+EdX250GgTGBkXUTbttFpwoZk5KjuliFjE1OFJ/KtWtwLr7bw5g==;EndpointSuffix=core.windows.net";
-        private static string collectionName = "SkeepyRegistrationTest";
-
-        private static CloudTableClient tableStoreClient = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
-
-        public AzureTokenStoreOperations() 
-            : base(() => new AzureTableStorageTokenStore())
+        public AzureTokenStoreOperations()
+            : base("SkeepyTokensTest", collection => new AzureTableStorageTokenStore(ConnectionString, collection))
         {
         }
 
         protected override Token CreateModel()
         {
-            throw new NotImplementedException();
+            return new JsonWebTokenGenerator(TimeSpan.FromHours(2)).Generate("hintee@skeepy.ro");
         }
     }
 }

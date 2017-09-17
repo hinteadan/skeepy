@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.Azure.Storage.Model;
 using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Generic;
@@ -8,36 +9,29 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Azure.Storage
 {
-    public class AzureTableStorageTokenStore : ICanManageSkeepyStorageFor<Token>
+    public class AzureTableStorageTokenStore : AzureTableStorage<TokenTableEntity, Token>
     {
-        public Task<bool> Any()
+        public AzureTableStorageTokenStore(string connectionString, string collectionName)
+            : base(connectionString, collectionName)
+        { }
+
+        public AzureTableStorageTokenStore(string connectionString)
+            : this(connectionString, "SkeepyTokens")
+        { }
+
+        protected override TokenTableEntity Map(Token model)
         {
-            throw new NotImplementedException();
+            return new TokenTableEntity(model);
         }
 
-        public void Dispose()
+        protected override Token Map(TokenTableEntity entry)
         {
-            throw new NotImplementedException();
+            return entry?.ToToken();
         }
 
-        public Task<IEnumerable<LazyEntity<Token>>> Get()
+        protected override Token SummaryFor(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Token> Get(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Put(Token model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Zap(string id)
-        {
-            throw new NotImplementedException();
+            return new Token(null, null, id);
         }
     }
 }

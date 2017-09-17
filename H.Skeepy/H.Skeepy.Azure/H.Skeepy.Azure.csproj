@@ -72,6 +72,7 @@
     <Compile Include="Storage\AzureTableStorageTokenStore.cs" />
     <Compile Include="Storage\Model\IndividualTableEntity.cs" />
     <Compile Include="Storage\Model\RegisteredUserTableEntity.cs" />
+    <Compile Include="Storage\Model\TokenTableEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
