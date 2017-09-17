@@ -12,7 +12,7 @@ using System.Collections.Concurrent;
 
 namespace H.Skeepy.Testicles.Core.Storage
 {
-    public abstract class AzureStoreOperationsBase<TSkeepy> : StoreOperationsBase<TSkeepy> where TSkeepy : IHaveId
+    public abstract class AzureStoreOperationsBase<TSkeepy> : StoreOperationsBase<TSkeepy>, IDisposable where TSkeepy : IHaveId
     {
         private static readonly string connectionString = "DefaultEndpointsProtocol=https;AccountName=hskeepydev;AccountKey=gdhovqMPlUxFcFyLG4G12NnRdceGKu0YNEE+EdX250GgTGBkXUTbttFpwoZk5KjuliFjE1OFJ/KtWtwLr7bw5g==;EndpointSuffix=core.windows.net";
         private readonly string collectionNamePrefix;
@@ -47,10 +47,9 @@ namespace H.Skeepy.Testicles.Core.Storage
             base.Uninit();
         }
 
-        [ClassCleanup]
-        public void FinalHousekeep()
+        public void Dispose()
         {
-            while (collectionNamesStack.TryPop(out string collection))
+            while(collectionNamesStack.TryPop(out string collection))
             {
                 tableStoreClient.GetTableReference(collection).DeleteIfExists();
             }
