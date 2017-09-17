@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.Azure.Storage.Model;
 using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Generic;
@@ -8,36 +9,29 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.Azure.Storage
 {
-    public class AzureTableStorageCredentialStore : ICanManageSkeepyStorageFor<Credentials>
+    public class AzureTableStorageCredentialStore : AzureTableStorage<CredentialsTableEntity, Credentials>
     {
-        public Task<bool> Any()
+        public AzureTableStorageCredentialStore(string connectionString, string collectionName)
+            : base(connectionString, collectionName)
+        { }
+
+        public AzureTableStorageCredentialStore(string connectionString)
+            : this(connectionString, "SkeepyCredentials")
+        { }
+
+        protected override CredentialsTableEntity Map(Credentials model)
         {
-            throw new NotImplementedException();
+            return new CredentialsTableEntity(model);
         }
 
-        public void Dispose()
+        protected override Credentials Map(CredentialsTableEntity entry)
         {
-            throw new NotImplementedException();
+            return entry?.ToSkeepy();
         }
 
-        public Task<IEnumerable<LazyEntity<Credentials>>> Get()
+        protected override Credentials SummaryFor(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Credentials> Get(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Put(Credentials model)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Zap(string id)
-        {
-            throw new NotImplementedException();
+            return new Credentials(id, null);
         }
     }
 }

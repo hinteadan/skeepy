@@ -1,4 +1,5 @@
-﻿using H.Skeepy.API.Registration.Storage;
+﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.Model;
 using System;
@@ -39,6 +40,11 @@ namespace H.Skeepy.Testicles.Core.Storage
                 SkeepyId = Guid.NewGuid().ToString(),
                 Status = RegisteredUser.AccountStatus.PendingValidation
             };
+        }
+
+        public static Credentials GenerateCredentials()
+        {
+            return new Credentials(internetGenerator.UserName(), internetGenerator.Password());
         }
 
         public static void FillStorage(ICanManageSkeepyStorageFor<Individual> storage, int count = 1000)

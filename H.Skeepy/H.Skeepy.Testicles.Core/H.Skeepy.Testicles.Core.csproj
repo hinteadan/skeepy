@@ -99,6 +99,7 @@
     <Compile Include="Storage\Parties\InMemoryPartiesStoreOperations.cs" />
     <Compile Include="Storage\Registration\AzureRegistrationStoreOperations.cs" />
     <Compile Include="Storage\Registration\AzureTokenStoreOperations.cs" />
+    <Compile Include="Storage\Registration\AzureCredentialStoreOperations.cs" />
     <Compile Include="Storage\StoreOperationsBase.cs" />
   </ItemGroup>
   <ItemGroup>
