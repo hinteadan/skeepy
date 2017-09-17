@@ -31,8 +31,7 @@ namespace H.Skeepy.Azure.Storage
 
         protected override Individual Map(IndividualTableEntity entry)
         {
-            if (entry == null) return null;
-            return entry.ToSkeepy();
+            return entry?.ToSkeepy();
         }
 
         protected override Individual SummaryFor(string id)
