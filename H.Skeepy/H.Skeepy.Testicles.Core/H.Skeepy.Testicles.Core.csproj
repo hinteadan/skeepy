@@ -85,6 +85,7 @@
     <Compile Include="PointTrackerScenarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MostBasicClashProcessorTesticles.cs" />
+    <Compile Include="Storage\AzureStoreOperationsBase.cs" />
     <Compile Include="Storage\FakeData.cs" />
     <Compile Include="Storage\Individuals\IndividualsStoreOperations.cs" />
     <Compile Include="Storage\Individuals\InMemoryIndividualsStoreOperations.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Storage\Parties\PartiesStoreOperations.cs" />
     <Compile Include="Storage\Parties\InMemoryPartiesStoreOperations.cs" />
     <Compile Include="Storage\Registration\AzureRegistrationStoreOperations.cs" />
+    <Compile Include="Storage\Registration\AzureTokenStoreOperations.cs" />
     <Compile Include="Storage\StoreOperationsBase.cs" />
   </ItemGroup>
   <ItemGroup>

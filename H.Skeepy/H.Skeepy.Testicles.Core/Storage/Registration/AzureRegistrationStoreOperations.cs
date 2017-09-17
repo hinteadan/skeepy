@@ -9,29 +9,11 @@ using H.Skeepy.Azure.Storage;
 namespace H.Skeepy.Testicles.Core.Storage.Registration
 {
     [TestClass]
-    public class AzureRegistrationStoreOperations : StoreOperationsBase<RegisteredUser>
+    public class AzureRegistrationStoreOperations : AzureStoreOperationsBase<RegisteredUser>
     {
-        private static readonly string connectionString = "DefaultEndpointsProtocol=https;AccountName=hskeepydev;AccountKey=gdhovqMPlUxFcFyLG4G12NnRdceGKu0YNEE+EdX250GgTGBkXUTbttFpwoZk5KjuliFjE1OFJ/KtWtwLr7bw5g==;EndpointSuffix=core.windows.net";
-        private static string collectionName = "SkeepyRegistrationTest";
-
-        private static CloudTableClient tableStoreClient = CloudStorageAccount.Parse(connectionString).CreateCloudTableClient();
-
-        public AzureRegistrationStoreOperations() : base(() => new AzureTableStorageRegistrationStore(connectionString, collectionName))
+        public AzureRegistrationStoreOperations()
+            : base("SkeepyRegistrationTest", collection => new AzureTableStorageRegistrationStore(ConnectionString, collection))
         {
-        }
-
-        [TestInitialize]
-        public override void Init()
-        {
-            collectionName = $"SkeepyRegistrationTest{Guid.NewGuid()}".Replace("-", string.Empty);
-            base.Init();
-        }
-
-        [TestCleanup]
-        public override void Uninit()
-        {
-            base.Uninit();
-            tableStoreClient.GetTableReference(collectionName).DeleteIfExists();
         }
 
         protected override RegisteredUser CreateModel()
