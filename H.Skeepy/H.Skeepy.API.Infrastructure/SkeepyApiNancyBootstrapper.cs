@@ -9,10 +9,6 @@ namespace H.Skeepy.API.Infrastructure
             base.RegisterSkeepyBuildingBlocks(container);
 
             DefaultSkeepyApiBuildingBlocks.RegisterWithTinyIoc(container);
-
-#if (!DEBUG)
-            AzureSkeepyApiBuildingBlocks.RegisterWithTinyIoc(container);
-#endif
         }
     }
 }

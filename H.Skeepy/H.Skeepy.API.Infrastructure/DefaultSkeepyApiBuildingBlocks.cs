@@ -37,6 +37,9 @@ namespace H.Skeepy.API.Infrastructure
             container.Register(CredentialStore());
             container.Register(Notifier());
             container.RegisterMultiple<ImAJanitor>(new[] { typeof(TokenJanitor), typeof(RegistrationJanitor) });
+#if (!DEBUG)
+            AzureSkeepyApiBuildingBlocks.RegisterWithTinyIoc(container);
+#endif
         }
 
         public static void RegisterWithTinyIoc()
