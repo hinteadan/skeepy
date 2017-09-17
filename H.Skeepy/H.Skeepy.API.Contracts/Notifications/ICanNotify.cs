@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H.Skeepy.API.Notifications
+namespace H.Skeepy.API.Contracts.Notifications
 {
     public interface ICanNotify : IDisposable
     {

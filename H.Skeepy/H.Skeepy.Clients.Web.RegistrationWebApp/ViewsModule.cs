@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.Core.Storage;
 using Nancy;
 using System;

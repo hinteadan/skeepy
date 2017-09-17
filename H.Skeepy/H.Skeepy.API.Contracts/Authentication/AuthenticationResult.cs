@@ -1,4 +1,4 @@
-﻿namespace H.Skeepy.API.Authentication
+﻿namespace H.Skeepy.API.Contracts.Authentication
 {
     public class AuthenticationResult
     {

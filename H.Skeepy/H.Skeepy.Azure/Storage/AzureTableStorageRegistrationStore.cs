@@ -1,11 +1,5 @@
-﻿using H.Skeepy.API.Registration.Storage;
+﻿using H.Skeepy.API.Contracts.Registration;
 using H.Skeepy.Azure.Storage.Model;
-using H.Skeepy.Core.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace H.Skeepy.Azure.Storage
 {

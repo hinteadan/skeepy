@@ -10,6 +10,8 @@ using H.Skeepy.Model;
 using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.API.Notifications;
 using H.Skeepy.API;
+using H.Skeepy.API.Contracts.Registration;
+using H.Skeepy.API.Contracts.Authentication;
 
 namespace H.Skeepy.Testicles.API.Registration
 {

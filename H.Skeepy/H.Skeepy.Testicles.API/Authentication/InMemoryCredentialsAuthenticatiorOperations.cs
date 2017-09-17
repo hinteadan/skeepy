@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.API.Authentication;
 using H.Skeepy.API;
 using FluentAssertions;
+using H.Skeepy.API.Contracts.Authentication;
 
 namespace H.Skeepy.Testicles.API.Authentication
 {

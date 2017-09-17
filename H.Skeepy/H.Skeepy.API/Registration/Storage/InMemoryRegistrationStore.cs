@@ -1,4 +1,5 @@
-﻿using H.Skeepy.Core.Storage;
+﻿using H.Skeepy.API.Contracts.Registration;
+using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

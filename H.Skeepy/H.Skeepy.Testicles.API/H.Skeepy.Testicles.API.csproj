@@ -89,6 +89,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj">
+      <Project>{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}</Project>
+      <Name>H.Skeepy.API.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.API.Infrastructure\H.Skeepy.API.Infrastructure.csproj">
+      <Project>{0702d2d5-161b-424a-837d-60db4f0fbc64}</Project>
+      <Name>H.Skeepy.API.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
       <Project>{A683FEBB-2365-4FE3-958B-2D3A2869CA80}</Project>
       <Name>H.Skeepy.API</Name>

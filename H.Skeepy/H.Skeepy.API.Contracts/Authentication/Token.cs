@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H.Skeepy.API.Authentication
+namespace H.Skeepy.API.Contracts.Authentication
 {
     public class Token : IHaveId
     {

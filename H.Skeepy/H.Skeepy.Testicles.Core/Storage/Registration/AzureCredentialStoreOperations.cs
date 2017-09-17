@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using H.Skeepy.API.Authentication;
 using H.Skeepy.Core.Storage;
 using H.Skeepy.Azure.Storage;
+using H.Skeepy.API.Contracts.Authentication;
 
 namespace H.Skeepy.Testicles.Core.Storage.Registration
 {

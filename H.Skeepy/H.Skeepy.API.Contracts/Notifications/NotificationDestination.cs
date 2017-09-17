@@ -1,4 +1,4 @@
-﻿namespace H.Skeepy.API.Notifications
+﻿namespace H.Skeepy.API.Contracts.Notifications
 {
     public class NotificationDestination
     {

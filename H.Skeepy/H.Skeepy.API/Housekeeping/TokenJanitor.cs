@@ -1,4 +1,6 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Contracts.Authentication;
+using H.Skeepy.API.Contracts.Housekeeping;
 using H.Skeepy.Core.Storage;
 using System;
 using System.Collections.Generic;

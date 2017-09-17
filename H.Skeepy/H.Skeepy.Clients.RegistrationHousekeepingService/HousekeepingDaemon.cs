@@ -1,4 +1,5 @@
-﻿using H.Skeepy.API.Housekeeping;
+﻿using H.Skeepy.API.Contracts.Housekeeping;
+using H.Skeepy.API.Housekeeping;
 using System;
 using System.Collections.Generic;
 using System.Linq;

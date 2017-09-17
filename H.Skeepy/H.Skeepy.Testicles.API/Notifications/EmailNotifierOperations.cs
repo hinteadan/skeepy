@@ -5,6 +5,7 @@ using System.Net.Mail;
 using H.Skeepy.API.Notifications;
 using System.Linq;
 using FluentAssertions;
+using H.Skeepy.API.Contracts.Notifications;
 
 namespace H.Skeepy.Testicles.API.Notifications
 {

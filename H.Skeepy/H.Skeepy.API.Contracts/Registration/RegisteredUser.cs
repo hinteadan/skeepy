@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H.Skeepy.API.Registration.Storage
+namespace H.Skeepy.API.Contracts.Registration
 {
     public class RegisteredUser : IHaveId
     {

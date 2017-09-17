@@ -58,29 +58,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\AuthenticationFailureReason.cs" />
-    <Compile Include="Authentication\AuthenticationResult.cs" />
-    <Compile Include="Authentication\Credentials.cs" />
     <Compile Include="Authentication\CredentialsAuthenticator.cs" />
     <Compile Include="Authentication\GuidTokenGenerator.cs" />
-    <Compile Include="Authentication\ICanAuthenticate.cs" />
-    <Compile Include="Authentication\ICanGenerateTokens.cs" />
     <Compile Include="Authentication\InMemoryCredentialsAuthenticator.cs" />
     <Compile Include="Authentication\InMemoryTokenAuthenticator.cs" />
     <Compile Include="Authentication\JsonWebTokenGenerator.cs" />
     <Compile Include="Authentication\LoginFlow.cs" />
     <Compile Include="Authentication\Storage\InMemoryCredentialsStore.cs" />
     <Compile Include="Authentication\Storage\InMemoryTokensStore.cs" />
-    <Compile Include="Authentication\Token.cs" />
     <Compile Include="Authentication\TokenAuthenticator.cs" />
     <Compile Include="Authentication\TokenFlow.cs" />
-    <Compile Include="Housekeeping\ImAJanitor.cs" />
     <Compile Include="Housekeeping\RegistrationJanitor.cs" />
     <Compile Include="Housekeeping\TokenJanitor.cs" />
-    <Compile Include="Infrastructure\DefaultSkeepyApiBuildingBlocks.cs" />
     <Compile Include="Notifications\EmailNotifier.cs" />
-    <Compile Include="Notifications\ICanNotify.cs" />
-    <Compile Include="Notifications\NotificationDestination.cs" />
     <Compile Include="Notifications\NullNotifier.cs" />
     <Compile Include="PasswordPolicy.cs" />
     <Compile Include="SkeepyApiException.cs" />
@@ -90,14 +80,14 @@
     <Compile Include="HTTP\PingModule.cs" />
     <Compile Include="HTTP\RegistrationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registration\ApplicantDto.cs" />
     <Compile Include="Registration\RegistrationFlow.cs" />
     <Compile Include="Registration\Storage\InMemoryRegistrationStore.cs" />
-    <Compile Include="Registration\Storage\RegisteredUser.cs" />
-    <Compile Include="SkeepyApiInMemoryNancyBootsrapper.cs" />
-    <Compile Include="SkeepyApiNancyBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj">
+      <Project>{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}</Project>
+      <Name>H.Skeepy.API.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
       <Project>{15c6aba6-fd26-4f5b-b7f3-598b4ce235d6}</Project>
       <Name>H.Skeepy.Core</Name>

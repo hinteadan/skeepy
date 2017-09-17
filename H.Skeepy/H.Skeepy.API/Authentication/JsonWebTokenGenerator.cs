@@ -1,4 +1,5 @@
-﻿using JWT;
+﻿using H.Skeepy.API.Contracts.Authentication;
+using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
 using System;

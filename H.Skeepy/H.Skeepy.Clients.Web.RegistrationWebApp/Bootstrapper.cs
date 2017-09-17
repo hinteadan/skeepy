@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
+using H.Skeepy.API.Infrastructure;
 
 namespace H.Skeepy.Clients.Web.RegistrationWebApp
 {

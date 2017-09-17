@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>H.Skeepy.Clients.RegistrationHousekeepingService</RootNamespace>
-    <AssemblyName>H.Skeepy.Clients.RegistrationHousekeepingService</AssemblyName>
+    <ProjectGuid>{0702D2D5-161B-424A-837D-60DB4F0FBC64}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>H.Skeepy.API.Infrastructure</RootNamespace>
+    <AssemblyName>H.Skeepy.API.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,9 +33,6 @@
     <Reference Include="Nancy, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.1.4.4\lib\net40\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,27 +43,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HousekeepingDaemon.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="AzureSkeepyApiBuildingBlocks.cs" />
+    <Compile Include="DefaultSkeepyApiBuildingBlocks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="SkeepyApiInMemoryNancyBootsrapper.cs" />
+    <Compile Include="SkeepyApiNancyBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj">
-      <Project>{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}</Project>
+      <Project>{b3d9fc25-7fb3-4b7e-892e-e7329aaf6c3f}</Project>
       <Name>H.Skeepy.API.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\H.Skeepy.API.Infrastructure\H.Skeepy.API.Infrastructure.csproj">
-      <Project>{0702D2D5-161B-424A-837D-60DB4F0FBC64}</Project>
-      <Name>H.Skeepy.API.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
       <Project>{a683febb-2365-4fe3-958b-2d3a2869ca80}</Project>
       <Name>H.Skeepy.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.Azure\H.Skeepy.Azure.csproj">
+      <Project>{a91ba3fa-cbbf-4782-8026-8284f4795dd6}</Project>
+      <Name>H.Skeepy.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
+      <Project>{15c6aba6-fd26-4f5b-b7f3-598b4ce235d6}</Project>
+      <Name>H.Skeepy.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.Model\H.Skeepy.Model.csproj">
+      <Project>{ca82f039-6c1f-4e82-a030-6e5e33fdf90c}</Project>
+      <Name>H.Skeepy.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

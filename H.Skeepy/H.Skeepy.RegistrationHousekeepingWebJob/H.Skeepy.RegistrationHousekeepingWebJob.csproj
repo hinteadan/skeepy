@@ -95,6 +95,14 @@
     <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj">
+      <Project>{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}</Project>
+      <Name>H.Skeepy.API.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.API.Infrastructure\H.Skeepy.API.Infrastructure.csproj">
+      <Project>{0702D2D5-161B-424A-837D-60DB4F0FBC64}</Project>
+      <Name>H.Skeepy.API.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
       <Project>{a683febb-2365-4fe3-958b-2d3a2869ca80}</Project>
       <Name>H.Skeepy.API</Name>

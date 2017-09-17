@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace H.Skeepy.API.Authentication
+namespace H.Skeepy.API.Contracts.Authentication
 {
     public interface ICanAuthenticate<T>
     {

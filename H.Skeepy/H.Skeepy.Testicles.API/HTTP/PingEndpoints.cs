@@ -4,6 +4,7 @@ using Nancy.Testing;
 using Nancy;
 using FluentAssertions;
 using H.Skeepy.API;
+using H.Skeepy.API.Infrastructure;
 
 namespace H.Skeepy.Testicles.API.HTTP
 {

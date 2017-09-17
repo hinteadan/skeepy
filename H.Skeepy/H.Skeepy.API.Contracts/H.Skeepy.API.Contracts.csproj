@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>H.Skeepy.Clients.RegistrationHousekeepingService</RootNamespace>
-    <AssemblyName>H.Skeepy.Clients.RegistrationHousekeepingService</AssemblyName>
+    <ProjectGuid>{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>H.Skeepy.API.Contracts</RootNamespace>
+    <AssemblyName>H.Skeepy.API.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,12 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nancy, Version=1.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.1.4.4\lib\net40\Nancy.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,26 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HousekeepingDaemon.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Authentication\AuthenticationFailureReason.cs" />
+    <Compile Include="Authentication\AuthenticationResult.cs" />
+    <Compile Include="Authentication\Credentials.cs" />
+    <Compile Include="Authentication\ICanAuthenticate.cs" />
+    <Compile Include="Authentication\ICanGenerateTokens.cs" />
+    <Compile Include="Authentication\Token.cs" />
+    <Compile Include="Housekeeping\ImAJanitor.cs" />
+    <Compile Include="Notifications\ICanNotify.cs" />
+    <Compile Include="Notifications\NotificationDestination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\ApplicantDto.cs" />
+    <Compile Include="Registration\RegisteredUser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj">
-      <Project>{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}</Project>
-      <Name>H.Skeepy.API.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\H.Skeepy.API.Infrastructure\H.Skeepy.API.Infrastructure.csproj">
-      <Project>{0702D2D5-161B-424A-837D-60DB4F0FBC64}</Project>
-      <Name>H.Skeepy.API.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
-      <Project>{a683febb-2365-4fe3-958b-2d3a2869ca80}</Project>
-      <Name>H.Skeepy.API</Name>
+    <ProjectReference Include="..\H.Skeepy.Model\H.Skeepy.Model.csproj">
+      <Project>{CA82F039-6C1F-4E82-A030-6E5E33FDF90C}</Project>
+      <Name>H.Skeepy.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,6 +11,8 @@ using H.Skeepy.API.Notifications;
 using H.Skeepy.API.Housekeeping;
 using FluentAssertions;
 using System.Linq;
+using H.Skeepy.API.Contracts.Authentication;
+using H.Skeepy.API.Contracts.Registration;
 
 namespace H.Skeepy.Testicles.API.Housekeeping
 {

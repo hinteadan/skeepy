@@ -5,6 +5,7 @@ using H.Skeepy.Core.Storage;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using H.Skeepy.Azure.Storage;
+using H.Skeepy.API.Contracts.Authentication;
 
 namespace H.Skeepy.Testicles.Core.Storage.Registration
 {

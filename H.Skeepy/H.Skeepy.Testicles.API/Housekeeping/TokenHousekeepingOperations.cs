@@ -6,6 +6,7 @@ using H.Skeepy.API.Authentication.Storage;
 using H.Skeepy.API.Housekeeping;
 using System.Linq;
 using FluentAssertions;
+using H.Skeepy.API.Contracts.Authentication;
 
 namespace H.Skeepy.Testicles.API.Housekeeping
 {

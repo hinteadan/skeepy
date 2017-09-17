@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using H.Skeepy.API.Housekeeping;
 using Nancy.TinyIoc;
+using H.Skeepy.API.Contracts.Housekeeping;
 
 namespace H.Skeepy.RegistrationHousekeepingWebJob
 {

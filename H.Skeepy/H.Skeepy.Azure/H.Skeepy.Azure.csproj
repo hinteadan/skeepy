@@ -76,9 +76,9 @@
     <Compile Include="Storage\Model\TokenTableEntity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\H.Skeepy.API\H.Skeepy.API.csproj">
-      <Project>{a683febb-2365-4fe3-958b-2d3a2869ca80}</Project>
-      <Name>H.Skeepy.API</Name>
+    <ProjectReference Include="..\H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj">
+      <Project>{b3d9fc25-7fb3-4b7e-892e-e7329aaf6c3f}</Project>
+      <Name>H.Skeepy.API.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
       <Project>{15c6aba6-fd26-4f5b-b7f3-598b4ce235d6}</Project>

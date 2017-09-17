@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Core", "H.Skeepy.Core\H.Skeepy.Core.csproj", "{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}"
 EndProject
@@ -38,6 +38,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.RegistrationHousekeepingService", "H.Skeepy.Clients.RegistrationHousekeepingService\H.Skeepy.Clients.RegistrationHousekeepingService.csproj", "{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.RegistrationHousekeepingWebJob", "H.Skeepy.RegistrationHousekeepingWebJob\H.Skeepy.RegistrationHousekeepingWebJob.csproj", "{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.API.Infrastructure", "H.Skeepy.API.Infrastructure\H.Skeepy.API.Infrastructure.csproj", "{0702D2D5-161B-424A-837D-60DB4F0FBC64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.API.Contracts", "H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj", "{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +101,14 @@ Global
 		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0702D2D5-161B-424A-837D-60DB4F0FBC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0702D2D5-161B-424A-837D-60DB4F0FBC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0702D2D5-161B-424A-837D-60DB4F0FBC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0702D2D5-161B-424A-837D-60DB4F0FBC64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

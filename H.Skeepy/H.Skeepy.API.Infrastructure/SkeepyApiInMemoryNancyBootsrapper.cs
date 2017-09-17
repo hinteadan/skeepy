@@ -1,22 +1,16 @@
-﻿using Nancy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using H.Skeepy.API.Contracts.Authentication;
+using H.Skeepy.API.Contracts.Notifications;
+using H.Skeepy.API.Contracts.Registration;
+using H.Skeepy.API.Notifications;
+using H.Skeepy.API.Registration;
+using H.Skeepy.Core.Storage;
+using H.Skeepy.Model;
+using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.TinyIoc;
-using H.Skeepy.API.Authentication;
-using H.Skeepy.Core.Storage;
-using H.Skeepy.API.Authentication.Storage;
-using H.Skeepy.API.Registration.Storage;
-using H.Skeepy.Core.Storage.Individuals;
-using H.Skeepy.Model;
-using H.Skeepy.API.Registration;
-using H.Skeepy.API.Notifications;
-using H.Skeepy.API.Infrastructure;
+using System;
 
-namespace H.Skeepy.API
+namespace H.Skeepy.API.Infrastructure
 {
     public class SkeepyApiInMemoryNancyBootsrapper : DefaultNancyBootstrapper
     {

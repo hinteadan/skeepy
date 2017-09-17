@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace H.Skeepy.API.Authentication
+namespace H.Skeepy.API.Contracts.Housekeeping
 {
-    public interface ICanGenerateTokens<T>
+    public interface ImAJanitor
     {
-        Token Generate(T payload);
+        Task Clean();
     }
 }

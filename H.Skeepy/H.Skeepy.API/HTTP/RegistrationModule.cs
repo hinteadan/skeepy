@@ -1,4 +1,6 @@
 ﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Contracts.Authentication;
+using H.Skeepy.API.Contracts.Registration;
 using H.Skeepy.API.Registration;
 using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;

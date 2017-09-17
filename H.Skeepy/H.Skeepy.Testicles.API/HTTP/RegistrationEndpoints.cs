@@ -6,6 +6,8 @@ using FluentAssertions;
 using Nancy;
 using H.Skeepy.API.Registration;
 using Nancy.Helpers;
+using H.Skeepy.API.Contracts.Registration;
+using H.Skeepy.API.Infrastructure;
 
 namespace H.Skeepy.Testicles.API.HTTP
 {
