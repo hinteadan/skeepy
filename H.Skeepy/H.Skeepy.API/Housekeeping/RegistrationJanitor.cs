@@ -1,19 +1,20 @@
-﻿using H.Skeepy.API.Authentication;
-using H.Skeepy.API.Contracts.Authentication;
+﻿using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.API.Contracts.Housekeeping;
 using H.Skeepy.API.Contracts.Registration;
-using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
+using H.Skeepy.Logging;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Housekeeping
 {
     public class RegistrationJanitor : ImAJanitor
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
         private readonly ICanManageSkeepyStorageFor<RegisteredUser> userStore;
 
@@ -25,23 +26,37 @@ namespace H.Skeepy.API.Housekeeping
 
         public async Task Clean()
         {
-            var tokens = await FetchTokens();
-
-            foreach (var user in (await userStore.Get()).Select(x => x.Full))
+            using (log.Timing($"Housekeeping user registrations", LogLevel.Info))
             {
-                if (user.IsConfirmed()) continue;
+                var tokens = await FetchTokens();
 
-                var token = tokens.SingleOrDefault(x => x.UserId == user.Id);
+                foreach (var user in await FetchUsers())
+                {
+                    if (user.IsConfirmed()) continue;
 
-                if (token != null && !token.HasExpired()) continue;
+                    var token = tokens.SingleOrDefault(x => x.UserId == user.Id);
 
-                await userStore.Zap(user.Id);
+                    if (token != null && !token.HasExpired()) continue;
+
+                    using (log.Timing($"Zap registration application for {user.Id} because it was not confirmed and has expired", LogLevel.Info))
+                    {
+                        await userStore.Zap(user.Id);
+                    }
+                }
             }
+        }
+
+        private async Task<IEnumerable<RegisteredUser>> FetchUsers()
+        {
+            return (await userStore.Get()).Select(x => x.Full);
         }
 
         private async Task<Token[]> FetchTokens()
         {
-            return (await tokenStore.Get()).Select(x => x.Full).ToArray();
+            using (log.Timing("Fetch tokens for user registration housekeeping", LogLevel.Info))
+            {
+                return (await tokenStore.Get()).Select(x => x.Full).ToArray();
+            }
         }
     }
 }

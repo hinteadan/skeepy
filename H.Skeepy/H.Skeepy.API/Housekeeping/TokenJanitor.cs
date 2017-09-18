@@ -1,17 +1,17 @@
-﻿using H.Skeepy.API.Authentication;
-using H.Skeepy.API.Contracts.Authentication;
+﻿using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.API.Contracts.Housekeeping;
 using H.Skeepy.Core.Storage;
+using H.Skeepy.Logging;
+using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Housekeeping
 {
     public class TokenJanitor : ImAJanitor
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
 
         public TokenJanitor(ICanManageSkeepyStorageFor<Token> tokenStore)
@@ -21,14 +21,20 @@ namespace H.Skeepy.API.Housekeeping
 
         public async Task Clean()
         {
-            foreach (var lazyToken in await tokenStore.Get())
+            using (log.Timing($"Housekeeping tokens", LogLevel.Info))
             {
-                if (!lazyToken.Full.HasExpired())
+                foreach (var lazyToken in await tokenStore.Get())
                 {
-                    continue;
-                }
+                    if (!lazyToken.Full.HasExpired())
+                    {
+                        continue;
+                    }
 
-                await tokenStore.Zap(lazyToken.Summary.Id);
+                    using (log.Timing($"Zap token {lazyToken.Summary.Id} because it has expired", LogLevel.Info))
+                    {
+                        await tokenStore.Zap(lazyToken.Summary.Id);
+                    }
+                }
             }
         }
     }

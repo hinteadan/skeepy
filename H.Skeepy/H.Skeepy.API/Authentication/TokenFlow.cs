@@ -46,7 +46,7 @@ namespace H.Skeepy.API.Authentication
 
                     if (t.Result.Token.HasExpired() && !HasTimedOut(t.Result.Token))
                     {
-                        using (log.Timing($"Token has expired, will refresh it"))
+                        using (log.Timing($"Token has expired, will refresh it", LogLevel.Info))
                         {
                             var newToken = tokenGenerator.Generate(t.Result.Token.UserId);
                             Task.WaitAll(
