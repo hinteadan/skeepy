@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.API.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.API.Contracts", "H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj", "{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Logging", "H.Skeepy.Logging\H.Skeepy.Logging.csproj", "{FB8AB8A6-154A-420D-A300-1A09D14AE205}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +111,10 @@ Global
 		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
