@@ -11,16 +11,15 @@ using H.Skeepy.Core.Storage;
 using H.Skeepy.Core.Storage.Individuals;
 using H.Skeepy.Model;
 using Nancy.TinyIoc;
+using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Infrastructure
 {
     public static class DefaultSkeepyApiBuildingBlocks
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         public static readonly Func<ICanGenerateTokens<string>> TokenGenerator = () => new JsonWebTokenGenerator(TimeSpan.FromHours(24));
         public static readonly Func<ICanManageSkeepyStorageFor<Token>> TokenStorage = () => new InMemoryTokensStore();
         public static readonly Func<ICanManageSkeepyStorageFor<RegisteredUser>> UserStore = () => new InMemoryRegistrationStore();
@@ -37,6 +36,9 @@ namespace H.Skeepy.API.Infrastructure
             container.Register(CredentialStore());
             container.Register(Notifier());
             container.RegisterMultiple<ImAJanitor>(new[] { typeof(TokenJanitor), typeof(RegistrationJanitor) });
+
+            log.Info("Registered Skeepy with Default Building Blocks");
+
 #if (!DEBUG)
             AzureSkeepyApiBuildingBlocks.RegisterWithTinyIoc(container);
 #endif
