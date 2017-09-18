@@ -1,28 +1,34 @@
 ﻿using CryptoHelper;
+using H.Skeepy.Logging;
+using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace H.Skeepy.API
 {
     public sealed class Hasher
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         public static string Hash(string value)
         {
-            return Crypto.HashPassword(value);
+            using (log.Timing($"Hash value of {value.Length} characters", LogLevel.Info))
+            {
+                return Crypto.HashPassword(value);
+            }
         }
 
         public static bool Verify(string hash, string value)
         {
-            try
+            using (log.Timing($"Verifying hash for value of {value.Length} characters", LogLevel.Info))
             {
-                return Crypto.VerifyHashedPassword(hash, value);
-            }
-            catch (Exception)
-            {
-                return false;
+                try
+                {
+                    return Crypto.VerifyHashedPassword(hash, value);
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
         }
     }
