@@ -13,7 +13,7 @@
 
 @Section['Scripts']
 <script>
-    const registrationToken = '@Model';
+    const registrationToken = '@Model.Payload';
 
     $.get(`${applicationBaseUrl}/skeepy/registration/validate/${registrationToken}`, () => {
         window.location.href = `${applicationBaseUrl}/password/${registrationToken}`;

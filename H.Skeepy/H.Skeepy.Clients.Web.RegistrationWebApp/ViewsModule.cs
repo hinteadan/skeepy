@@ -9,7 +9,7 @@ namespace H.Skeepy.Clients.Web.RegistrationWebApp
         public ViewsModule(ICanManageSkeepyStorageFor<Token> tokenStore)
             : base()
         {
-            Get["/"] = p => View["Index.html"];
+            Get["/"] = p => View["Index.html", ViewModel.None];
             Get["/application/success/{Token}", true] = async (p, c) =>
             {
                 var token = await tokenStore.Get((string)p.Token);
@@ -17,14 +17,14 @@ namespace H.Skeepy.Clients.Web.RegistrationWebApp
                 {
                     return Response.AsRedirect("/");
                 }
-                return View["ApplicationSuccessfull.html"];
+                return View["ApplicationSuccessfull.html", ViewModel.None];
             };
-            Get["/validate/{Token}"] = p => View["ValidateToken.html", (string)p.Token];
-            Get["/password/success"] = _ => View["PasswordSetSuccessfull.html"];
-            Get["/password/{Token}"] = p => View["SetPassword.html", (string)p.Token];
+            Get["/validate/{Token}"] = p => View["ValidateToken.html", ViewModel.With((string)p.Token)];
+            Get["/password/success"] = _ => View["PasswordSetSuccessfull.html", ViewModel.None];
+            Get["/password/{Token}"] = p => View["SetPassword.html", ViewModel.With((string)p.Token)];
 
-            Get["/expired"] = _ => View["Expired.html"];
-            Get["/inexistent"] = _ => View["NotFound.html"];
+            Get["/expired"] = _ => View["Expired.html", ViewModel.None];
+            Get["/inexistent"] = _ => View["NotFound.html", ViewModel.None];
         }
     }
 }
