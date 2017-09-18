@@ -7,6 +7,7 @@ namespace H.Skeepy.API.Notifications
     public class NullNotifier : ICanNotify
     {
         private static Logger log = LogManager.GetCurrentClassLogger();
+
         public void Dispose()
         {
 

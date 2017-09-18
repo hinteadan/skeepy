@@ -1,19 +1,14 @@
-﻿using H.Skeepy.API.Authentication;
-using H.Skeepy.API.Contracts.Authentication;
+﻿using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.API.Contracts.Notifications;
 using H.Skeepy.API.Contracts.Registration;
-using H.Skeepy.API.Notifications;
-using H.Skeepy.API.Registration.Storage;
 using H.Skeepy.Core.Storage;
+using H.Skeepy.Logging;
 using H.Skeepy.Model;
-using Nancy.Helpers;
+using NLog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +16,8 @@ namespace H.Skeepy.API.Registration
 {
     public class RegistrationFlow
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly ICanGenerateTokens<string> tokenGenerator;
         private readonly ICanManageSkeepyStorageFor<Token> tokenStore;
         private readonly ICanManageSkeepyStorageFor<RegisteredUser> userStore;
@@ -37,11 +34,14 @@ namespace H.Skeepy.API.Registration
 
         private static string LoadTemplate()
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            using (Stream stream = assembly.GetManifestResourceStream(templateResourcePath))
-            using (StreamReader reader = new StreamReader(stream))
+            using (log.Timing($"Load template {templateResourcePath}", LogLevel.Info))
             {
-                return reader.ReadToEnd();
+                var assembly = Assembly.GetExecutingAssembly();
+                using (Stream stream = assembly.GetManifestResourceStream(templateResourcePath))
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
             }
         }
 
@@ -57,21 +57,27 @@ namespace H.Skeepy.API.Registration
 
         public async Task<Token> Apply(ApplicantDto applicant)
         {
-            await ValidateApplicant(applicant);
-            var token = tokenGenerator.Generate(applicant.Email);
-            var user = new RegisteredUser(applicant);
-            await userStore.Put(user);
-            await tokenStore.Put(token);
-            await notifier.Notify(new NotificationDestination(user.Email, user.FullName()), "SKeepy Registration", GenerateNotificationBody(user, token));
-            return token;
+            using (log.Timing($"Apply for Skeepy account for {applicant.Email}", LogLevel.Info))
+            {
+                await ValidateApplicant(applicant);
+                var token = tokenGenerator.Generate(applicant.Email);
+                var user = new RegisteredUser(applicant);
+                await userStore.Put(user);
+                await tokenStore.Put(token);
+                await notifier.Notify(new NotificationDestination(user.Email, user.FullName()), "SKeepy Registration", GenerateNotificationBody(user, token));
+                return token;
+            }
         }
 
         private string GenerateNotificationBody(RegisteredUser user, Token token)
         {
-            return registrationEmailTemplate.Value.Compile(
+            using (log.Timing("Generate Registration Notification Body", LogLevel.Info))
+            {
+                return registrationEmailTemplate.Value.Compile(
                 ("Name", user.FullName()),
                 ("ValidationUrl", $"{baseUrl}/validate/{token.Public}")
                 );
+            }
         }
 
         private async Task ValidateApplicant(ApplicantDto applicant)
@@ -86,7 +92,7 @@ namespace H.Skeepy.API.Registration
 
         private async Task ValidateEmailAddressAvailability(string email)
         {
-            if(await userStore.Get(email) != null)
+            if (await userStore.Get(email) != null)
             {
                 throw new SkeepyApiException("Email address is already registered");
             }
@@ -106,40 +112,47 @@ namespace H.Skeepy.API.Registration
 
         public async Task<Token> Validate(string publicToken)
         {
-            var token = await tokenStore.Get(publicToken);
-            if (token == null || token.HasExpired())
+            using (log.Timing($"Validate Skeepy Registration token {publicToken}", LogLevel.Info))
             {
+                var token = await tokenStore.Get(publicToken);
+                if (token == null || token.HasExpired())
+                {
+                    log.Info($"Skeepy registration has expired for token {publicToken}");
+                    return token;
+                }
+
+                var applicant = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
+
+                applicant.Status = RegisteredUser.AccountStatus.PendingSetPassword;
+
+                await userStore.Put(applicant);
+
                 return token;
             }
-
-            var applicant = await userStore.Get(token.UserId) ?? throw new InvalidOperationException($"Inexistent applicant {token.UserId}");
-
-            applicant.Status = RegisteredUser.AccountStatus.PendingSetPassword;
-
-            await userStore.Put(applicant);
-
-            return token;
         }
 
         public async Task SetPassword(string publicToken, string password)
         {
-            PasswordPolicy.Validate(password);
-
-            var token = await Validate(publicToken);
-            if (token == null || token.HasExpired())
+            using (log.Timing($"Set password and activate Skeepy account for {publicToken}", LogLevel.Info))
             {
-                throw new SkeepyApiException("The application has expired. You can apply for a new registration.");
-            }
+                PasswordPolicy.Validate(password);
 
-            var user = await userStore.Get(token.UserId) ?? throw new SkeepyApiException($"Inexistent applicant {token.UserId}");
-            user.Status = RegisteredUser.AccountStatus.Valid;
-            await credentialStore.Put(new Credentials(user.Id, Hasher.Hash(password)));
-            var fed = Individual.New(user.FirstName, user.LastName);
-            fed.SetDetail("Email", user.Email);
-            await skeepyIndividualStore.Put(fed);
-            user.SkeepyId = fed.Id;
-            await userStore.Put(user);
-            await tokenStore.Zap(publicToken);
+                var token = await Validate(publicToken);
+                if (token == null || token.HasExpired())
+                {
+                    throw new SkeepyApiException("The application has expired. You can apply for a new registration.");
+                }
+
+                var user = await userStore.Get(token.UserId) ?? throw new SkeepyApiException($"Inexistent applicant {token.UserId}");
+                user.Status = RegisteredUser.AccountStatus.Valid;
+                await credentialStore.Put(new Credentials(user.Id, Hasher.Hash(password)));
+                var fed = Individual.New(user.FirstName, user.LastName);
+                fed.SetDetail("Email", user.Email);
+                await skeepyIndividualStore.Put(fed);
+                user.SkeepyId = fed.Id;
+                await userStore.Put(user);
+                await tokenStore.Zap(publicToken);
+            }
         }
     }
 }
