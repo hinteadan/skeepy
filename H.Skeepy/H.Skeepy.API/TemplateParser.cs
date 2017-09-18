@@ -1,15 +1,18 @@
-﻿using System;
+﻿using H.Skeepy.Logging;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace H.Skeepy.API
 {
     public class TemplateParser
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private class Part
         {
             private Part(string text, bool isTag)
@@ -48,33 +51,36 @@ namespace H.Skeepy.API
             while (!string.IsNullOrEmpty(remains))
             {
                 var a = remains.IndexOf("@{");
-                if(a < 0)
+                if (a < 0)
                 {
                     queue.Enqueue(Part.Content(remains));
                     break;
                 }
                 var b = remains.IndexOf('}', a + 2);
-                if(b < 0)
+                if (b < 0)
                 {
                     throw new InvalidOperationException($"Invalid tag in template, has no closing bracket. Tag starts at offset ${a}");
                 }
                 queue.Enqueue(Part.Content(remains.Substring(0, a)));
-                queue.Enqueue(Part.Tag(remains.Substring(a+2, b-a-2)));
-                remains = remains.Substring(b+1);
+                queue.Enqueue(Part.Tag(remains.Substring(a + 2, b - a - 2)));
+                remains = remains.Substring(b + 1);
             }
             return queue;
         }
 
         public string Compile(params (string, string)[] payload)
         {
-            var result = new StringBuilder();
-
-            foreach(var part in parts.Value)
+            using (log.Timing($"Compile Template of {template.Length} characters with {payload.Length} entries"))
             {
-                result.Append(part.IsTag ? payload.SingleOrDefault(x => x.Item1 == part.Text).Item2 ?? string.Empty : part.Text);
-            }
+                var result = new StringBuilder();
 
-            return result.ToString();
+                foreach (var part in parts.Value)
+                {
+                    result.Append(part.IsTag ? payload.SingleOrDefault(x => x.Item1 == part.Text).Item2 ?? string.Empty : part.Text);
+                }
+
+                return result.ToString();
+            }
         }
     }
 }
