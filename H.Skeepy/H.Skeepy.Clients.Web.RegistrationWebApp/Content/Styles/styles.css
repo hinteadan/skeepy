@@ -144,3 +144,10 @@ ul.validation-errors-list {
     list-style: none;
     text-align: center;
 }
+
+footer {
+    text-align: right;
+    font-size: 6pt;
+    padding-bottom: 4px;
+    padding-right: 6px;
+}
