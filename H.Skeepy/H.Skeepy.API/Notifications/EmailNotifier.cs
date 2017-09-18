@@ -1,9 +1,7 @@
 ﻿using H.Skeepy.API.Contracts.Notifications;
+using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +9,8 @@ namespace H.Skeepy.API.Notifications
 {
     public class EmailNotifier : ICanNotify
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly MailAddress from = new MailAddress("no-reply-registration@skeepy.ro", "SKeepy Registration");
         private readonly SmtpClient mailClient;
 
@@ -25,9 +25,15 @@ namespace H.Skeepy.API.Notifications
 
         public Task Notify(NotificationDestination destination, string summary, string content)
         {
+            log.Info($"Sending email notification to {destination}, regarding \"{summary}\"...");
             var message = GenerateMessage(destination, summary, content);
-            return mailClient.SendMailAsync(message)
-                .ContinueWith(t => { message.Dispose(); });
+            return mailClient
+                .SendMailAsync(message)
+                .ContinueWith(t =>
+                {
+                    message.Dispose();
+                    log.Info($"Email notification successfully sent to {destination}, regarding \"{summary}\"");
+                });
         }
 
         private MailMessage GenerateMessage(NotificationDestination to, string subject, string body)
