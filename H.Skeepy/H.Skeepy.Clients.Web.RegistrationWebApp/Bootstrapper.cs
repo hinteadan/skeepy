@@ -9,6 +9,5 @@ namespace H.Skeepy.Clients.Web.RegistrationWebApp
         {
             SkeepyApiConfiguration.BasePath = "/skeepy";
         }
-
     }
 }
