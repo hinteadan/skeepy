@@ -70,7 +70,7 @@ namespace H.Skeepy.API
 
         public string Compile(params (string, string)[] payload)
         {
-            using (log.Timing($"Compile Template of {template.Length} characters with {payload.Length} entries"))
+            using (log.Timing($"Compile Template of {template.Length} characters with {payload.Length} entries", LogLevel.Info))
             {
                 var result = new StringBuilder();
 

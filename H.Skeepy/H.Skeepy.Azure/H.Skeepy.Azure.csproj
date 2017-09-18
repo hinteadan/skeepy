@@ -51,6 +51,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -83,6 +86,10 @@
     <ProjectReference Include="..\H.Skeepy.Core\H.Skeepy.Core.csproj">
       <Project>{15c6aba6-fd26-4f5b-b7f3-598b4ce235d6}</Project>
       <Name>H.Skeepy.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\H.Skeepy.Logging\H.Skeepy.Logging.csproj">
+      <Project>{fb8ab8a6-154a-420d-a300-1a09d14ae205}</Project>
+      <Name>H.Skeepy.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\H.Skeepy.Model\H.Skeepy.Model.csproj">
       <Project>{ca82f039-6c1f-4e82-a030-6e5e33fdf90c}</Project>
