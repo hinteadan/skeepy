@@ -1,5 +1,7 @@
 ﻿using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.Core.Storage;
+using H.Skeepy.Logging;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace H.Skeepy.API.Authentication
 {
     public sealed class TokenFlow
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly TokenAuthenticator tokenAuthenticator;
         private readonly ICanGenerateTokens<string> tokenGenerator;
         private readonly ICanStoreSkeepy<Token> tokenStore;
@@ -28,27 +32,33 @@ namespace H.Skeepy.API.Authentication
 
         public Task<AuthenticationResult> Authenticate(string publicToken)
         {
+            log.Info($"Authenticating token {publicToken}...");
+
             return tokenAuthenticator
                 .Authenticate(publicToken)
                 .ContinueWith(t =>
                 {
                     if (t.Result.IsSuccessful)
                     {
+                        log.Info($"Token authentication successful for {publicToken}");
                         return t.Result;
                     }
 
                     if (t.Result.Token.HasExpired() && !HasTimedOut(t.Result.Token))
                     {
-                        var newToken = tokenGenerator.Generate(t.Result.Token.UserId);
-                        Task.WaitAll(
-                            tokenStore.Zap(t.Result.Token.Id),
-                            tokenStore.Put(newToken)
-                            );
-                        return AuthenticationResult.Successful(newToken);
+                        using (log.Timing($"Token has expired, will refresh it"))
+                        {
+                            var newToken = tokenGenerator.Generate(t.Result.Token.UserId);
+                            Task.WaitAll(
+                                tokenStore.Zap(t.Result.Token.Id),
+                                tokenStore.Put(newToken)
+                                );
+                            return AuthenticationResult.Successful(newToken).AndLog(x => log.Info($"Token authentication successful for {publicToken} and refreshed to {newToken.Id}"));
+                        }
                     }
 
                     tokenStore.Zap(t.Result.Token.Id).Wait();
-                    return AuthenticationResult.Failed(AuthenticationFailureReason.TokenExpiredAndTimedOut, t.Result.Token);
+                    return AuthenticationResult.Failed(AuthenticationFailureReason.TokenExpiredAndTimedOut, t.Result.Token).AndLog(x => log.Info($"Token authentication failed for {publicToken} because it has timed out"));
                 });
         }
 

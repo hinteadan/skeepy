@@ -1,7 +1,9 @@
 ﻿using H.Skeepy.API.Contracts.Authentication;
+using H.Skeepy.Logging;
 using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace H.Skeepy.API.Authentication
 {
     public class JsonWebTokenGenerator : ICanGenerateTokens<Credentials>, ICanGenerateTokens<string>
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly TimeSpan validitySpan = TimeSpan.MaxValue;
 
         private readonly IJwtEncoder jwtEncoder = new JwtEncoder(
@@ -45,10 +49,13 @@ namespace H.Skeepy.API.Authentication
 
         public Token Generate(string payload)
         {
-            var secret = GenerateSecretKey();
-            return validitySpan == TimeSpan.MaxValue ?
-                new Token(payload, secret, jwtEncoder.Encode(new { userId = payload }, secret)) :
-                new Token(payload, secret, jwtEncoder.Encode(new { userId = payload, exp = CalculateUnixTimeValidity() }, secret), DateTime.Now + validitySpan);
+            using (log.Timing($"Generate new token for {payload}", LogLevel.Info))
+            {
+                var secret = GenerateSecretKey();
+                return validitySpan == TimeSpan.MaxValue ?
+                    new Token(payload, secret, jwtEncoder.Encode(new { userId = payload }, secret)) :
+                    new Token(payload, secret, jwtEncoder.Encode(new { userId = payload, exp = CalculateUnixTimeValidity() }, secret), DateTime.Now + validitySpan);
+            }
         }
     }
 }

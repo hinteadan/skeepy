@@ -1,15 +1,15 @@
 ﻿using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.Core.Storage;
+using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Authentication
 {
     public sealed class LoginFlow
     {
+        private static Logger log = LogManager.GetCurrentClassLogger();
+
         private readonly ICanStoreSkeepy<Token> tokenStore;
         private readonly CredentialsAuthenticator credentialsAuthenticator;
 
@@ -21,17 +21,21 @@ namespace H.Skeepy.API.Authentication
 
         public Task<AuthenticationResult> Login(Credentials credentials)
         {
+            log.Info($"Logging in {credentials.Username}...");
+
             return credentialsAuthenticator
                 .Authenticate(credentials)
                 .ContinueWith(t =>
                 {
                     if (!t.Result.IsSuccessful)
                     {
+                        log.Info($"Login failed for {credentials.Username} because {t.Result.FailureReason}");
                         return t.Result;
                     }
 
                     tokenStore.Put(t.Result.Token).Wait();
 
+                    log.Info($"Login successful for {credentials.Username}");
                     return t.Result;
                 });
         }
