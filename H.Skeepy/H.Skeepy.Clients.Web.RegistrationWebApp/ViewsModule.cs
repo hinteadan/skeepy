@@ -1,12 +1,6 @@
-﻿using H.Skeepy.API.Authentication;
-using H.Skeepy.API.Contracts.Authentication;
+﻿using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.Core.Storage;
 using Nancy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace H.Skeepy.Clients.Web.RegistrationWebApp
 {

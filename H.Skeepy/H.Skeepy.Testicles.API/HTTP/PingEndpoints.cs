@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Nancy.Testing;
-using Nancy;
-using FluentAssertions;
-using H.Skeepy.API;
+﻿using FluentAssertions;
 using H.Skeepy.API.Infrastructure;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Nancy;
+using Nancy.Testing;
 
 namespace H.Skeepy.Testicles.API.HTTP
 {
