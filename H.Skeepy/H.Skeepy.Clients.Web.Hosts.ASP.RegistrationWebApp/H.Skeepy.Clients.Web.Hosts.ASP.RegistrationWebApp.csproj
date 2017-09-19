@@ -125,6 +125,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Global.asax" />
     <Content Include="Properties\webjobs-list.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -137,7 +138,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspBootstrapper.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +218,7 @@
   </Target>
   <Target Name="GenerateVersionFile" AfterTargets="GatherAllFilesToPublish">
     <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\version.txt&quot; /F /Q" IgnoreExitCode="true" />
-	  <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\bin\version.txt&quot; /F /Q" IgnoreExitCode="true" />
+    <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\bin\version.txt&quot; /F /Q" IgnoreExitCode="true" />
     <Exec Command="&quot;$(TargetDir)H.Versioning.Cli.exe&quot; &gt;&gt; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\version.txt&quot;" IgnoreExitCode="true" />
     <Exec Command="&quot;$(TargetDir)H.Versioning.Cli.exe&quot; &gt;&gt; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\bin\version.txt&quot;" IgnoreExitCode="true" />
   </Target>
