@@ -1,6 +1,7 @@
 ﻿using H.Versioning.VersionProviders;
 using NLog;
 using System;
+using System.Web;
 
 namespace H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp
 {
@@ -11,9 +12,19 @@ namespace H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp
 
         static Global()
         {
-            FileVersionProviderSettings.Default.VersionFilePath = @"D:\home\site\wwwroot\version.txt";
+            FileVersionProviderSettings.Default.VersionFilePath = MapPath("~/version.txt");
 
             log.Info($"Configured H.Versioning with version file path: {FileVersionProviderSettings.Default.VersionFilePath}");
+        }
+
+        private static string MapPath(string path)
+        {
+            if (HttpContext.Current != null)
+            {
+                return HttpContext.Current.Server.MapPath(path);
+            }
+
+            return $"{HttpRuntime.AppDomainAppPath}{path.Replace("~", string.Empty).Replace('/', '\\')}";
         }
 
         protected void Application_Start(object sender, EventArgs e)
