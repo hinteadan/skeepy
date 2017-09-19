@@ -209,7 +209,9 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>"$(TargetDir)H.Versioning.Cli.exe" &gt;&gt; "$(TargetDir)version.txt"
+    <PostBuildEvent>del "$(TargetDir)version.txt" /F /Q
+del "$(ProjectDir)version.txt" /F /Q
+"$(TargetDir)H.Versioning.Cli.exe" &gt;&gt; "$(TargetDir)version.txt"
 "$(TargetDir)H.Versioning.Cli.exe" &gt;&gt; "$(ProjectDir)version.txt"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="CopyViewsAndStaticsAfterPublish" AfterTargets="GatherAllFilesToPublish">
@@ -218,6 +220,7 @@
   </Target>
   <Target Name="GenerateVersionFile" AfterTargets="GatherAllFilesToPublish">
     <Exec Command="del &quot;$(TargetDir)version.txt&quot; /F /Q" IgnoreExitCode="true" />
+    <Exec Command="del &quot;$(ProjectDir)version.txt&quot; /F /Q" IgnoreExitCode="true" />
     <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\version.txt&quot; /F /Q" IgnoreExitCode="true" />
     <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\bin\version.txt&quot; /F /Q" IgnoreExitCode="true" />
     <Exec Command="&quot;$(TargetDir)H.Versioning.Cli.exe&quot; &gt;&gt; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\version.txt&quot;" IgnoreExitCode="true" />
