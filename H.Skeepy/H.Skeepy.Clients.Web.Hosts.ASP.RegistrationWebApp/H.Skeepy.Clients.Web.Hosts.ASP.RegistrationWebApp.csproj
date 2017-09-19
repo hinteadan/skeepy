@@ -214,6 +214,8 @@
     <Exec Command="Robocopy.exe &quot;$(SolutionDir)H.Skeepy.Clients.Web.RegistrationWebApp\Views&quot; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\Views&quot; /MIR" IgnoreExitCode="true" />
   </Target>
   <Target Name="GenerateVersionFile" AfterTargets="GatherAllFilesToPublish">
+    <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\version.txt&quot; /F /Q" IgnoreExitCode="true" />
+	  <Exec Command="del &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\bin\version.txt&quot; /F /Q" IgnoreExitCode="true" />
     <Exec Command="&quot;$(TargetDir)H.Versioning.Cli.exe&quot; &gt;&gt; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\version.txt&quot;" IgnoreExitCode="true" />
     <Exec Command="&quot;$(TargetDir)H.Versioning.Cli.exe&quot; &gt;&gt; &quot;$(SolutionDir)DeployableArtifacts\ASP\RegistrationWebApp\bin\version.txt&quot;" IgnoreExitCode="true" />
   </Target>
