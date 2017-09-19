@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="H.Versioning, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\H.Versioning.1.3.1\lib\net461\H.Versioning.dll</HintPath>
+      <HintPath>..\packages\H.Versioning.1.3.3\lib\net461\H.Versioning.dll</HintPath>
     </Reference>
     <Reference Include="H.Versioning.Cli, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\H.Versioning.1.3.1\lib\net461\H.Versioning.Cli.exe</HintPath>
+      <HintPath>..\packages\H.Versioning.1.3.3\lib\net461\H.Versioning.Cli.exe</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
