@@ -1,4 +1,5 @@
 ﻿using H.Skeepy.Clients.Web.RegistrationWebApp;
+using H.Versioning.VersionProviders;
 using System.Configuration;
 using System.Web;
 
@@ -8,7 +9,7 @@ namespace H.Skeepy.Clients.Web.Hosts.ASP.RegistrationWebApp
     {
         static AspBootstrapper()
         {
-            ConfigurationManager.AppSettings.Add("H.Versioning.VersionFile", MapPath("~/version.txt"));
+            FileVersionProviderSettings.Default.VersionFilePath = MapPath("~/version.txt");
         }
 
         private static string MapPath(string path)
