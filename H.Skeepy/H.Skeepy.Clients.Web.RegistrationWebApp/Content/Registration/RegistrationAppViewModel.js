@@ -3,7 +3,7 @@
         this.applicant = new ApplicantViewModel();
         this.isApplicationBeingSubmitted = ko.observable(false);
         this.submitLabel = ko.observable('Apply');
-        
+
     }
 
     submitApplication(formElement) {
@@ -18,12 +18,23 @@
             Analytics.trackEvent('ApplyForRegistrationSucceeded', token);
             window.location.href = `${applicationBaseUrl}/application/success/${token}`;
         })
-        .fail(() => {
-            this.isApplicationBeingSubmitted(false);
-            this.submitLabel('Application failed, please try again');
-            setTimeout(() => { this.submitLabel('Apply'); }, 5000);
-            Analytics.trackEvent('ApplyForRegistrationFailed');
-        })
-        .always(() => { });
+            .fail(() => {
+                this.isApplicationBeingSubmitted(false);
+                this.submitLabel('Application failed, please try again');
+                setTimeout(() => { this.submitLabel('Apply'); }, 5000);
+                Analytics.trackEvent('ApplyForRegistrationFailed');
+            })
+            .always(() => { });
+    }
+
+    fetchFromFacebook() {
+        GetFB
+            .then(fb => fb.fetchUserDetails())
+            .then(response => {
+                this.applicant.email(response.email || '');
+                this.applicant.firstName(response.first_name || '');
+                this.applicant.lastName(response.last_name || '');
+                $('#applicationForm').valid();
+            }, () => alert('Error connecting to FB'));
     }
 }

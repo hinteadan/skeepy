@@ -33,6 +33,10 @@
             data-bind="text: submitLabel, disable: isApplicationBeingSubmitted">
         Apply
     </button>
+    <button type="button"
+            data-bind="click: fetchFromFacebook">
+        Fetch Info from FB
+    </button>
     <ul id="applicationErrors" class="validation-errors-list"></ul>
 </form>
 @EndSection
