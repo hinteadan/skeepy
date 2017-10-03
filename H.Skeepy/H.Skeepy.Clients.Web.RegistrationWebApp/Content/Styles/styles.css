@@ -117,6 +117,12 @@ form {
     display: flex;
 }
 
+    .flex.center {
+        align-items: center;
+        align-content: center;
+        justify-content: space-around;
+    }
+
 .logo {
     height: 100px;
     background-position: center center;
@@ -129,12 +135,37 @@ form {
         height: 200px;
     }
 
+    .logo.small {
+        height: 50px;
+    }
+
+    .logo.xsmall {
+        height: 22px;
+    }
+
+    .logo.fill {
+        height: 100%;
+    }
+
     .logo.white {
         background-image: url('../Images/SkeepyLogo_White_640_640.png');
     }
 
+    .logo.facebook {
+        background-image: url('../Images/facebook-logo-png-2332.png');
+    }
+
 .text-center {
     text-align: center;
+}
+
+.in-blk {
+    display: inline-block;
+}
+
+.facebook-theme {
+    background-color: #4267B2;
+    color: #ffffff;
 }
 
 ul.validation-errors-list {

@@ -34,8 +34,12 @@
         Apply
     </button>
     <button type="button"
-            data-bind="click: fetchFromFacebook">
-        Fetch Info from FB
+            data-bind="click: fetchFromFacebook"
+            class="facebook-theme flex center">
+        <div class="flex">
+            Fetch Info from FB
+            <div class="in-blk logo xsmall facebook" style="width: 50px;"></div>
+        </div>
     </button>
     <ul id="applicationErrors" class="validation-errors-list"></ul>
 </form>
