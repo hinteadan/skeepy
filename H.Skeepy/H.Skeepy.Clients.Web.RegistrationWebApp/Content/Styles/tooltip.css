@@ -51,7 +51,7 @@ p.bold {
 .popper,
 .tooltip {
     position: absolute;
-    background: #FFC107;
+    background: rgba(255, 255, 255, 0.75);
     color: black;
     width: 150px;
     border-radius: 3px;
@@ -80,7 +80,7 @@ p.bold {
 
 .tooltip .tooltip-arrow,
 .popper .popper__arrow {
-    border-color: #FFC107;
+    border-color: rgba(255, 255, 255, 0.75);
 }
 
 .style5 .tooltip .tooltip-arrow {
