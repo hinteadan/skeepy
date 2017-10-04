@@ -30,6 +30,7 @@
     }
 
     fetchFromFacebook() {
+        Analytics.trackEvent('FetchRegistrationInfoFromFacebook');
         this.isFetchingFacebookInfo(true);
         GetFB
             .then(fb => fb.fetchUserDetails())
@@ -39,12 +40,14 @@
                 this.applicant.lastName(response.last_name || '');
                 $('#applicationForm').valid();
                 this.isFetchingFacebookInfo(false);
+                Analytics.trackEvent('FetchRegistrationInfoFromFacebookSucceeded');
             }, () => {
                 this.isFetchingFacebookInfo(false);
                 this.facebookError(true);
                 setTimeout(() => {
                     this.facebookError(false);
                 }, 5000);
+                Analytics.trackEvent('FetchRegistrationInfoFromFacebookFailed');
             });
     }
 }
