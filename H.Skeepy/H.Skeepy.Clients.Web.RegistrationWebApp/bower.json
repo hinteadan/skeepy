@@ -19,6 +19,7 @@
     "knockout-mapping": "^2.4.1",
     "jquery": "^3.2.1",
     "jquery-validation": "^1.17.0",
-    "tooltip.js": "https://unpkg.com/tooltip.js"
+    "tooltip.js": "https://unpkg.com/tooltip.js",
+    "popper.js": "https://unpkg.com/popper.js"
   }
 }
