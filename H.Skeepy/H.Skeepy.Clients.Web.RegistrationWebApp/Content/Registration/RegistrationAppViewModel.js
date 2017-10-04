@@ -35,6 +35,7 @@
         GetFB
             .then(fb => fb.fetchUserDetails())
             .then(response => {
+                console.log(response);
                 this.applicant.email(response.email || '');
                 this.applicant.firstName(response.first_name || '');
                 this.applicant.lastName(response.last_name || '');

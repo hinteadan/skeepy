@@ -20,12 +20,16 @@ namespace H.Skeepy.Testicles.API.HTTP
             FirstName = "Roger",
             LastName = "Federer",
             Email = "hintea_dan@yahoo.co.uk",
+            FacebookDetails = new ApplicantDto.DetailEntry[] {
+                new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
+            }
         };
 
         [TestInitialize]
         public void Init()
         {
-            browser = new Browser(new SkeepyApiInMemoryNancyBootsrapper(), x => {
+            browser = new Browser(new SkeepyApiInMemoryNancyBootsrapper(), x =>
+            {
                 x.AjaxRequest();
             });
         }
@@ -87,7 +91,7 @@ namespace H.Skeepy.Testicles.API.HTTP
             {
                 x.JsonBody(applicant);
             });
-            browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("\"Email address is already registered\"");
+            browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("\"Email address is already registered. You can link your SKeepy account with your social media accounts from your SKeepy profile page.\"");
         }
 
         [TestMethod]

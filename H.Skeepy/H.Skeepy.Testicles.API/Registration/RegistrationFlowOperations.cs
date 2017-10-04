@@ -47,7 +47,14 @@ namespace H.Skeepy.Testicles.API.Registration
         [TestMethod]
         public void RegistrationFlow_StoresApplicantData()
         {
-            registration.Apply(new ApplicantDto { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" }).Wait();
+            registration.Apply(new ApplicantDto
+            {
+                FirstName = "Fed",
+                Email = "hintea_dan@yahoo.co.uk",
+                FacebookDetails = new ApplicantDto.DetailEntry[] {
+                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
+                }
+            }).Wait();
             registrationStore.Get("hintea_dan@yahoo.co.uk").Result.ShouldBeEquivalentTo(new RegisteredUser { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" });
         }
 

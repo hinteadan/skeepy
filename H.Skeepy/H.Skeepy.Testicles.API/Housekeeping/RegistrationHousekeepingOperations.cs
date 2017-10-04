@@ -52,7 +52,14 @@ namespace H.Skeepy.Testicles.API.Housekeeping
         [TestMethod]
         public void RegistrationJanitor_DoesnNothingForValidRegistartions()
         {
-            var applicant = new ApplicantDto { Email = "hintee@skeepy.ro", FirstName = "Hintee" };
+            var applicant = new ApplicantDto
+            {
+                Email = "hintee@skeepy.ro",
+                FirstName = "Hintee",
+                FacebookDetails = new ApplicantDto.DetailEntry[] {
+                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
+                }
+            };
             validRegistration.Apply(applicant).Wait();
             new RegistrationJanitor(tokenStore, registrationStore).Clean().Wait();
             registrationStore.Get().Result.Select(x => x.Full).ShouldAllBeEquivalentTo(new RegisteredUser[] { new RegisteredUser(applicant) });
@@ -61,8 +68,22 @@ namespace H.Skeepy.Testicles.API.Housekeeping
         [TestMethod]
         public void RegistrationJanitor_ZapsApplicationWithExpiredOrInexistentTokens()
         {
-            var validApplicant = new ApplicantDto { Email = "hintee1@skeepy.ro", FirstName = "Hintee1" };
-            var expiredApplicant = new ApplicantDto { Email = "hintee2@skeepy.ro", FirstName = "Hintee2" };
+            var validApplicant = new ApplicantDto
+            {
+                Email = "hintee1@skeepy.ro",
+                FirstName = "Hintee1",
+                FacebookDetails = new ApplicantDto.DetailEntry[] {
+                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
+                }
+            };
+            var expiredApplicant = new ApplicantDto
+            {
+                Email = "hintee2@skeepy.ro",
+                FirstName = "Hintee2",
+                FacebookDetails = new ApplicantDto.DetailEntry[] {
+                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
+                }
+            };
             validRegistration.Apply(validApplicant).Wait();
             expiredRegistration.Apply(expiredApplicant).Wait();
             new RegistrationJanitor(tokenStore, registrationStore).Clean().Wait();
