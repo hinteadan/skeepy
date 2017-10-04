@@ -1,11 +1,21 @@
 class FacebookApi {
 
     constructor(fb) {
+        this._loginTimeoutInMilliseconds = 60 * 1000;
         this._fb = fb;
 
         this._loginAndAuthorizeApp = () => {
             return new Promise((yey, ney) => {
+
+                var loginTimeoutId = setTimeout(() => {
+                    ney({
+                        status: 'unknown',
+                        error: `Login timed out after ${this._loginTimeoutInMilliseconds}ms`,
+                    });
+                }, this._loginTimeoutInMilliseconds);
+
                 this._fb.login(response => {
+                    clearTimeout(loginTimeoutId);
                     if (response.status !== 'connected' || !response.authResponse) return ney(response);
 
                     yey(response);
@@ -20,8 +30,9 @@ class FacebookApi {
 
             this._fb.getLoginStatus(response => {
                 if (response.status !== 'connected') {
-                    return yey(this._loginAndAuthorizeApp()
-                        .then(() => this.fetchUserDetails(), ney));
+                    this._loginAndAuthorizeApp()
+                        .then(() => yey(this.fetchUserDetails()), ney);
+                    return;
                 }
 
                 this._fb.api('/me', { fields: 'id,email,first_name,last_name,middle_name,name,link' }, response => {

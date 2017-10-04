@@ -4,6 +4,8 @@
         this.isApplicationBeingSubmitted = ko.observable(false);
         this.submitLabel = ko.observable('Apply');
 
+        this.isFetchingFacebookInfo = ko.observable(false);
+        this.facebookError = ko.observable(false);
     }
 
     submitApplication(formElement) {
@@ -28,6 +30,7 @@
     }
 
     fetchFromFacebook() {
+        this.isFetchingFacebookInfo(true);
         GetFB
             .then(fb => fb.fetchUserDetails())
             .then(response => {
@@ -35,6 +38,13 @@
                 this.applicant.firstName(response.first_name || '');
                 this.applicant.lastName(response.last_name || '');
                 $('#applicationForm').valid();
-            }, () => alert('Error connecting to FB'));
+                this.isFetchingFacebookInfo(false);
+            }, () => {
+                this.isFetchingFacebookInfo(false);
+                this.facebookError(true);
+                setTimeout(() => {
+                    this.facebookError(false);
+                }, 5000);
+            });
     }
 }
