@@ -117,11 +117,11 @@ form {
     display: flex;
 }
 
-.flex.center{
-    align-items: center;
-    align-content: center;
-    justify-content: space-around;
-}
+    .flex.center {
+        align-items: center;
+        align-content: center;
+        justify-content: space-around;
+    }
 
 .logo {
     height: 100px;
@@ -159,11 +159,11 @@ form {
     text-align: center;
 }
 
-.in-blk{
+.in-blk {
     display: inline-block;
 }
 
-.facebook-theme{
+.facebook-theme {
     background-color: rgba(66, 103, 178, 0.85);
     color: #ffffff;
 }
