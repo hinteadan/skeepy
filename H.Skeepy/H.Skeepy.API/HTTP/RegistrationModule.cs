@@ -33,7 +33,7 @@ namespace H.Skeepy.API.HTTP
             {
                 if (await userStore.Get((string)Request.Form.email) != null)
                 {
-                    return Response.AsJson("Email address is already registered");
+                    return Response.AsJson("Email address is already registered. You can link your SKeepy account with your social media accounts from your SKeepy profile page.");
                 }
                 return Response.AsJson(true);
             };
