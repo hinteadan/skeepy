@@ -41,7 +41,11 @@ namespace H.Skeepy.Testicles.Core.Storage
                 LastName = namesGenerator.LastName(),
                 SkeepyId = Guid.NewGuid().ToString(),
                 Status = RegisteredUser.AccountStatus.PendingValidation
-            };
+            }
+            .SetDetail(random.AlphaNumeric(8), commerceGenerator.Product())
+            .SetDetail(random.AlphaNumeric(8), commerceGenerator.Product())
+            .SetDetail(random.AlphaNumeric(8), commerceGenerator.Product())
+            as RegisteredUser;
         }
 
         public static Credentials GenerateCredentials()
