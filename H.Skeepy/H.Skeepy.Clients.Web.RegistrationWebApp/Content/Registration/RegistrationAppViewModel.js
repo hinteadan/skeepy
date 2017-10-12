@@ -16,10 +16,15 @@
         this.isApplicationBeingSubmitted(true);
         this.submitLabel('Submitting, please wait...');
 
-        $.post(`${applicationBaseUrl}/skeepy/registration/apply`, ko.mapping.toJS(this.applicant), (token) => {
-            Analytics.trackEvent('ApplyForRegistrationSucceeded', token);
-            window.location.href = `${applicationBaseUrl}/application/success/${token}`;
+        $.ajax(`${applicationBaseUrl}/skeepy/registration/apply`, {
+            data: JSON.stringify(ko.mapping.toJS(this.applicant)),
+            contentType: 'application/json',
+            type: 'POST',
         })
+            .done(token => {
+                Analytics.trackEvent('ApplyForRegistrationSucceeded', token);
+                window.location.href = `${applicationBaseUrl}/application/success/${token}`;
+            })
             .fail(() => {
                 this.isApplicationBeingSubmitted(false);
                 this.submitLabel('Application failed, please try again');
@@ -36,6 +41,7 @@
             .then(fb => fb.fetchUserDetails())
             .then(response => {
                 console.log(response);
+                this.applicant.withFacebookDetails(response);
                 this.applicant.email(response.email || '');
                 this.applicant.firstName(response.first_name || '');
                 this.applicant.lastName(response.last_name || '');
