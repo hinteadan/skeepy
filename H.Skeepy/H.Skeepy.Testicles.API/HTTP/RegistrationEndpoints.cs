@@ -84,9 +84,14 @@ namespace H.Skeepy.Testicles.API.HTTP
         public void Registration_ValidatesEmailAvailability()
         {
             browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("true");
-            browser.Post("/registration/apply", x =>
+            var res = browser.Post("/registration/apply", x =>
             {
                 x.JsonBody(applicant);
+            });
+            browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("\"Email address is already registered. You can link your SKeepy account with your social media accounts from your SKeepy profile page.\"");
+            browser.Post($"/pass/{res.Body.AsString()}", x =>
+            {
+                x.Body("123qwe");
             });
             browser.Post($"/registration/email/availability", x => { x.FormValue("email", applicant.Email); }).Body.AsString().Should().Be("\"Email address is already registered. You can link your SKeepy account with your social media accounts from your SKeepy profile page.\"");
         }
