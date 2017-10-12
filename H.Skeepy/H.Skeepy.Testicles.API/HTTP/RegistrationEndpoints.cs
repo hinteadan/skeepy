@@ -19,10 +19,7 @@ namespace H.Skeepy.Testicles.API.HTTP
         {
             FirstName = "Roger",
             LastName = "Federer",
-            Email = "hintea_dan@yahoo.co.uk",
-            FacebookDetails = new ApplicantDto.DetailEntry[] {
-                new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
-            }
+            Email = "hintea_dan@yahoo.co.uk"
         };
 
         [TestInitialize]

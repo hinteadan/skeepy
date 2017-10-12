@@ -55,10 +55,7 @@ namespace H.Skeepy.Testicles.API.Housekeeping
             var applicant = new ApplicantDto
             {
                 Email = "hintee@skeepy.ro",
-                FirstName = "Hintee",
-                FacebookDetails = new ApplicantDto.DetailEntry[] {
-                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
-                }
+                FirstName = "Hintee"
             };
             validRegistration.Apply(applicant).Wait();
             new RegistrationJanitor(tokenStore, registrationStore).Clean().Wait();
@@ -71,18 +68,12 @@ namespace H.Skeepy.Testicles.API.Housekeeping
             var validApplicant = new ApplicantDto
             {
                 Email = "hintee1@skeepy.ro",
-                FirstName = "Hintee1",
-                FacebookDetails = new ApplicantDto.DetailEntry[] {
-                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
-                }
+                FirstName = "Hintee1"
             };
             var expiredApplicant = new ApplicantDto
             {
                 Email = "hintee2@skeepy.ro",
-                FirstName = "Hintee2",
-                FacebookDetails = new ApplicantDto.DetailEntry[] {
-                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
-                }
+                FirstName = "Hintee2"
             };
             validRegistration.Apply(validApplicant).Wait();
             expiredRegistration.Apply(expiredApplicant).Wait();

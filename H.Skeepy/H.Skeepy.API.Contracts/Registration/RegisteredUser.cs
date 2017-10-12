@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace H.Skeepy.API.Contracts.Registration
 {
-    public class RegisteredUser : IHaveId
+    public class RegisteredUser : DetailsHolder, IHaveId
     {
         public enum AccountStatus
         {

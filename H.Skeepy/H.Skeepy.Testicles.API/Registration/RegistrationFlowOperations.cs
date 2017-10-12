@@ -12,6 +12,7 @@ using H.Skeepy.API.Notifications;
 using H.Skeepy.API;
 using H.Skeepy.API.Contracts.Registration;
 using H.Skeepy.API.Contracts.Authentication;
+using H.Skeepy.Model.Storage;
 
 namespace H.Skeepy.Testicles.API.Registration
 {
@@ -51,11 +52,24 @@ namespace H.Skeepy.Testicles.API.Registration
             {
                 FirstName = "Fed",
                 Email = "hintea_dan@yahoo.co.uk",
-                FacebookDetails = new ApplicantDto.DetailEntry[] {
-                    new ApplicantDto.DetailEntry { Key="Id", Value="123456" }
+                FacebookDetails = new DetailsHolderDto
+                {
+                    Details = new DetailsHolderDto.Entry[] {
+                        new DetailsHolderDto.Entry{ Key="FacebooDetail1", Value="FacebookValue1" },
+                        new DetailsHolderDto.Entry{ Key="FacebooDetail2", Value="FacebookValue2" }
+                    }
                 }
             }).Wait();
-            registrationStore.Get("hintea_dan@yahoo.co.uk").Result.ShouldBeEquivalentTo(new RegisteredUser { FirstName = "Fed", Email = "hintea_dan@yahoo.co.uk" });
+            registrationStore
+                .Get("hintea_dan@yahoo.co.uk")
+                .Result
+                .ShouldBeEquivalentTo(new RegisteredUser
+                {
+                    FirstName = "Fed",
+                    Email = "hintea_dan@yahoo.co.uk"
+                }
+                .SetDetail("FacebooDetail1", "FacebookValue1")
+                .SetDetail("FacebooDetail2", "FacebookValue2"));
         }
 
         [TestMethod]

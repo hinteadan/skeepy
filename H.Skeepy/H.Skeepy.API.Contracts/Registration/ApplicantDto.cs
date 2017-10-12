@@ -1,4 +1,6 @@
-﻿namespace H.Skeepy.API.Contracts.Registration
+﻿using H.Skeepy.Model.Storage;
+
+namespace H.Skeepy.API.Contracts.Registration
 {
     public class ApplicantDto
     {
@@ -12,6 +14,6 @@
         public string LastName { get; set; }
         public string Email { get; set; }
 
-        public DetailEntry[] FacebookDetails { get; set; } = new DetailEntry[0];
+        public DetailsHolderDto FacebookDetails { get; set; } = new DetailsHolderDto();
     }
 }
