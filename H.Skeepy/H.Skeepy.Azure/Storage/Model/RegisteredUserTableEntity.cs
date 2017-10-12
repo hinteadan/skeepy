@@ -1,6 +1,9 @@
 ﻿using H.Skeepy.API.Contracts.Registration;
 using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace H.Skeepy.Azure.Storage.Model
 {
@@ -20,6 +23,7 @@ namespace H.Skeepy.Azure.Storage.Model
             Email = registeredUser.Email;
             SkeepyId = registeredUser.SkeepyId;
             Status = registeredUser.Status.ToString();
+            Details = JsonConvert.SerializeObject(registeredUser.Details);
         }
 
         public string FirstName { get; set; }
@@ -27,6 +31,8 @@ namespace H.Skeepy.Azure.Storage.Model
         public string Email { get; set; }
         public string SkeepyId { get; set; }
         public string Status { get; set; }
+
+        public string Details { get; set; }
 
         public RegisteredUser ToSkeepy()
         {
@@ -37,7 +43,9 @@ namespace H.Skeepy.Azure.Storage.Model
                 LastName = LastName,
                 SkeepyId = SkeepyId,
                 Status = (RegisteredUser.AccountStatus)Enum.Parse(typeof(RegisteredUser.AccountStatus), Status),
-            };
+            }
+            .SetDetails(JsonConvert.DeserializeObject<Dictionary<string, string>>(Details).Select(x => (x.Key, x.Value)))
+            as RegisteredUser;
         }
     }
 }

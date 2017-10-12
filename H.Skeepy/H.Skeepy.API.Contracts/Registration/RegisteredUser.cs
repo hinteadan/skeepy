@@ -9,6 +9,8 @@ namespace H.Skeepy.API.Contracts.Registration
 {
     public class RegisteredUser : DetailsHolder, IHaveId
     {
+        public static readonly string FacebookDetailsPrefix = "FB:";
+
         public enum AccountStatus
         {
             PendingValidation,
@@ -27,6 +29,7 @@ namespace H.Skeepy.API.Contracts.Registration
             LastName = applicant.LastName;
             Email = applicant.Email;
             Status = AccountStatus.PendingValidation;
+            SetDetails(applicant.FacebookDetails.Details.Select(x => ($"{FacebookDetailsPrefix}{x.Key}", x.Value)));
         }
 
         public string FirstName { get; set; }

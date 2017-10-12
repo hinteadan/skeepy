@@ -19,7 +19,7 @@ namespace H.Skeepy.Model.Storage
             public string Value { get; set; }
         }
 
-        public Entry[] Details { get; set; }
+        public Entry[] Details { get; set; } = new Entry[0];
 
         public DetailsHolder ToSkeepy()
         {

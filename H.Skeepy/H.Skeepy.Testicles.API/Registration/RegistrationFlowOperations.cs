@@ -68,8 +68,8 @@ namespace H.Skeepy.Testicles.API.Registration
                     FirstName = "Fed",
                     Email = "hintea_dan@yahoo.co.uk"
                 }
-                .SetDetail("FacebooDetail1", "FacebookValue1")
-                .SetDetail("FacebooDetail2", "FacebookValue2"));
+                .SetDetail($"{RegisteredUser.FacebookDetailsPrefix}FacebooDetail1", "FacebookValue1")
+                .SetDetail($"{RegisteredUser.FacebookDetailsPrefix}FacebooDetail2", "FacebookValue2"));
         }
 
         [TestMethod]
