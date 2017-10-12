@@ -29,7 +29,7 @@ namespace H.Skeepy.API.Contracts.Registration
             LastName = applicant.LastName;
             Email = applicant.Email;
             Status = AccountStatus.PendingValidation;
-            SetDetails(applicant.FacebookDetails.Details.Select(x => ($"{FacebookDetailsPrefix}{x.Key}", x.Value)));
+            SetDetails(applicant?.FacebookDetails?.Details?.Select(x => ($"{FacebookDetailsPrefix}{x.Key}", x.Value)) ?? Enumerable.Empty<(string, string)>());
         }
 
         public string FirstName { get; set; }

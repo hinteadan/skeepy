@@ -32,8 +32,8 @@ namespace H.Skeepy.Testicles.Core.Storage.Registration
                 FirstName = "Hintee",
                 FacebookDetails = null,
             };
-            store.Put(new RegisteredUser(applicant));
-            store.Get(applicant.Email).ShouldBeEquivalentTo(new RegisteredUser(applicant));
+            store.Put(new RegisteredUser(applicant)).Wait();
+            store.Get(applicant.Email).Result.ShouldBeEquivalentTo(new RegisteredUser(applicant));
         }
     }
 }

@@ -44,7 +44,7 @@ namespace H.Skeepy.Azure.Storage.Model
                 SkeepyId = SkeepyId,
                 Status = (RegisteredUser.AccountStatus)Enum.Parse(typeof(RegisteredUser.AccountStatus), Status),
             }
-            .SetDetails(JsonConvert.DeserializeObject<Dictionary<string, string>>(Details).Select(x => (x.Key, x.Value)))
+            .SetDetails(Details != null ? JsonConvert.DeserializeObject<Dictionary<string, string>>(Details).Select(x => (x.Key, x.Value)) : Enumerable.Empty<(string, string)>())
             as RegisteredUser;
         }
     }
