@@ -28,8 +28,10 @@ namespace H.Skeepy.API.Registration
         private readonly Lazy<TemplateParser> registrationEmailTemplate = new Lazy<TemplateParser>(() => new TemplateParser(LoadTemplate()), LazyThreadSafetyMode.PublicationOnly);
 #if DEBUG
         private readonly string baseUrl = "http://localhost:9901";
+        public static readonly string FacebookAppId = "702173189978497";
 #else
         private readonly string baseUrl = "http://register.skeepy.ro";
+        public static readonly string FacebookAppId = "1090175731084822";
 #endif
 
         private static string LoadTemplate()

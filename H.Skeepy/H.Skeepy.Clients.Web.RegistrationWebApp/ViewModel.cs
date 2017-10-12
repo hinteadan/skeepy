@@ -1,4 +1,5 @@
-﻿using System;
+﻿using H.Skeepy.API.Registration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,14 @@ namespace H.Skeepy.Clients.Web.RegistrationWebApp
             get
             {
                 return Versioning.Version.Self.GetCurrent().ToString();
+            }
+        }
+
+        public string FacebookAppId
+        {
+            get
+            {
+                return RegistrationFlow.FacebookAppId;
             }
         }
     }

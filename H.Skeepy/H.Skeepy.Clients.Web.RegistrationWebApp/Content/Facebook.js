@@ -61,7 +61,7 @@ class FacebookApi {
 
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '702173189978497',
+            appId: facebookAppId || '702173189978497',
             autoLogAppEvents: false,
             xfbml: true,
             version: 'v2.10'
