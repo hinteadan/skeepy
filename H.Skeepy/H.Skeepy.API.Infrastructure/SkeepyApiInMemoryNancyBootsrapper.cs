@@ -1,4 +1,5 @@
-﻿using H.Skeepy.API.Contracts.Authentication;
+﻿using H.Skeepy.API.Authentication;
+using H.Skeepy.API.Contracts.Authentication;
 using H.Skeepy.API.Contracts.Notifications;
 using H.Skeepy.API.Contracts.Registration;
 using H.Skeepy.API.Notifications;
@@ -34,6 +35,10 @@ namespace H.Skeepy.API.Infrastructure
                 container.Resolve<ICanManageSkeepyStorageFor<Token>>(),
                 container.Resolve<ICanGenerateTokens<string>>(),
                 container.Resolve<ICanNotify>()
+                ));
+
+            container.Register(new LoginFlow(
+                container.Resolve<ICanAuthenticate>
                 ));
 
             pipelines.OnError.AddItemToEndOfPipeline((context, exception) =>

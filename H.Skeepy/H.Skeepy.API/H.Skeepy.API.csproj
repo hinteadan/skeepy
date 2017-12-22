@@ -79,6 +79,7 @@
     <Compile Include="Authentication\TokenFlow.cs" />
     <Compile Include="Housekeeping\RegistrationJanitor.cs" />
     <Compile Include="Housekeeping\TokenJanitor.cs" />
+    <Compile Include="HTTP\PassportModule.cs" />
     <Compile Include="HTTP\VersionModule.cs" />
     <Compile Include="Notifications\EmailNotifier.cs" />
     <Compile Include="Notifications\NullNotifier.cs" />

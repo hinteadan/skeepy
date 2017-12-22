@@ -78,6 +78,7 @@
     <Compile Include="Housekeeping\RegistrationHousekeepingOperations.cs" />
     <Compile Include="HTTP\PingEndpoints.cs" />
     <Compile Include="HTTP\RegistrationEndpoints.cs" />
+    <Compile Include="HTTP\PassportEndpoints.cs" />
     <Compile Include="Notifications\EmailNotifierOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\RegistrationFlowOperations.cs" />

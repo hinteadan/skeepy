@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Core", "H.Skeepy.Core\H.Skeepy.Core.csproj", "{15C6ABA6-FD26-4F5B-B7F3-598B4CE235D6}"
 EndProject
@@ -44,6 +44,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.API.Contracts", "H.Skeepy.API.Contracts\H.Skeepy.API.Contracts.csproj", "{B3D9FC25-7FB3-4B7E-892E-E7329AAF6C3F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Logging", "H.Skeepy.Logging\H.Skeepy.Logging.csproj", "{FB8AB8A6-154A-420D-A300-1A09D14AE205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H.Skeepy.Clients.Web.PassportWebApp", "H.Skeepy.Clients.Web.PassportWebApp\H.Skeepy.Clients.Web.PassportWebApp.csproj", "{8F87D8F8-AC93-40B7-B40A-61401BDB7A55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -115,6 +117,10 @@ Global
 		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB8AB8A6-154A-420D-A300-1A09D14AE205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F87D8F8-AC93-40B7-B40A-61401BDB7A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F87D8F8-AC93-40B7-B40A-61401BDB7A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F87D8F8-AC93-40B7-B40A-61401BDB7A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F87D8F8-AC93-40B7-B40A-61401BDB7A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,6 +137,7 @@ Global
 		{BE03A5DB-64C9-4281-B2B2-9DA7F8D84A00} = {8734677E-A74A-4840-AC57-561D3015D13D}
 		{E71BD3D5-3452-41C4-B3B7-F22C3A039BD6} = {CB871BAB-E557-4C5F-87C6-CDCFC3253D64}
 		{00FE3F40-327F-4D92-A796-A9B3A83BC4B6} = {8734677E-A74A-4840-AC57-561D3015D13D}
+		{8F87D8F8-AC93-40B7-B40A-61401BDB7A55} = {7CD6170C-2B5B-49B5-BEDA-B315D3C1FCAD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {824699DD-035F-41E9-9347-542F8FAE1335}

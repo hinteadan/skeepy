@@ -11,9 +11,9 @@ namespace H.Skeepy.API.Authentication
         private static Logger log = LogManager.GetCurrentClassLogger();
 
         private readonly ICanStoreSkeepy<Token> tokenStore;
-        private readonly CredentialsAuthenticator credentialsAuthenticator;
+        private readonly ICanAuthenticate<Credentials> credentialsAuthenticator;
 
-        public LoginFlow(CredentialsAuthenticator credentialsAuthenticator, ICanStoreSkeepy<Token> tokenStore)
+        public LoginFlow(ICanAuthenticate<Credentials> credentialsAuthenticator, ICanStoreSkeepy<Token> tokenStore)
         {
             this.credentialsAuthenticator = credentialsAuthenticator ?? throw new InvalidOperationException($"Must provide a {nameof(credentialsAuthenticator)}");
             this.tokenStore = tokenStore ?? throw new InvalidOperationException($"Must provide a {nameof(tokenStore)}");
